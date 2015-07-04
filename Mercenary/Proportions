@@ -1,0 +1,20 @@
+player Mech === x:140   y: 308
+
+
+
+
+
+
+explore SKActions
+
+
+let wait = SKAction.waitForDuration(3, withRange: 2)
+let spawn = SKAction.runBlock {
+
+
+SKACTION,sequence
+
+
+
+
+discover how to enable gravity on a node which has already been spawned

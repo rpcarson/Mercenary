@@ -10,11 +10,35 @@ import Foundation
 import SpriteKit
 
 
-class Enemy {
+
+
+
+
+func shittyTankFunc(scene: SKScene) {
     
-    var health: Int!
+    
+    let tankText = SKTexture(imageNamed: "shittyTank")
+    let shittyTank = SKSpriteNode(imageNamed: "shittyTank")
+    shittyTank.size = CGSize(width: 200, height: 100)
+    shittyTank.physicsBody = SKPhysicsBody(texture: tankText, size: shittyTank.size)
+    
+    shittyTank.physicsBody?.affectedByGravity = false
+    shittyTank.physicsBody?.categoryBitMask = enemyCategoryOne
+    shittyTank.physicsBody?.contactTestBitMask = playerProjectileOne
+    shittyTank.physicsBody?.collisionBitMask = 0
+    shittyTank.position = CGPoint(x: scene.frame.width + shittyTank.size.width, y: 120)
+    
+    scene.addChild(shittyTank)
+    
+    shittyTank.physicsBody?.applyImpulse(CGVector(dx: -30, dy: 0))
+    shittyTank.physicsBody?.linearDamping = 0
+    
     
 }
+
+
+
+
 
 
 
@@ -64,6 +88,20 @@ var helicopterBulletDamage: Int! = 5
 
 var bulletCount: Double = 0
 
+
+
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
 func helicopterAttack(scene: SKScene) {
     
     var bullets: SKShapeNode!
@@ -76,16 +114,10 @@ func helicopterAttack(scene: SKScene) {
     bullets.physicsBody?.collisionBitMask = 0
     bullets.position = helicopter1.position
     
-    
-
-    
-    
     scene.addChild(bullets)
 
     
     bullets.physicsBody?.affectedByGravity = false
-    
-    
     
     let X = player.position.x - bullets.position.x
     let Y = player.position.y - bullets.position.y

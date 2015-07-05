@@ -32,10 +32,12 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         
         
-        initializeScene()
+        initializePlayer()
         initializeBackground()
         
-        spawnEnemyOne()
+        shittyTankFunc(self)
+        
+//        spawnEnemyOne()
         
         physicsWorld.contactDelegate = self
         
@@ -63,8 +65,6 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             if helicopter1Health <= 25 {
                 
              enemy?.physicsBody?.applyImpulse(CGVectorMake(-40, -200))
-//                enemy?.physicsBody?.applyTorque(10)
-//                enemy?.physicsBody?.affectedByGravity = true
                 enemy?.physicsBody?.allowsRotation = true
                 enemy?.physicsBody?.angularVelocity = 1
             
@@ -84,22 +84,17 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(currentTime: CFTimeInterval) {
         
-//        if helicopter1Health <= 15 {
-//            
-//            gravBoolEOne = true
-//            
-//
-//        }
+        BGScroll()
+
+        
+        
+        
         if (helicopterOneAlive == true) {
             
             
-//            let wait = SKAction.waitForDuration(1)
-//            let spawn = SKAction.runBlock { helicopterAttack(self)
-//    
-//            }
-//            
-//            let sequence = SKAction.sequence([wait, spawn])
-//            self.runAction(SKAction.repeatActionForever(spawn))
+
+            helicopterAttack(self)
+
             
 
         }
@@ -112,7 +107,6 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
         }
         
-        BGScroll()
     }
 
     
@@ -195,7 +189,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     }
     
 
-    func initializeScene() {
+    func initializePlayer() {
         
         
         var playerTex: SKTexture!
@@ -248,6 +242,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
 
     }
     
+    
+    
+
     
 
 }

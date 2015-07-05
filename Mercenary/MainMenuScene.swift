@@ -42,7 +42,7 @@ class MainMenuScene: SKScene {
                 let fadeOut = SKAction.fadeAlphaTo(1, duration: 2)
                 let sceneChange = SKAction.runBlock({ () -> Void in
                     
-                    let scene =  BattleScene.unarchiveFromFile("BattleScene") as? BattleScene
+                    let scene =  MainGameMenu.unarchiveFromFile("MainGameMenu") as? MainGameMenu
                     let transistion = SKTransition.crossFadeWithDuration(2)
                     self.scene?.view?.presentScene(scene)
                     
@@ -101,7 +101,7 @@ class MainMenuScene: SKScene {
         
         let loopMusic = SKAction.repeatActionForever(SKAction.playSoundFileNamed("IntroThemeAughtV2.mp3", waitForCompletion: true))
         
-        runAction(loopMusic)
+//        runAction(loopMusic)
         
             initializeBackground()
         

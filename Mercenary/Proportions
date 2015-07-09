@@ -20,7 +20,3 @@ let spawn = SKAction.runBlock {
 
 SKACTION,sequence
 
-
-
-
-discover how to enable gravity on a node which has already been spawned

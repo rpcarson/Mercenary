@@ -10,8 +10,8 @@ import UIKit
 import SpriteKit
 
 
-let bg1 = SKSpriteNode(imageNamed: "cloudoverlay")
-let bg2 = SKSpriteNode(imageNamed: "cloudoverlay")
+let bg1 = SKSpriteNode(imageNamed: "mmStarSlide1")
+let bg2 = SKSpriteNode(imageNamed: "mmStarSlide1")
 
 var startButtonTapped: Bool = false
 let startButton = SKLabelNode(fontNamed: "HelveticaNeue-UltraLight")
@@ -47,6 +47,7 @@ class MainMenuScene: SKScene {
                     self.scene?.view?.presentScene(scene)
                     
                     
+                    
                 })
                 let sceneTransition = SKAction.sequence([fadeOut,sceneChange])
 
@@ -76,7 +77,7 @@ class MainMenuScene: SKScene {
        size.width = 1334
         size.height = 750
         
-    startButton.text = "tap to start"
+        startButton.text = "tap to start"
         startButton.fontSize = 50
         startButton.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame) - 100)
         
@@ -101,7 +102,7 @@ class MainMenuScene: SKScene {
         
         let loopMusic = SKAction.repeatActionForever(SKAction.playSoundFileNamed("IntroThemeAughtV2.mp3", waitForCompletion: true))
         
-//        runAction(loopMusic)
+        runAction(loopMusic)
         
             initializeBackground()
         
@@ -112,17 +113,13 @@ class MainMenuScene: SKScene {
     
     override func update(currentTime: NSTimeInterval) {
         
-        BGScroll()
+//        BGScroll()
         
     }
 
     func initializeBackground() {
         
-        var bg = SKSpriteNode(imageNamed: "starryRedMoon")
-        bg.size = CGSize(width: frame.width, height: frame.height)
-        bg.anchorPoint = CGPoint(x: 0, y: 0)
-        bg.zPosition = -10
-        addChild(bg)
+        
         
         bg1.anchorPoint = CGPointZero
         bg1.position = CGPoint(x: 0, y: 0)
@@ -136,27 +133,6 @@ class MainMenuScene: SKScene {
         
     }
     
-    func BGScroll() {
-        
-        bg1.position = CGPointMake(bg1.position.x - 2, bg1.position.y)
-        bg2.position = CGPointMake(bg2.position.x - 2, bg2.position.y)
-        
-        
-        if(bg1.position.x < -bg1.size.width)
-            
-        {
-            
-            bg1.position = CGPointMake(bg2.position.x + bg1.size.width, bg2.position.y)
-            
-        }
-        
-        if(bg2.position.x < -bg2.size.width)
-            
-        {
-            
-            bg2.position = CGPointMake(bg1.position.x + bg2.size.width, bg1.position.y)
-            
-        }
-    }
+  
 
 }

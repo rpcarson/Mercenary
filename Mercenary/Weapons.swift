@@ -45,9 +45,32 @@ func autoCannon(scene: SKScene) {
     var magnitude: CGFloat = sqrt(X*X+Y*Y)
     projectile.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*7, Y/magnitude*7))
     
+   
+    
 }
 
+class Chaingun: SKSpriteNode {
+    
+    init(scene: SKScene) {
+        
+        let texture = SKTexture(imageNamed: "redButton1")
+        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        
+        size = CGSize(width: 20, height: 10)
+        
+        
+        
+        
+        
+    }
 
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+ 
+    
+    
+}
 
 
 

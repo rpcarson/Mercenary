@@ -9,10 +9,6 @@
 import SpriteKit
 
 
-
-
-
-
 var timer: NSTimer!
 
 var gunReloaded: Bool = true
@@ -26,19 +22,23 @@ var touchLocationY: CGFloat!
 
 class BattleScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
-        
-    
-        
-        
-        
-        
-        initializePlayer()
+       
+         initializePlayer()
         initializeBackground()
         
-        shittyTankFunc(self)
         
-//        spawnEnemyOne()
         
+        
+        enemySpawnPointOne = CGPoint(x: frame.width + 300, y: frame.height - 200)
+        enemyOneImpulse = CGVectorMake(-100, 10)
+        WeakJet(scene: self)
+        
+       
+        
+//        ShittyTank(scene: self)
+        
+        
+        physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         physicsWorld.contactDelegate = self
         
     }
@@ -82,20 +82,20 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    var bulletDelay = 0
+    
     override func update(currentTime: CFTimeInterval) {
         
         BGScroll()
 
+        bulletDelay++
         
         
-        
-        if (helicopterOneAlive == true) {
+        if helicopterOneAlive == true && bulletDelay > 15 {
             
-            
-
             helicopterAttack(self)
-
             
+            bulletDelay = 0
 
         }
         
@@ -193,10 +193,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         
         var playerTex: SKTexture!
-        playerTex = SKTexture(imageNamed: "mech1")
+        playerTex = SKTexture(imageNamed: "shittyPlayer")
         player = SKSpriteNode(texture: playerTex)
         player.physicsBody = SKPhysicsBody(texture: playerTex, size: player.size)
-        player.size = CGSize(width: 140, height: 308)
+        player.size = CGSize(width: 220, height: 120)
         player.position = CGPoint(x: 120, y: 190)
         player.physicsBody?.collisionBitMask = 0
         player.zPosition = 2
@@ -206,17 +206,6 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
     }
 
-    func spawnEnemyOne() {
-        
-        gravBoolEOne = false
-        enemySpawnPointOne = CGPoint(x: frame.width + 300, y: frame.height - 200)
-        enemyOneImpulse = CGVectorMake(-200, 10)
-        
-        helicopterEnemy(self)
-
-        
-        
-    }
 
     func initializeBackground() {
         
@@ -241,10 +230,5 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         addChild(bg2)
 
     }
-    
-    
-    
-
-    
 
 }

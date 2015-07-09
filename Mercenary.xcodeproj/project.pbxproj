@@ -18,6 +18,7 @@
 		5B68D91D1B48AB2700DD2284 /* EnemySpawnMechanics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B68D91C1B48AB2700DD2284 /* EnemySpawnMechanics.swift */; };
 		5B68D9211B48C4C700DD2284 /* MainGameMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5B68D9201B48C4C700DD2284 /* MainGameMenu.sks */; };
 		5B68D9231B48C4DA00DD2284 /* MainGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B68D9221B48C4DA00DD2284 /* MainGameMenu.swift */; };
+		5BD1E7CA1B4EB259003B1B49 /* BattleSceneBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1E7C91B4EB259003B1B49 /* BattleSceneBackground.swift */; };
 		5BDF48641B42DEEB00CBD6E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDF48631B42DEEB00CBD6E5 /* AppDelegate.swift */; };
 		5BDF48661B42DEEB00CBD6E5 /* BattleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF48651B42DEEB00CBD6E5 /* BattleScene.sks */; };
 		5BDF48681B42DEEB00CBD6E5 /* BattleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDF48671B42DEEB00CBD6E5 /* BattleScene.swift */; };
@@ -51,6 +52,7 @@
 		5B68D91C1B48AB2700DD2284 /* EnemySpawnMechanics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySpawnMechanics.swift; sourceTree = "<group>"; };
 		5B68D9201B48C4C700DD2284 /* MainGameMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainGameMenu.sks; sourceTree = "<group>"; };
 		5B68D9221B48C4DA00DD2284 /* MainGameMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainGameMenu.swift; sourceTree = "<group>"; };
+		5BD1E7C91B4EB259003B1B49 /* BattleSceneBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleSceneBackground.swift; sourceTree = "<group>"; };
 		5BDF485E1B42DEEB00CBD6E5 /* Mercenary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mercenary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BDF48621B42DEEB00CBD6E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BDF48631B42DEEB00CBD6E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,8 +107,8 @@
 		5B68D91F1B48C4A200DD2284 /* Main Menu */ = {
 			isa = PBXGroup;
 			children = (
-				5B68D9201B48C4C700DD2284 /* MainGameMenu.sks */,
 				5B68D9221B48C4DA00DD2284 /* MainGameMenu.swift */,
+				5B68D9201B48C4C700DD2284 /* MainGameMenu.sks */,
 			);
 			name = "Main Menu";
 			sourceTree = "<group>";
@@ -136,6 +138,7 @@
 				5B68D91E1B48C47600DD2284 /* StartScreen */,
 				5BDF48871B42DFC300CBD6E5 /* Battle Scene */,
 				5BDF48671B42DEEB00CBD6E5 /* BattleScene.swift */,
+				5BD1E7C91B4EB259003B1B49 /* BattleSceneBackground.swift */,
 				5B68D91C1B48AB2700DD2284 /* EnemySpawnMechanics.swift */,
 				5B2539321B46751900642AD6 /* LevelData.swift */,
 				5BDF48BA1B43405300CBD6E5 /* Weapons.swift */,
@@ -294,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BD1E7CA1B4EB259003B1B49 /* BattleSceneBackground.swift in Sources */,
 				5BDF48681B42DEEB00CBD6E5 /* BattleScene.swift in Sources */,
 				5BDF48BB1B43405300CBD6E5 /* Weapons.swift in Sources */,
 				5BDF486A1B42DEEB00CBD6E5 /* GameViewController.swift in Sources */,

@@ -10,8 +10,8 @@ import UIKit
 import SpriteKit
 
 
-let bg1 = SKSpriteNode(imageNamed: "mmStarSlide1")
-let bg2 = SKSpriteNode(imageNamed: "mmStarSlide1")
+let bgStars = SKSpriteNode(imageNamed: "mmStarSlide1")
+let bgStars1 = SKSpriteNode(imageNamed: "mmStarSlide1")
 
 var startButtonTapped: Bool = false
 let startButton = SKLabelNode(fontNamed: "HelveticaNeue-UltraLight")
@@ -121,15 +121,15 @@ class MainMenuScene: SKScene {
         
         
         
-        bg1.anchorPoint = CGPointZero
-        bg1.position = CGPoint(x: 0, y: 0)
-        bg1.zPosition = -5
-        addChild(bg1)
+        bgStars.anchorPoint = CGPointZero
+        bgStars.position = CGPoint(x: 0, y: 0)
+        bgStars.zPosition = -5
+        addChild(bgStars)
         
-        bg2.anchorPoint = CGPointZero
-        bg2.position = CGPoint(x: bg1.size.width - 1, y: 0)
-        bg2.zPosition = -5
-        addChild(bg2)
+        bgStars1.anchorPoint = CGPointZero
+        bgStars1.position = CGPoint(x: bgStars.size.width - 1, y: 0)
+        bgStars1.zPosition = -5
+        addChild(bgStars1)
         
     }
     

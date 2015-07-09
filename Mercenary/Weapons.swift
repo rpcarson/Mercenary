@@ -21,18 +21,16 @@ func autoCannon(scene: SKScene) {
     var angleX = touchLocationX - player.position.x
     var angleY = touchLocationY - player.position.y
     var nodeAngle = atan2(angleY, angleX)
-    bulletTex = SKTexture(imageNamed: "button1red")
-    timer = NSTimer.scheduledTimerWithTimeInterval(0.20, target:scene, selector: Selector("gunDelay"), userInfo: nil, repeats: false)
+    bulletTex = SKTexture(imageNamed: "gunfire1")
+    timer = NSTimer.scheduledTimerWithTimeInterval(0.12, target:scene, selector: Selector("gunDelay"), userInfo: nil, repeats: false)
     gunReloaded = false
-    let projectile = SKShapeNode(rectOfSize: CGSize(width: 16, height: 8), cornerRadius: 2)
+    let projectile = SKSpriteNode(texture: bulletTex)
     projectile.zRotation = nodeAngle
-    projectile.fillColor = UIColor.yellowColor()
+    projectile.size = CGSize(width: 30, height: 10)
     projectile.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 16, height: 8))
-    projectile.position = CGPoint(x: player.position.x + 50, y: player.position.y + 40)
+    projectile.position = CGPoint(x: player.position.x + 50, y: player.position.y - 5)
     projectile.physicsBody?.affectedByGravity = false
     projectile.physicsBody?.linearDamping = 0
-    projectile.fillTexture = bulletTex
-    projectile.glowWidth = 3
     projectile.physicsBody?.categoryBitMask = playerProjectileOne
     projectile.physicsBody?.contactTestBitMask = enemyCategoryOne
     projectile.physicsBody?.collisionBitMask = 0
@@ -43,9 +41,26 @@ func autoCannon(scene: SKScene) {
     let X = touchLocationX - player.position.x
     let Y = touchLocationY - player.position.y
     var magnitude: CGFloat = sqrt(X*X+Y*Y)
-    projectile.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*7, Y/magnitude*7))
+    projectile.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*9, Y/magnitude*9))
     
-   
+    let remove = SKAction.removeFromParent()
+    let wait = SKAction.waitForDuration(1.2)
+    let removeSequence = SKAction.sequence([wait,remove])
+    projectile.runAction(removeSequence)
+    
+    var muzzleFlashTex = SKTexture(imageNamed: "muzzleFlashPixel")
+    let muzzleFlash = SKSpriteNode(texture: muzzleFlashTex)
+    muzzleFlash.size = CGSize(width: 100, height: 75)
+    muzzleFlash.position = CGPoint(x: player.position.x + 100, y: player.position.y - 5)
+//    muzzleFlash.zRotation = nodeAngle
+    scene.addChild(muzzleFlash)
+    
+    let waitFlash = SKAction.waitForDuration(0.05)
+    let flashRemove = SKAction.sequence([waitFlash,remove])
+    
+    muzzleFlash.runAction(flashRemove)
+    
+    
     
 }
 

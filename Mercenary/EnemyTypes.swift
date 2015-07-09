@@ -16,7 +16,7 @@ import SpriteKit
 class ShittyTank: SKSpriteNode {
     
     init(scene: SKScene) {
-
+        
         let texture = SKTexture(imageNamed: "shittyTank")
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
@@ -32,37 +32,37 @@ class ShittyTank: SKSpriteNode {
         scene.addChild(self)
         
         physicsBody?.applyImpulse(CGVector(dx: -30, dy: 0))
-
+        
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    
+        
     }
     
 }
 
 
 //func shittyTankFunc(scene: SKScene) {
-//    
-//    
+//
+//
 //    let tankText = SKTexture(imageNamed: "shittyTank")
 //    let shittyTank = SKSpriteNode(imageNamed: "shittyTank")
 //    shittyTank.size = CGSize(width: 200, height: 100)
 //    shittyTank.physicsBody = SKPhysicsBody(texture: tankText, size: shittyTank.size)
-//    
+//
 //    shittyTank.physicsBody?.affectedByGravity = false
 //    shittyTank.physicsBody?.categoryBitMask = enemyCategoryOne
 //    shittyTank.physicsBody?.contactTestBitMask = playerProjectileOne
 //    shittyTank.physicsBody?.collisionBitMask = 0
 //    shittyTank.position = CGPoint(x: scene.frame.width + shittyTank.size.width, y: 120)
-//    
+//
 //    scene.addChild(shittyTank)
-//    
+//
 //    shittyTank.physicsBody?.applyImpulse(CGVector(dx: -30, dy: 0))
 //    shittyTank.physicsBody?.linearDamping = 0
-//    
-//    
+//
+//
 //}
 
 
@@ -109,7 +109,7 @@ class WeakJet: SKSpriteNode {
         
         
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -121,7 +121,7 @@ class WeakJet: SKSpriteNode {
 //    helicopterOneAlive = true
 //    var helicopterTextureOne: SKTexture!
 //    var helicopter1Health: Int! = 50
-//    
+//
 //    helicopterTextureOne = SKTexture(imageNamed: "shittyPlane")
 //    helicopter1.physicsBody = SKPhysicsBody(texture: helicopterTextureOne, size: helicopter1.size)
 //    helicopter1.position = enemySpawnPointOne
@@ -130,9 +130,9 @@ class WeakJet: SKSpriteNode {
 //    helicopter1.physicsBody?.collisionBitMask = 0
 //    helicopter1.physicsBody?.usesPreciseCollisionDetection = true
 //    helicopter1.physicsBody?.linearDamping = 0
-//    
+//
 //    scene.addChild(helicopter1)
-//    
+//
 //    helicopter1.physicsBody?.applyImpulse(enemyOneImpulse)
 //
 //}
@@ -143,13 +143,13 @@ var bulletCount: Double = 0
 
 
 
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
 
 
 
@@ -159,16 +159,16 @@ func helicopterAttack(scene: SKScene) {
     
     var bullets: SKShapeNode!
     bullets = SKShapeNode(circleOfRadius: 7)
-
+    
     bullets.physicsBody = SKPhysicsBody(circleOfRadius: 7)
     bullets.fillColor = UIColor.whiteColor()
     bullets.physicsBody?.categoryBitMask = enemyAttackCategory
     bullets.physicsBody?.contactTestBitMask = playerCategory
     bullets.physicsBody?.collisionBitMask = 0
-//    bullets.position = 
+    //    bullets.position =
     
     scene.addChild(bullets)
-
+    
     
     bullets.physicsBody?.affectedByGravity = false
     
@@ -180,5 +180,34 @@ func helicopterAttack(scene: SKScene) {
     
     
 }
+
+func randomObject(scene: SKScene) {
+    
+    var ranTex = SKTexture(imageNamed: "button1red")
+    
+    var randomObject = SKSpriteNode(texture: ranTex)
+    
+    var ranY = CGFloat(arc4random_uniform(500)) - 250
+    
+    
+    randomObject.size = CGSize(width: 75, height: 75)
+    randomObject.physicsBody = SKPhysicsBody(circleOfRadius: 40)
+    randomObject.position = CGPoint(x: scene.size.width + randomObject.size.width, y: (scene.size.height / 2) + ranY)
+    randomObject.physicsBody?.collisionBitMask = 0
+    randomObject.physicsBody?.contactTestBitMask = 1
+    randomObject.physicsBody?.categoryBitMask = 5
+    
+    scene.addChild(randomObject)
+    
+    let move = SKAction.moveToX(-scene.size.width + randomObject.size.width, duration: 7)
+    let remove = SKAction.removeFromParent()
+    let moveSequence = SKAction.sequence([move,remove])
+    randomObject.runAction(moveSequence)
+    
+    obstacleHealth = 15
+    
+}
+
+
 
 

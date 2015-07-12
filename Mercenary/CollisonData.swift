@@ -21,6 +21,8 @@ var enemyAttackCategory: UInt32 = 4
 
 var obstacleCategory: UInt32 = 5
 
+var bomberCategory: UInt32 = 6
+
 
 
 func delay1(delay:Double, closure:()->()) {

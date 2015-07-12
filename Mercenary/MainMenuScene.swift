@@ -77,6 +77,10 @@ class MainMenuScene: SKScene {
        size.width = 1334
         size.height = 750
         
+        initializeBackground()
+
+        
+        
         startButton.text = "tap to start"
         startButton.fontSize = 50
         startButton.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame) - 100)
@@ -104,7 +108,6 @@ class MainMenuScene: SKScene {
         
         runAction(loopMusic)
         
-            initializeBackground()
         
         
         
@@ -113,7 +116,8 @@ class MainMenuScene: SKScene {
     
     override func update(currentTime: NSTimeInterval) {
         
-//        BGScroll()
+
+        
         
     }
 
@@ -126,10 +130,10 @@ class MainMenuScene: SKScene {
         bgStars.zPosition = -5
         addChild(bgStars)
         
-        bgStars1.anchorPoint = CGPointZero
-        bgStars1.position = CGPoint(x: bgStars.size.width - 1, y: 0)
-        bgStars1.zPosition = -5
-        addChild(bgStars1)
+//        bgStars1.anchorPoint = CGPointZero
+//        bgStars1.position = CGPoint(x: bgStars.size.width - 1, y: 0)
+//        bgStars1.zPosition = -5
+//        addChild(bgStars1)
         
     }
     

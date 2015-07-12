@@ -13,7 +13,7 @@ var playerHealth: Int!
 var currentScore: Int = 0
 var scoreLabel = SKLabelNode(fontNamed: "HelveticaNeue-UltraLight")
 
-
+var pauseButton: SKSpriteNode!
 
 var timer: NSTimer!
 
@@ -42,9 +42,17 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         runAction(SKAction.repeatActionForever(SKAction.sequence([
             SKAction.runBlock{
                 (randomObject(self))
-                },
+            },
             SKAction.waitForDuration(3, withRange: 2)
             ])))
+        
+        runAction(SKAction.repeatActionForever(SKAction.sequence([
+            SKAction.runBlock{
+                (largeAssteroid(self))
+            },
+            SKAction.waitForDuration(10, withRange: 5)
+            ])))
+        
         
         moveDown = childNodeWithName("moveDown") as? SKSpriteNode
         moveUp = childNodeWithName("moveUp") as? SKSpriteNode
@@ -54,21 +62,21 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         moveUp.hidden = true
         gunZone.hidden = true
         
-        
-        
-        //        enemySpawnPointOne = CGPoint(x: frame.width + 300, y: frame.height - 200)
-        //        enemyOneImpulse = CGVectorMake(-100, 10)
-        //        WeakJet(scene: self)
-        
-        
-        
-        //        ShittyTank(scene: self)
-        
+        pauseButton = childNodeWithName("pauseButton") as? SKSpriteNode
+        pauseButton.zPosition = 10
+        pauseButton.hidden = true
         
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         physicsWorld.contactDelegate = self
         
     }
+    
+    
+    
+    
+    
+    
+    
     
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -90,15 +98,15 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
         }
         if (firstMask == playerProjectileOne) && (secondMask == obstacleCategory) || (secondMask == playerProjectileOne) && (firstMask == obstacleCategory) {
-        
+            
             println(obstacleHealth)
             
             projectile?.removeFromParent()
-           
+            
             obstacleHealth = obstacleHealth - autoCannonDamage
             
             if obstacleHealth <= 0
-           
+                
             {
                 enemy?.removeFromParent()
                 
@@ -143,13 +151,17 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     
     func gunDelay() { gunReloaded = true }
     
-   
+    
     var bulletDelay = 0
     override func update(currentTime: CFTimeInterval) {
-    
+        
         BGScroll()
+        BGScroll2()
         
         bulletDelay++
+        //        player.physicsBody.
+        
+        
         
         if (playerUp == true) && (player.position.y < frame.height - 70) {
             player.position.y = player.position.y + 15
@@ -186,14 +198,37 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             touchLocationX = location.x
             touchLocationY = location.y
             
+            if pauseButton .containsPoint(location) {
+                
+                if scene!.view!.paused == false {
+                    scene!.view!.paused = true
+                    
+                } else if scene!.view!.paused == true {
+                    
+                    scene!.view!.paused = false
+                }
+            }
             if gunZone .containsPoint(location) {
                 gunBool = true
             }
             if moveUp .containsPoint(location) {
-                playerUp = true
+                
+//                player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+//                
+//                player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 60))
+                
+                
+                
+                                playerUp = true
             }
             if moveDown .containsPoint(location) {
-                playerDown = true
+               
+//                player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+//                
+//                player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: -60))
+//                
+                
+                                playerDown = true
             }
             
         }
@@ -211,8 +246,18 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             if gunZone .containsPoint(location) {
                 gunBool = true
-            
+                
             }
+//            if moveDown .containsPoint(location) {
+//                
+//                player.position.y = player.position.y - 6
+//                
+//            }
+//            if moveUp .containsPoint(location) {
+//                
+//                player.position.y = player.position.y + 6
+//                
+//            }
             
         }
         
@@ -228,10 +273,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 gunBool = false
             }
             if moveUp .containsPoint(location) {
-                playerUp = false
+                                playerUp = false
             }
             if moveDown .containsPoint(location) {
-                playerDown = false
+                                playerDown = false
             }
             
         }
@@ -244,14 +289,16 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     
     //~~~~~~~~~~~\//\/\/\//\/\\//\
     
-
+    
     func initializePlayer() {
         
         var playerTex: SKTexture!
         playerTex = SKTexture(imageNamed: "shittyPlayer")
         player = SKSpriteNode(texture: playerTex)
+        player.size = (CGSize(width: 200, height: 100))
+        
+        
         player.physicsBody = SKPhysicsBody(texture: playerTex, size: player.size)
-        player.size = CGSize(width: 220, height: 120)
         player.position = CGPoint(x: frame.width * 0.15, y: frame.height / 2)
         player.physicsBody?.collisionBitMask = 0
         player.physicsBody?.categoryBitMask = 1
@@ -270,11 +317,11 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         //        let bg1 = SKSpriteNode(imageNamed: "cloudoverlay")
         //        let bg2 = SKSpriteNode(imageNamed: "cloudoverlay")
         
-        var bg = SKSpriteNode(imageNamed: "starryRedMoon")
-        bg.size = CGSize(width: frame.width, height: frame.height)
-        bg.anchorPoint = CGPoint(x: 0, y: 0)
-        bg.zPosition = -10
-        addChild(bg)
+        //        var bg = SKSpriteNode(imageNamed: "starryRedMoon")
+        //        bg.size = CGSize(width: frame.width, height: frame.height)
+        //        bgMain.anchorPoint = CGPoint(x: 0, y: 0)
+        //        bgMain.zPosition = -10
+        //        addChild(bgMain)
         
         bg1.anchorPoint = CGPointZero
         bg1.position = CGPoint(x: 0, y: 0)
@@ -286,14 +333,25 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         bg2.zPosition = -5
         addChild(bg2)
         
+        bgMain.anchorPoint = CGPointZero
+        bgMain.position = CGPoint(x: 0, y: 0)
+        bgMain.zPosition = -6
+        addChild(bgMain)
+        
+        bgMain1.anchorPoint = CGPointZero
+        bgMain1.position = CGPoint(x: bgMain.size.width - 1, y: 0)
+        bgMain1.zPosition = -6
+        addChild(bgMain1)
+        
+        
         scoreLabel.text = "\(currentScore)"
         scoreLabel.position = CGPoint(x: scene!.size.width / 2, y: scene!.size.height - 60)
         scoreLabel.zPosition = 10
         scoreLabel.fontSize = 75
         
         addChild(scoreLabel)
-    
-    
+        
+        
     }
     
 }

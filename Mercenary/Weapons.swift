@@ -17,6 +17,12 @@ import SpriteKit
 var autoCannonDamage: Int = 5
 func autoCannon(scene: SKScene) {
     
+    let soundDelay = SKAction.waitForDuration(0.02)
+    let gunSFX = SKAction.playSoundFileNamed("basicGun.wav", waitForCompletion: false)
+    let sfxSequence = SKAction.sequence([gunSFX,soundDelay])
+    
+    
+
     var bulletTex: SKTexture!
     var angleX = touchLocationX - player.position.x
     var angleY = touchLocationY - player.position.y
@@ -28,7 +34,7 @@ func autoCannon(scene: SKScene) {
     projectile.zRotation = nodeAngle
     projectile.size = CGSize(width: 30, height: 10)
     projectile.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 16, height: 8))
-    projectile.position = CGPoint(x: player.position.x + 50, y: player.position.y - 5)
+    projectile.position = CGPoint(x: player.position.x + (player.size.width / 2), y: player.position.y)
     projectile.physicsBody?.affectedByGravity = false
     projectile.physicsBody?.linearDamping = 0
     projectile.physicsBody?.categoryBitMask = playerProjectileOne
@@ -44,21 +50,42 @@ func autoCannon(scene: SKScene) {
     projectile.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*9, Y/magnitude*9))
     
     let remove = SKAction.removeFromParent()
-    let wait = SKAction.waitForDuration(1.2)
+    let wait = SKAction.waitForDuration(1.0)
     let removeSequence = SKAction.sequence([wait,remove])
     projectile.runAction(removeSequence)
     
     var muzzleFlashTex = SKTexture(imageNamed: "muzzleFlashPixel")
     let muzzleFlash = SKSpriteNode(texture: muzzleFlashTex)
-    muzzleFlash.size = CGSize(width: 100, height: 75)
-    muzzleFlash.position = CGPoint(x: player.position.x + 100, y: player.position.y - 5)
-//    muzzleFlash.zRotation = nodeAngle
-    scene.addChild(muzzleFlash)
+    muzzleFlash.size = CGSize(width: 60, height: 75)
+//    muzzleFlash.position = CGPoint(x: player.position.x + (player.size.width / 2), y: player.position.y - (player.size.height / 2))
+
+    muzzleFlash.position = CGPoint(x: player.position.x + (player.size.width / 2), y: player.position.y)
+
+
     
-    let waitFlash = SKAction.waitForDuration(0.05)
+    
+    muzzleFlash.anchorPoint = CGPoint(x: 0, y: 0.5)
+    muzzleFlash.zRotation = nodeAngle
+//    muzzleFlash.zPosition = 20
+    
+    let flashBloc = SKAction.runBlock( {scene.addChild(muzzleFlash)})
+    
+    let waitFlash = SKAction.waitForDuration(0.01)
     let flashRemove = SKAction.sequence([waitFlash,remove])
     
-    muzzleFlash.runAction(flashRemove)
+    scene.addChild(muzzleFlash)
+
+    
+    let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
+    dispatch_async(dispatch_get_global_queue(priority, 0), { () -> Void in
+        
+muzzleFlash.runAction(flashRemove)
+            muzzleFlash.runAction(sfxSequence)
+
+    })
+    
+//    muzzleFlash.runAction(flashRemove)
+
     
     
     

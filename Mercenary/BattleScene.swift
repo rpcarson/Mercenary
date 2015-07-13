@@ -11,7 +11,7 @@ import SpriteKit
 var obstacleHealth: Int!
 var playerHealth: Int!
 var currentScore: Int = 0
-var scoreLabel = SKLabelNode(fontNamed: "HelveticaNeue-UltraLight")
+var scoreLabel = SKLabelNode(fontNamed: "HelveticaNeue-Light")
 
 var pauseButton: SKSpriteNode!
 
@@ -33,11 +33,23 @@ var playerUp: Bool = false
 var playerDown: Bool = false
 
 
+//let intro = SKAction.playSoundFileNamed("LevelOneIntroLoop.mp3", waitForCompletion: true)
+//let mainLoop = SKAction.playSoundFileNamed("LevelOneMainLoop.mp3", waitForCompletion: true)
+//let loopMain = SKAction.repeatActionForever(mainLoop)
+//let musicSequence = SKAction.sequence([intro,mainLoop])
+//
+
+let music = SKAction.playSoundFileNamed("LevelOneMainLoop.mp3", waitForCompletion: true)
+let loopMusic = SKAction.repeatActionForever(music)
+
+
 class BattleScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         
         initializePlayer()
         initializeBackground()
+//        runAction(musicSequence)
+        runAction(loopMusic)
         
         runAction(SKAction.repeatActionForever(SKAction.sequence([
             SKAction.runBlock{
@@ -52,6 +64,11 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             },
             SKAction.waitForDuration(10, withRange: 5)
             ])))
+        
+
+        
+        
+        enemyFighter(self)
         
         
         moveDown = childNodeWithName("moveDown") as? SKSpriteNode
@@ -293,9 +310,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     func initializePlayer() {
         
         var playerTex: SKTexture!
-        playerTex = SKTexture(imageNamed: "shittyPlayer")
+        playerTex = SKTexture(imageNamed: "betterShittyPlayer")
         player = SKSpriteNode(texture: playerTex)
-        player.size = (CGSize(width: 200, height: 100))
+        player.size = (CGSize(width: 200, height: 75))
         
         
         player.physicsBody = SKPhysicsBody(texture: playerTex, size: player.size)

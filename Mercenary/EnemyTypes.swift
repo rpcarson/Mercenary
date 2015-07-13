@@ -9,9 +9,48 @@
 import Foundation
 import SpriteKit
 
+var fighterCategory: UInt32 = 7
+
+func enemyFighter(scene: SKScene) {
+    let fighterTex = SKTexture(imageNamed: "crapEnemy1")
+    let fighter = SKSpriteNode(texture: fighterTex)
+    
+    
+    var ranY = CGFloat(arc4random_uniform(500)) - 250
+    fighter.size = CGSize(width: 100, height: 100)
+    fighter.physicsBody = SKPhysicsBody(circleOfRadius: 50)
+    fighter.position = CGPoint(x: scene.size.width + fighter.size.width, y: (scene.size.height / 2) + ranY)
+   fighter.physicsBody?.contactTestBitMask = playerCategory
+    fighter.physicsBody?.collisionBitMask = 0
+    fighter.physicsBody?.categoryBitMask = fighterCategory
+    scene.addChild(fighter)
+    
+    let enemyMove = SKAction.moveToX(-scene.size.width + fighter.size.width, duration: 10)
+    let fighterDelay = SKAction.waitForDuration(3)
+    let sequence = SKAction.sequence([fighterDelay,enemyMove])
+    
+    fighter.runAction(sequence)
+    
+    
+    
+}
 
 
 
+//class WeakFighter: SKSpriteNode {
+//    init(scene: SKScene) {
+//     let fighterTex = SKTexture(imageNamed: "crappyEnemy1")
+//        super.init(texture: fighterTex, color: UIColor.clearColor(), size: fighterTex.size())
+//        
+//        size = CGSize(width: 100, height: 100)
+//        position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
+//
+//    }
+//
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//}
 
 class ShittyTank: SKSpriteNode {
     
@@ -135,18 +174,6 @@ class WeakJet: SKSpriteNode {
 var helicopterBulletDamage: Int! = 5
 
 var bulletCount: Double = 0
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

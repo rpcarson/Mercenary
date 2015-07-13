@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B2428BC1B536CD200D4D723 /* basicGun.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B2428BB1B536CD200D4D723 /* basicGun.wav */; };
+		5B2428BE1B536CE200D4D723 /* LevelOneIntroLoop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5B2428BD1B536CE200D4D723 /* LevelOneIntroLoop.mp3 */; };
+		5B2428C01B536CEA00D4D723 /* LevelOneMainLoop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5B2428BF1B536CEA00D4D723 /* LevelOneMainLoop.mp3 */; };
+		5B2428C21B53714E00D4D723 /* LevelOne.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5B2428C11B53714E00D4D723 /* LevelOne.mp3 */; };
 		5B25392F1B4673AB00642AD6 /* IntroThemeAughtV2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5B25392E1B4673AB00642AD6 /* IntroThemeAughtV2.mp3 */; };
 		5B2539311B4674C600642AD6 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2539301B4674C600642AD6 /* MainMenuScene.swift */; };
 		5B2539331B46751900642AD6 /* LevelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2539321B46751900642AD6 /* LevelData.swift */; };
@@ -41,6 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B2428BB1B536CD200D4D723 /* basicGun.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = basicGun.wav; sourceTree = "<group>"; };
+		5B2428BD1B536CE200D4D723 /* LevelOneIntroLoop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = LevelOneIntroLoop.mp3; sourceTree = "<group>"; };
+		5B2428BF1B536CEA00D4D723 /* LevelOneMainLoop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = LevelOneMainLoop.mp3; sourceTree = "<group>"; };
+		5B2428C11B53714E00D4D723 /* LevelOne.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = LevelOne.mp3; sourceTree = "<group>"; };
 		5B25392E1B4673AB00642AD6 /* IntroThemeAughtV2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = IntroThemeAughtV2.mp3; sourceTree = "<group>"; };
 		5B2539301B4674C600642AD6 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMenuScene.swift; path = Mercenary/MainMenuScene.swift; sourceTree = "<group>"; };
 		5B2539321B46751900642AD6 /* LevelData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelData.swift; sourceTree = "<group>"; };
@@ -89,6 +97,10 @@
 		5B25392D1B46739500642AD6 /* Music */ = {
 			isa = PBXGroup;
 			children = (
+				5B2428BF1B536CEA00D4D723 /* LevelOneMainLoop.mp3 */,
+				5B2428BD1B536CE200D4D723 /* LevelOneIntroLoop.mp3 */,
+				5B2428C11B53714E00D4D723 /* LevelOne.mp3 */,
+				5B2428BB1B536CD200D4D723 /* basicGun.wav */,
 				5B25392E1B4673AB00642AD6 /* IntroThemeAughtV2.mp3 */,
 			);
 			name = Music;
@@ -272,11 +284,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BDF48721B42DEEB00CBD6E5 /* LaunchScreen.xib in Resources */,
+				5B2428BE1B536CE200D4D723 /* LevelOneIntroLoop.mp3 in Resources */,
 				5B2539351B46774A00642AD6 /* MainMenuScene.sks in Resources */,
 				5B4A41261B45D481001A6AEA /* Proportions in Resources */,
 				5BDF486F1B42DEEB00CBD6E5 /* Images.xcassets in Resources */,
 				5B68D91B1B48AAD300DD2284 /* EnemyInformation in Resources */,
 				5BDF48661B42DEEB00CBD6E5 /* BattleScene.sks in Resources */,
+				5B2428C01B536CEA00D4D723 /* LevelOneMainLoop.mp3 in Resources */,
+				5B2428BC1B536CD200D4D723 /* basicGun.wav in Resources */,
+				5B2428C21B53714E00D4D723 /* LevelOne.mp3 in Resources */,
 				5BDF48891B42E09100CBD6E5 /* Main.storyboard in Resources */,
 				5B25392F1B4673AB00642AD6 /* IntroThemeAughtV2.mp3 in Resources */,
 				5B68D9211B48C4C700DD2284 /* MainGameMenu.sks in Resources */,

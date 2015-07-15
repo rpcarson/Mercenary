@@ -9,18 +9,61 @@
 import Foundation
 import SpriteKit
 
-var fighterCategory: UInt32 = 7
+
+
+
+
+class WeakJet: SKSpriteNode {
+    
+    var health = 25
+    
+    init(scene: SKScene) {
+        
+        let texture = SKTexture(imageNamed: "crapEnemy1")
+        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        
+        size = CGSize(width: 150, height: 150)
+        physicsBody = SKPhysicsBody(rectangleOfSize: size)
+        physicsBody?.categoryBitMask = enemyCategoryOne
+        physicsBody?.contactTestBitMask = playerProjectileOne
+        physicsBody?.collisionBitMask = 0
+        physicsBody?.linearDamping = 0
+        
+        let wait = SKAction.waitForDuration(1)
+        let fire = SKAction.runBlock( { weakJetRocket(scene, self) } )
+        let sequence = SKAction.sequence([wait,fire])
+        let action = SKAction.repeatAction(sequence, count: 2)
+        
+        
+        runAction(action)
+        
+//        fire = SKAction.runBlock { () -> Void in
+//                
+//            weakJetRocket(scene)
+//                
+//        }
+
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+//    var fire: SKAction!
+    
+}
+
 
 func enemyFighter(scene: SKScene) {
+    
     let fighterTex = SKTexture(imageNamed: "crapEnemy1")
     let fighter = SKSpriteNode(texture: fighterTex)
-    
     
     var ranY = CGFloat(arc4random_uniform(500)) - 250
     fighter.size = CGSize(width: 100, height: 100)
     fighter.physicsBody = SKPhysicsBody(circleOfRadius: 50)
     fighter.position = CGPoint(x: scene.size.width + fighter.size.width, y: (scene.size.height / 2) + ranY)
-   fighter.physicsBody?.contactTestBitMask = playerCategory
+    fighter.physicsBody?.contactTestBitMask = playerCategory
     fighter.physicsBody?.collisionBitMask = 0
     fighter.physicsBody?.categoryBitMask = fighterCategory
     scene.addChild(fighter)
@@ -31,17 +74,13 @@ func enemyFighter(scene: SKScene) {
     
     fighter.runAction(sequence)
     
-    
-    
 }
-
-
 
 //class WeakFighter: SKSpriteNode {
 //    init(scene: SKScene) {
 //     let fighterTex = SKTexture(imageNamed: "crappyEnemy1")
 //        super.init(texture: fighterTex, color: UIColor.clearColor(), size: fighterTex.size())
-//        
+//
 //        size = CGSize(width: 100, height: 100)
 //        position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
 //
@@ -119,35 +158,7 @@ let helicopter1 = SKSpriteNode(imageNamed: "shittyPlane")
 
 
 
-class WeakJet: SKSpriteNode {
-    
-    init(scene: SKScene) {
-        
-        let texture = SKTexture(imageNamed: "shittyPlane")
-        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
-        
-        var health = 30
-        
-        size = CGSize(width: 150, height: 75)
-        
-        physicsBody = SKPhysicsBody(rectangleOfSize: size)
-        position = enemySpawnPointOne
-        physicsBody?.categoryBitMask = enemyCategoryOne
-        physicsBody?.contactTestBitMask = playerProjectileOne
-        physicsBody?.collisionBitMask = 0
-        physicsBody?.usesPreciseCollisionDetection = true
-        physicsBody?.linearDamping = 0
-        scene.addChild(self)
-        physicsBody?.affectedByGravity = false
-        physicsBody?.applyImpulse(enemyOneImpulse)
-        
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
+
 
 
 
@@ -203,63 +214,8 @@ func helicopterAttack(scene: SKScene) {
     
 }
 
-func largeAssteroid(scene: SKScene) {
-    var ranTex = SKTexture(imageNamed: "asteroid1")
-    var largeRock = SKSpriteNode(texture: ranTex)
-    var ranY = CGFloat(arc4random_uniform(700)) - 350
 
-    largeRock.physicsBody = SKPhysicsBody(circleOfRadius: 100)
-    largeRock.size = CGSize(width: 300, height: 300)
-    largeRock.position = CGPoint(x: scene.size.width + largeRock.size.width, y: (scene.size.height / 2) + ranY)
-    largeRock.physicsBody?.collisionBitMask = 9
-    largeRock.physicsBody?.contactTestBitMask = 1|5
-    largeRock.physicsBody?.categoryBitMask = 5
 
-    
-    scene.addChild(largeRock)
-    
-    largeRock.physicsBody?.linearDamping = 0
-    largeRock.physicsBody?.applyTorque(5)
-
-    
-    let move = SKAction.moveToX(-scene.size.width + largeRock.size.width, duration: 20)
-    let remove = SKAction.removeFromParent()
-    let moveSequence = SKAction.sequence([move,remove])
-    largeRock.runAction(moveSequence)
-    
-    var largeRockHealth = 60
-    
-}
-
-func randomObject(scene: SKScene) {
-    
-    var ranTex = SKTexture(imageNamed: "asteroid1")
-    
-    var randomObject = SKSpriteNode(texture: ranTex)
-    
-    var ranY = CGFloat(arc4random_uniform(500)) - 250
-    var ranSize = CGFloat(arc4random_uniform(120))
-    
-    randomObject.size = CGSize(width: 75 + ranSize, height: 75 + ranSize)
-    randomObject.physicsBody = SKPhysicsBody(circleOfRadius: 40)
-    randomObject.position = CGPoint(x: scene.size.width + randomObject.size.width, y: (scene.size.height / 2) + ranY)
-    randomObject.physicsBody?.collisionBitMask = 9
-    randomObject.physicsBody?.contactTestBitMask = 1 | 5
-    randomObject.physicsBody?.categoryBitMask = 5
-    
-
-    scene.addChild(randomObject)
-    
-    randomObject.physicsBody?.applyTorque(1)
-    
-    let move = SKAction.moveToX(-scene.size.width + randomObject.size.width, duration: 7)
-    let remove = SKAction.removeFromParent()
-    let moveSequence = SKAction.sequence([move,remove])
-    randomObject.runAction(moveSequence)
-    
-    obstacleHealth = 15
-    
-}
 
 class Bomber: SKSpriteNode {
     

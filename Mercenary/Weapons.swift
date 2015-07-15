@@ -13,8 +13,7 @@ import SpriteKit
 
 
 
-
-var autoCannonDamage: Int = 5
+var autoCannonDamage: Int = 10
 func autoCannon(scene: SKScene) {
     
     let soundDelay = SKAction.waitForDuration(0.02)
@@ -28,20 +27,20 @@ func autoCannon(scene: SKScene) {
     var angleY = touchLocationY - player.position.y
     var nodeAngle = atan2(angleY, angleX)
     bulletTex = SKTexture(imageNamed: "gunfire1")
-    timer = NSTimer.scheduledTimerWithTimeInterval(0.12, target:scene, selector: Selector("gunDelay"), userInfo: nil, repeats: false)
+//    timer = NSTimer.scheduledTimerWithTimeInterval(0.12, target:scene, selector: Selector("gunDelay"), userInfo: nil, repeats: false)
     gunReloaded = false
     let projectile = SKSpriteNode(texture: bulletTex)
     projectile.zRotation = nodeAngle
     projectile.size = CGSize(width: 30, height: 10)
     projectile.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 16, height: 8))
     projectile.position = CGPoint(x: player.position.x + (player.size.width / 2), y: player.position.y)
-    projectile.physicsBody?.affectedByGravity = false
     projectile.physicsBody?.linearDamping = 0
     projectile.physicsBody?.categoryBitMask = playerProjectileOne
     projectile.physicsBody?.contactTestBitMask = enemyCategoryOne
     projectile.physicsBody?.collisionBitMask = 0
     projectile.physicsBody?.usesPreciseCollisionDetection = true
   
+    
     scene.addChild(projectile)
     
     let X = touchLocationX - player.position.x
@@ -73,53 +72,27 @@ func autoCannon(scene: SKScene) {
     let waitFlash = SKAction.waitForDuration(0.01)
     let flashRemove = SKAction.sequence([waitFlash,remove])
     
-    scene.addChild(muzzleFlash)
+//    scene.addChild(muzzleFlash)
 
     
-    let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
-    dispatch_async(dispatch_get_global_queue(priority, 0), { () -> Void in
-        
-muzzleFlash.runAction(flashRemove)
-            muzzleFlash.runAction(sfxSequence)
-
-    })
+//    let priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND
+//    dispatch_async(dispatch_get_global_queue(priority, 0), { () -> Void in
+//        
+//        
+//        muzzleFlash.runAction(flashRemove)
+//
+//            muzzleFlash.runAction(sfxSequence)
+//
+//    })
     
 //    muzzleFlash.runAction(flashRemove)
 
-    
-    
-    
-}
-
-class Chaingun: SKSpriteNode {
-    
-    init(scene: SKScene) {
-        
-        let texture = SKTexture(imageNamed: "redButton1")
-        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
-        
-        size = CGSize(width: 20, height: 10)
-        
-        
-        
-        
-        
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
- 
+//    muzzleFlash.runAction(flashRemove)
+//    
+//    muzzleFlash.runAction(sfxSequence)
     
     
 }
-
-
-
-
-
-
-
 
 
 

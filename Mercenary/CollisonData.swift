@@ -19,9 +19,15 @@ var enemyCategoryOne: UInt32 = 3
 
 var enemyAttackCategory: UInt32 = 4
 
-var obstacleCategory: UInt32 = 5
+var smallRockCat: UInt32 = 5
 
 var bomberCategory: UInt32 = 6
+
+var fighterCategory: UInt32 = 7
+
+var largeRockCat: UInt32 = 8
+
+var enemyRocketCat: UInt32 = 9
 
 
 

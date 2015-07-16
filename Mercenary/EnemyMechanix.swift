@@ -22,6 +22,8 @@ func weakJetSpawn(scene: SKScene) {
     enemy.position = CGPoint(x: scene.size.width + enemy.size.width, y: scene.size.height * (ranPointY2 / 100))
     scene.addChild(enemy)
     
+    weakjetArray.append(enemy)
+    
     let move = SKAction.moveTo(CGPoint(x: -scene.size.width + enemy.size.width, y: scene.size.height * (ranPointY / 100)), duration: 10)
     let remove = SKAction.removeFromParent()
     let sequence = SKAction.sequence([move,remove])

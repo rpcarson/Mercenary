@@ -29,6 +29,8 @@ var largeRockCat: UInt32 = 8
 
 var enemyRocketCat: UInt32 = 9
 
+var oreCategory: UInt32 = 10
+
 
 
 func delay1(delay:Double, closure:()->()) {

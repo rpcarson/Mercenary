@@ -16,6 +16,10 @@ func LargeAsteroidMechanix(scene: SKScene) {
     var ranYLarge = CGFloat(arc4random_uniform(700)) - 350
     let object = LargeAsteroid(scene: scene)
     scene.addChild(object)
+    
+    asteroidArray.append(object)
+    println(asteroidArray.count)
+    
     var ranTork = CGFloat(arc4random_uniform(6)) - 3
     object.physicsBody?.applyTorque(ranTork)
     object.position = CGPoint(x: scene.size.width + object.size.width, y: (scene.size.height / 2) + ranYLarge)
@@ -55,15 +59,13 @@ func SmallAsteroidMechanix(scene: SKScene) {
     var ranYSmall = CGFloat(arc4random_uniform(800)) - 400
     let object = SmallAsteroid(scene: scene)
     scene.addChild(object)
+    asteroidArray.append(object)
+    
     var ranTork = CGFloat(arc4random_uniform(6)) - 3
     object.physicsBody?.applyTorque(ranTork)
     object.position = CGPoint(x: scene.size.width + object.size.width, y: (scene.size.height / 2) + ranYSmall)
     
-    let moveExp = SKAction.moveBy(CGVector(dx: -1200, dy: -200), duration: 10)
-    
-    
     let move = SKAction.moveTo(CGPoint(x: -scene.size.width + object.size.width, y: (scene.size.height / 2) + ranYSmall2), duration: 10)
-//    let move = SKAction.moveToX(-scene.size.width + object.size.width, duration: 8)
     let remove = SKAction.removeFromParent()
     let sequence = SKAction.sequence([move,remove])
     object.runAction(sequence)

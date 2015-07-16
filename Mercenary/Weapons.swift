@@ -20,15 +20,12 @@ func autoCannon(scene: SKScene) {
     let gunSFX = SKAction.playSoundFileNamed("basicGun.wav", waitForCompletion: false)
     let sfxSequence = SKAction.sequence([gunSFX,soundDelay])
     
-    
-
     var bulletTex: SKTexture!
     var angleX = touchLocationX - player.position.x
     var angleY = touchLocationY - player.position.y
     var nodeAngle = atan2(angleY, angleX)
+   
     bulletTex = SKTexture(imageNamed: "gunfire1")
-//    timer = NSTimer.scheduledTimerWithTimeInterval(0.12, target:scene, selector: Selector("gunDelay"), userInfo: nil, repeats: false)
-    gunReloaded = false
     let projectile = SKSpriteNode(texture: bulletTex)
     projectile.zRotation = nodeAngle
     projectile.size = CGSize(width: 30, height: 10)
@@ -43,6 +40,9 @@ func autoCannon(scene: SKScene) {
     
     scene.addChild(projectile)
     
+    projectile.runAction(SKAction.playSoundFileNamed("basicGunV2.wav", waitForCompletion: false))
+    
+    
     let X = touchLocationX - player.position.x
     let Y = touchLocationY - player.position.y
     var magnitude: CGFloat = sqrt(X*X+Y*Y)
@@ -56,19 +56,11 @@ func autoCannon(scene: SKScene) {
     var muzzleFlashTex = SKTexture(imageNamed: "muzzleFlashPixel")
     let muzzleFlash = SKSpriteNode(texture: muzzleFlashTex)
     muzzleFlash.size = CGSize(width: 60, height: 75)
-//    muzzleFlash.position = CGPoint(x: player.position.x + (player.size.width / 2), y: player.position.y - (player.size.height / 2))
-
     muzzleFlash.position = CGPoint(x: player.position.x + (player.size.width / 2), y: player.position.y)
-
-
-    
-    
     muzzleFlash.anchorPoint = CGPoint(x: 0, y: 0.5)
     muzzleFlash.zRotation = nodeAngle
-//    muzzleFlash.zPosition = 20
     
     let flashBloc = SKAction.runBlock( {scene.addChild(muzzleFlash)})
-    
     let waitFlash = SKAction.waitForDuration(0.01)
     let flashRemove = SKAction.sequence([waitFlash,remove])
     
@@ -94,6 +86,47 @@ func autoCannon(scene: SKScene) {
     
 }
 
+var beamCannonDamage: Int = 10
+func beamCannon(scene: SKScene) {
+    
+    var beamSize = CGSize(width: 40, height: 1)
+    
+    let beam = SKShapeNode(rectOfSize: beamSize, cornerRadius: 5)
+    
+    beam.physicsBody = SKPhysicsBody(rectangleOfSize: beamSize)
+    beam.fillColor = UIColor(red:0.13, green:0.45, blue:0.93, alpha:1)
+    beam.strokeColor = UIColor(red:0.24, green:0.81, blue:0.96, alpha:1)
+    beam.glowWidth = 6
+    beam.position = player.position
+    beam.physicsBody?.collisionBitMask = 0
+    beam.physicsBody?.categoryBitMask = playerProjectileOne
+    beam.physicsBody?.contactTestBitMask = enemyCategoryOne
+    
+    scene.addChild(beam)
+    
+    beam.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 0))
+    
+    
+    let wait = SKAction.waitForDuration(1)
+    let remove = SKAction.removeFromParent()
+    let seq = SKAction.sequence([wait,remove])
+    
+    beam.runAction(seq)
+    
+    beam.runAction(SKAction.playSoundFileNamed("laserFireV2.wav", waitForCompletion: false))
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+
 
 
 func basicShotgun(scene: SKScene) {
@@ -105,8 +138,6 @@ func basicShotgun(scene: SKScene) {
 //    println(ranY)
     
     
-    timer = NSTimer.scheduledTimerWithTimeInterval(1.2, target:scene, selector: Selector("gunDelay"), userInfo: nil, repeats: false)
-    gunReloaded = false
     let pellet = SKShapeNode(circleOfRadius: 6)
     pellet.fillColor = UIColor(red:0.98, green:0.41, blue:0.06, alpha:1)
     pellet.physicsBody = SKPhysicsBody(circleOfRadius: 6)

@@ -9,6 +9,7 @@
 import Foundation
 import SpriteKit
 
+var asteroidArray: [SKNode] = []
 
 
 func LargeAsteroidMechanix(scene: SKScene) {
@@ -102,44 +103,28 @@ class SmallAsteroid: SKSpriteNode {
     
 }
 
-func dropOre(scene: SKScene, asteroid: SmallAsteroid) {
-    
-    let ranNum = arc4random_uniform(4)
-    var oreChance: UInt32 = 3
-    
-    let orePiece = SKShapeNode(circleOfRadius: 20)
-    orePiece.fillColor = UIColor.yellowColor()
-    orePiece.physicsBody = SKPhysicsBody(circleOfRadius: 25)
-    orePiece.position = asteroid.position
-    orePiece.physicsBody?.collisionBitMask = 0
+//func dropOre(scene: SKScene, asteroid: SKSpriteNode) {
+//    
+//    let ranNum = arc4random_uniform(4)
+//    var oreChance: UInt32 = 3
+//    
+//    let orePiece = SKShapeNode(circleOfRadius: 20)
+//    orePiece.fillColor = UIColor.yellowColor()
+//    orePiece.physicsBody = SKPhysicsBody(circleOfRadius: 25)
+//    orePiece.position = asteroid.position
+//    orePiece.physicsBody?.collisionBitMask = 0
+//
+//    println(ranNum)
+//    println(oreChance)
+//    
+//    if oreChance == ranNum {
+//        
+//        scene.addChild(orePiece)
+//        orePiece.physicsBody?.applyImpulse(CGVector(dx: -10, dy: 0))
+//        
+//    }
+//}
 
-    println(ranNum)
-    println(oreChance)
-    
-    if oreChance == ranNum {
-        
-        scene.addChild(orePiece)
-        orePiece.physicsBody?.applyImpulse(CGVector(dx: -10, dy: 0))
-        
-    }
-}
 
-func oreDrop(scene: SKScene) {
-    
-    let orePiece = SKShapeNode(circleOfRadius: 20)
-    orePiece.physicsBody = SKPhysicsBody(circleOfRadius: 25)
-    orePiece.fillColor = UIColor.yellowColor()
-    orePiece.position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
-    orePiece.physicsBody?.collisionBitMask = 0
-    
-    
-    scene.addChild(orePiece)
-    orePiece.physicsBody?.applyImpulse(CGVector(dx: -10, dy: 0))
-
-    
-    
-    println("ore dropped")
-    
-}
 
 

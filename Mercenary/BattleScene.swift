@@ -9,29 +9,20 @@
 import SpriteKit
 
 
+var player: SKSpriteNode!
 
+
+var playerUp: Bool = false
+var playerDown: Bool = false
+var gunBool: Bool = false
 var playerAlive: Bool = true
+var menuActive: Bool = false
+
+
 var playerHealth: Int = 0
 var currentScore: Int = 0
 var oreCount: Int = 0
-var scoreLabel = SKLabelNode(fontNamed: "HelveticaNeue-Light")
-let healthLabel = SKLabelNode(fontNamed:"HelveticaNeue-Light")
-let oreLabel = SKLabelNode(fontNamed:"HelveticaNeue-Light")
-let tapStart = SKLabelNode(fontNamed: "HelveticaNeue-Light")
 
-
-let retryButton = SKSpriteNode(color: UIColor.clearColor(), size: CGSize(width: 250, height: 100))
-
-
-
-var pauseButton: SKSpriteNode!
-
-var timer: NSTimer!
-
-var gunReloaded: Bool = true
-var gunBool: Bool = false
-
-var player: SKSpriteNode!
 
 var touchLocationX: CGFloat!
 var touchLocationY: CGFloat!
@@ -40,50 +31,32 @@ var moveDown: SKSpriteNode!
 var moveUp: SKSpriteNode!
 var gunZone: SKSpriteNode!
 
-var playerUp: Bool = false
-var playerDown: Bool = false
-
-
-
-var deathScreenItems: [SKNode] = []
-
-
-//let intro = SKAction.playSoundFileNamed("LevelOneIntroLoop.mp3", waitForCompletion: true)
-//let mainLoop = SKAction.playSoundFileNamed("LevelOneMainLoop.mp3", waitForCompletion: true)
-//let loopMain = SKAction.repeatActionForever(mainLoop)
-//let musicSequence = SKAction.sequence([intro,mainLoop])
-//
-
 let music = SKAction.playSoundFileNamed("IntroThemeAughtV2.mp3", waitForCompletion: true)
 let loopMusic = SKAction.repeatActionForever(music)
 
-
-var asteroidArray: [SKNode] = []
-var weakjetArray: [SKNode] = []
-var tapStartArray: [SKNode] = []
-
 class BattleScene: SKScene, SKPhysicsContactDelegate {
+    
    
-        
     override func didMoveToView(view: SKView) {
         
+        pauseLabel.hidden = true
         
         initializeBackground()
         initializeLabels()
         startGame()
-
+        
         let delay = SKAction.waitForDuration(4)
         let bloc = SKAction.runBlock( {self.beginGameplay()} )
         
         runAction(SKAction.sequence([delay,bloc]))
         
         ready()
-       
+        
         
     }
     
     func ready() {
-        let ready = SKLabelNode(fontNamed: "HelveticaNeue-Light")
+        let ready = SKLabelNode(fontNamed: "Xperia")
         ready.text = "get ready"
         ready.fontSize = 60
         ready.position = CGPoint(x: scene!.size.width / 2, y: scene!.size.height / 2)
@@ -99,8 +72,11 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-  
+    
     func beginGameplay() {
+        
+        pauseButton.hidden = false
+        pauseLabel.hidden = false
         
         
         runAction(SKAction.repeatActionForever(SKAction.sequence([
@@ -117,8 +93,6 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             SKAction.waitForDuration(12, withRange: 5)
             ])), withKey: "largeAsteroid")
         
-        
-        
         runAction(SKAction.repeatActionForever(SKAction.sequence([
             SKAction.runBlock{
                 (weakJetSpawn(self))
@@ -126,23 +100,19 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             SKAction.waitForDuration(6, withRange: 4)
             ])), withKey: "weakJet")
         
-
-        
-        
-        
     }
     
     func startGame() {
-    
-//        runAction(SKAction.playSoundFileNamed("LevelOneMainLoopV2.mp3", waitForCompletion: true))
+        
+        //        runAction(SKAction.playSoundFileNamed("LevelOneMainLoopV2.mp3", waitForCompletion: true))
         
         initializePlayer()
-
+        
         
         playerAlive = true
-
         
-//                        runAction(loopMusic)
+        
+        //                        runAction(loopMusic)
         
         
         
@@ -154,10 +124,6 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         moveDown.hidden = true
         moveUp.hidden = true
         gunZone.hidden = true
-        
-        pauseButton = childNodeWithName("pauseButton") as? SKSpriteNode
-        pauseButton.zPosition = 10
-        pauseButton.hidden = true
         
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         physicsWorld.contactDelegate = self
@@ -195,13 +161,13 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         if player && (secondMask == smallRockCat) || player1 && (firstMask == smallRockCat) {
             
             let enemy = secondMask == smallRockCat ? secondBody as? SmallAsteroid : firstBody as? SmallAsteroid
-
+            
             println("small rock impact")
             playerHealth = playerHealth - 20
             println("player health = \(playerHealth)")
             
             if let enemy = enemy {
-            explodeFunc(self, enemy)
+                explodeFunc(self, enemy)
             }
             enemy?.removeFromParent()
             
@@ -209,19 +175,19 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         if player && (secondMask == largeRockCat) || player1 && (firstMask == largeRockCat) {
             
             let enemy = secondMask == largeRockCat ? secondBody as? LargeAsteroid : firstBody as? LargeAsteroid
-
-
+            
+            
             
             println("large rock impact")
             playerHealth = playerHealth - 100
             println("player health = \(playerHealth)")
-        
+            
         }
         
         if player && (secondMask == enemyRocketCat) || player1 && (firstMask == enemyRocketCat) {
             
             let enemy = secondMask == enemyRocketCat ? secondBody : firstBody
-
+            
             
             println("rocket contact")
             enemy?.removeFromParent()
@@ -232,7 +198,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         if player && (secondMask == enemyCategoryOne) || player1 && (firstMask == enemyCategoryOne) {
             
             let enemy = secondMask == enemyCategoryOne ? secondBody : firstBody
-
+            
             
             println("enemy jet contact")
             enemy?.removeFromParent()
@@ -240,7 +206,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             println("player health = \(playerHealth)")
         }
         
-        func dropOre(scene: SKScene, asteroid: SmallAsteroid) {
+        func dropOre(scene: SKScene, asteroid: SKSpriteNode) {
             
             let ranNum = arc4random_uniform(2)
             var oreChance: UInt32 = 1
@@ -257,12 +223,11 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 println("drop")
                 scene.addChild(orePiece)
                 orePiece.physicsBody = SKPhysicsBody(circleOfRadius: 25)
-
                 orePiece.physicsBody?.applyImpulse(CGVector(dx: -15, dy: 0))
                 orePiece.physicsBody?.collisionBitMask = 0
                 orePiece.physicsBody?.contactTestBitMask = playerCategory
                 orePiece.physicsBody?.categoryBitMask = oreCategory
-
+                
             }
         }
         
@@ -272,9 +237,6 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             enemy?.removeFromParent()
             
             oreCount = oreCount + 1
-
-            
-            
             
         }
         
@@ -294,16 +256,16 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             {
                 
                 if let enemy = enemy {
-                
-                dropOre(self, enemy)
-                
-                explodeFunc(self, enemy)
-                
-                enemy.removeFromParent()
-                
-                currentScore = currentScore + 25
-                }
                     
+                    dropOre(self, enemy)
+                    
+                    explodeFunc(self, enemy)
+                    
+                    enemy.removeFromParent()
+                    
+                    currentScore = currentScore + 25
+                }
+                
             }
             
         }
@@ -320,18 +282,20 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             if enemy?.health <= 0  {
                 
                 if let enemy = enemy {
-                
-                explodeFunc(self, enemy)
-                
-                enemy.removeFromParent()
-                
-                currentScore = currentScore + 100
-                
+                    
+                    dropOre(self, enemy)
+                    
+                    explodeFunc(self, enemy)
+                    
+                    enemy.removeFromParent()
+                    
+                    currentScore = currentScore + 100
+                    
                 }
             }
         }
         
-       
+        
         if (firstMask == playerProjectileOne) && (secondMask == enemyCategoryOne) || (secondMask == playerProjectileOne) && (firstMask == enemyCategoryOne) {
             
             let projectile = secondMask == playerProjectileOne ? secondBody : firstBody
@@ -345,7 +309,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             if enemy?.health <= 10 {
                 
-//                enemy?.physicsBody?.applyImpulse(CGVectorMake(-40, -200))
+                //                enemy?.physicsBody?.applyImpulse(CGVectorMake(-40, -200))
                 enemy?.physicsBody?.allowsRotation = true
                 enemy?.physicsBody?.angularVelocity = 1
                 
@@ -354,22 +318,21 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             if enemy?.health <= 0 {
                 
                 explodeFunc2(self, enemy!)
-
+                
                 enemy?.removeFromParent()
                 currentScore += 50
-
+                
             }
         }
     }
     
-//
-//    let gameoverLabel = SKLabelNode(fontNamed:"HelveticaNeue-UltraLight")
-//    let tryagainLabel = SKLabelNode(fontNamed:"HelveticaNeue-UltraLight")
-//    let returnMenuLabel = SKLabelNode(fontNamed:"HelveticaNeue-UltraLight")
     
+    var deathScreenItems: [SKNode] = []
     
     func playerDeathScreen() {
         
+        pauseButton.hidden = true
+        pauseLabel.hidden = true
         
         reset()
         
@@ -414,26 +377,17 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         retryButton.position = tryagainLabel.position
         addChild(retryButton)
+    
+        returnButton.position = returnMenuLabel.position
+        addChild(returnButton)
         
-        
-        let abortButton = SKSpriteNode(color: UIColor.yellowColor(), size: CGSize(width: 250, height: 100))
-        abortButton.position = returnMenuLabel.position
-//        addChild(abortButton)
-        
-        
+        deathScreenItems.append(returnButton)
         deathScreenItems.append(retryButton)
         deathScreenItems.append(gameoverLabel)
         deathScreenItems.append(tryagainLabel)
         deathScreenItems.append(returnMenuLabel)
         deathScreenItems.append(darkOverlay)
         
-//        let pause = SKAction.runBlock( {self.scene?.paused = true} )
-//        let delay = SKAction.waitForDuration(3)
-//        let pauseSequence = SKAction.sequence([delay,pause])
-        
-//        runAction(pauseSequence)
-        
-
     }
     
     var bulletsFired: Int = 0
@@ -441,11 +395,11 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     override func update(currentTime: CFTimeInterval) {
         
         
-//        var origin = CFAbsoluteTime.self
-//        var current = CFTimeInterval.self
-//        var elapsed = origin - current4r
+        //        var origin = CFAbsoluteTime.self
+        //        var current = CFTimeInterval.self
+        //        var elapsed = origin - current4r
         
-        
+        if menuActive == true { return }
         
         BGScroll()
         BGScroll2()
@@ -460,12 +414,12 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             if playerAlive == false { return }
             
-//            scene?.paused = true
+            //            scene?.paused = true
             
             println("u dide really bad")
-
+            
             explodeFunc3(self, player)
-
+            
             
             player.removeFromParent()
             
@@ -473,7 +427,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             playerAlive = false
             
             playerDeathScreen()
-
+            
         }
         
         
@@ -484,20 +438,11 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             player.position.y = player.position.y - 15
         }
         
-//        if helicopterOneAlive == true && bulletDelay > 15 {
-//            helicopterAttack(self)
-//            bulletDelay = 0
-//            
-//        }
-//        if (gunBool == true) && (gunReloaded == true) {
-//            autoCannon(self)
-//        }
-        
-        if (gunBool == true) && (bulletDelay > 1) {
+        if (gunBool == true) && (bulletDelay > 2) {
             
             bulletsFired++
             beamCannon(self)
-            autoCannon(self)
+            //            autoCannon(self)
             bulletDelay = 0
             println(bulletsFired)
             
@@ -511,6 +456,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     
     
     
+    
+    
+    
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         
         for touch in (touches as! Set<UITouch>) {
@@ -521,11 +469,11 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             touchLocationY = location.y
             
             if retryButton .containsPoint(location) {
-                                
+                
                 println("button retry")
                 
                 for node in deathScreenItems { node.removeFromParent() }
-
+                
                 
                 startGame()
                 
@@ -539,22 +487,30 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
             }
             
-            
-            
-            
-            if pauseButton.containsPoint(location) {
+            if resumeButton.containsPoint(location) {
                 
-//                let sceneNext = MainGameMenu.unarchiveFromFile("MainGameMenu") as? MainGameMenu
-//                let transition = SKTransition.crossFadeWithDuration(2)
-//                self.scene?.view?.presentScene(sceneNext, transition: transition)
+                scene?.paused = false
+                menuActive = false
+                pauseLabel.hidden = false
                 
-//            if scene!.view!.paused == false {
-//                scene!.view!.paused = true
+                for node in missionMenuItems { node.removeFromParent() }
+                
+                
+                
+            }
+            
+            
+            
+            if pauseButton.containsPoint(location) && (pauseLabel.hidden != true) {
+                
+                missionMenu(self)
+                
+//                if scene!.view!.paused == false {
+//                    scene!.view!.paused = true
+//                    
+//                }
+//                else if scene!.view!.paused == true { scene!.view!.paused = false }
 //                
-//               
-//            }
-//            else if scene!.view!.paused == true { scene!.view!.paused = false }
-            
             }
             
             if gunZone .containsPoint(location)  { gunBool = true }
@@ -609,6 +565,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     //~~~~~~~~~~~\//\/\/\//\/\\//\
     
     
+    let engine = SKEmitterNode(fileNamed: "MyParticle")
+    
     func initializePlayer() {
         
         var playerTex: SKTexture!
@@ -624,6 +582,13 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         addChild(player)
         player.physicsBody?.affectedByGravity = false
         playerHealth = 200 + playerHealthBonus
+        
+        
+        
+        //        addChild(engine)
+        ////        engine.position = CGPoint(x: player.position.x - 100, y: player.position.y)
+        //        engine.targetNode = player
+        
         
     }
     
@@ -651,18 +616,15 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         addChild(bgMain1)
         
         
-        }
+    }
     
     func initializeLabels() {
         
         currentScore = 0
         scoreLabel.text = "\(currentScore)"
         scoreLabel.position = CGPoint(x: scene!.size.width / 2, y: scene!.size.height - 60)
-        scoreLabel.zPosition = 10
         scoreLabel.fontSize = 60
-        
         addChild(scoreLabel)
-        
         
         healthLabel.text = "\(playerHealth)"
         healthLabel.fontSize = 50
@@ -675,8 +637,16 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         oreLabel.position = CGPoint(x: scene!.size.width *  0.75, y: scene!.size.height - 60)
         addChild(oreLabel)
         
+        pauseLabel.text = "Menu"
+        pauseLabel.fontSize = 40
+        pauseLabel.position = CGPoint(x: scene!.size.width - 100, y: scene!.size.height - 60)
+        addChild(pauseLabel)
+        
+        pauseButton.position = pauseLabel.position
+        addChild(pauseButton)
+        
     }
-
+    
     override func removeAllChildren() {
         
     }

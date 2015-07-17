@@ -17,7 +17,9 @@ func explodeFunc(scene: SKScene, enemy: SKSpriteNode) {
     
     scene.addChild(explosion)
     
-    let remove = SKAction.sequence([SKAction.waitForDuration(0.1),SKAction.removeFromParent()])
+    let fade = SKAction.fadeOutWithDuration(0.8)
+
+    let remove = SKAction.sequence([SKAction.waitForDuration(0.1),fade,SKAction.removeFromParent()])
     
     explosion.runAction(remove)
     
@@ -29,7 +31,8 @@ func explodeFunc2(scene: SKScene, enemy: SKSpriteNode) {
     
     scene.addChild(explosion)
     
-    let remove = SKAction.sequence([SKAction.waitForDuration(0.1),SKAction.removeFromParent()])
+    let fade = SKAction.fadeOutWithDuration(0.8)
+    let remove = SKAction.sequence([SKAction.waitForDuration(0.1),fade,SKAction.removeFromParent()])
     
     explosion.runAction(remove)
     

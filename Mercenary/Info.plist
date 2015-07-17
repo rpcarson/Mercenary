@@ -4,6 +4,18 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SPACEMAN.TTF</string>
+		<string>SquaresBoldFree.otf</string>
+		<string>Coalition_v2..ttf</string>
+		<string>mensch-thin.ttf</string>
+		<string>Mechfire.otf</string>
+		<string>Xperia.ttf</string>
+		<string>Blue.ttf</string>
+		<string>ZrnicRg-Regular.ttf</string>
+		<string>RechargeRg-Bold.ttf</string>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>

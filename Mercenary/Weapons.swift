@@ -107,7 +107,7 @@ func beamCannon(scene: SKScene) {
     beam.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 0))
     
     
-    let wait = SKAction.waitForDuration(1)
+    let wait = SKAction.waitForDuration(0.5)
     let remove = SKAction.removeFromParent()
     let seq = SKAction.sequence([wait,remove])
     

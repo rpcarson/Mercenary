@@ -12,6 +12,7 @@ import SpriteKit
 
 
 
+var weakjetArray: [SKNode] = []
 
 class WeakJet: SKSpriteNode {
     
@@ -28,6 +29,8 @@ class WeakJet: SKSpriteNode {
         physicsBody?.contactTestBitMask = playerProjectileOne
         physicsBody?.collisionBitMask = 0
         physicsBody?.linearDamping = 0
+        
+        zPosition = 1
         
         let wait = SKAction.waitForDuration(1)
         let fire = SKAction.runBlock( { weakJetRocket(scene, self) } )

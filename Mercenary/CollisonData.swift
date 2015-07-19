@@ -31,6 +31,11 @@ var enemyRocketCat: UInt32 = 9
 
 var oreCategory: UInt32 = 10
 
+var enemyBulletCat: UInt32 = 11
+
+var strafeJetCat: UInt32 = 12
+
+var minionCat: UInt32 = 14
 
 
 func delay1(delay:Double, closure:()->()) {

@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 
 
-var demoButton: SKSpriteNode!
+var playButton: SKSpriteNode!
 
 
 let bg11 = SKSpriteNode(imageNamed: "mmStarSlide1")
@@ -35,8 +35,8 @@ class MainGameMenu: SKScene {
         
         
         
-        demoButton = childNodeWithName("demoButton") as? SKSpriteNode
-        demoButton.hidden = true
+        playButton = childNodeWithName("demoButton") as? SKSpriteNode
+        playButton.hidden = true
     
     }
 
@@ -48,7 +48,9 @@ class MainGameMenu: SKScene {
             let location = touch.locationInNode(self)
             
             
-            if demoButton .containsPoint(location) {
+            if playButton .containsPoint(location) {
+                
+                removeActionForKey("loopKey")
                 
                 let scene = BattleScene.unarchiveFromFile("BattleScene") as? BattleScene
                 let transition = SKTransition.crossFadeWithDuration(2)

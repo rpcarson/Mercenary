@@ -106,7 +106,9 @@ class MainMenuScene: SKScene {
         
         let loopMusic = SKAction.repeatActionForever(SKAction.playSoundFileNamed("IntroThemeAughtV2.mp3", waitForCompletion: true))
         
-        runAction(loopMusic)
+        
+//        runAction((loopMusic), withKey: "loopKey")
+        
         
         
         

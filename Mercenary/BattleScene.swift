@@ -11,6 +11,8 @@ import SpriteKit
 
 var player: SKSpriteNode!
 
+var spawnRandomizer: UInt32 = 0
+var minionRandomizer: UInt32 = 0
 
 var playerUp: Bool = false
 var playerDown: Bool = false
@@ -31,13 +33,27 @@ var moveDown: SKSpriteNode!
 var moveUp: SKSpriteNode!
 var gunZone: SKSpriteNode!
 
+
+var masterEnemyArray: [SKNode] = []
+
+
+
 let music = SKAction.playSoundFileNamed("IntroThemeAughtV2.mp3", waitForCompletion: true)
 let loopMusic = SKAction.repeatActionForever(music)
 
 class BattleScene: SKScene, SKPhysicsContactDelegate {
     
-   
+    
+    
+    
+    
+    
+    
+    
     override func didMoveToView(view: SKView) {
+        
+        //        runAction(loopMusic)
+        
         
         pauseLabel.hidden = true
         
@@ -51,6 +67,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         runAction(SKAction.sequence([delay,bloc]))
         
         ready()
+        
+        
         
         
     }
@@ -69,14 +87,32 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         let fullSeq = SKAction.sequence([fade,fadeOut,remove])
         ready.runAction(fullSeq)
         
+        playerAlive = true
+        
+        
+        if bugzOn {
+            playerHealth = 100000
+        }
+        
         
     }
     
-    
+    var gameOn: Bool = false
     func beginGameplay() {
+        
+        gameOn = true
         
         pauseButton.hidden = false
         pauseLabel.hidden = false
+        
+        
+        minionDelay = 0
+        strafeJetSpawnDelay = 0
+        
+        
+        
+        
+        
         
         
         runAction(SKAction.repeatActionForever(SKAction.sequence([
@@ -116,10 +152,12 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         
         
-        
+        nullZone = childNodeWithName("nullGunZone") as? SKSpriteNode
         moveDown = childNodeWithName("moveDown") as? SKSpriteNode
         moveUp = childNodeWithName("moveUp") as? SKSpriteNode
         gunZone = childNodeWithName("gunZone") as? SKSpriteNode
+        
+        nullZone.hidden = true
         
         moveDown.hidden = true
         moveUp.hidden = true
@@ -158,13 +196,34 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         let player = (firstMask == playerCategory)
         let player1 = (secondMask == playerCategory)
         
+        if player && (secondMask == enemyBulletCat) || player1 && (firstMask == enemyBulletCat) {
+            
+            
+            let projectile = secondMask == enemyBulletCat ? secondBody : firstBody
+            
+            playerHealth = playerHealth - 5
+            projectile?.removeFromParent()
+            if debugz == true{
+                println("bullet contact")
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
         if player && (secondMask == smallRockCat) || player1 && (firstMask == smallRockCat) {
             
             let enemy = secondMask == smallRockCat ? secondBody as? SmallAsteroid : firstBody as? SmallAsteroid
             
-            println("small rock impact")
+            if debugz == true {
+                println("small rock impact")
+                println("player health = \(playerHealth)")
+            }
+            
             playerHealth = playerHealth - 20
-            println("player health = \(playerHealth)")
             
             if let enemy = enemy {
                 explodeFunc(self, enemy)
@@ -176,11 +235,13 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             let enemy = secondMask == largeRockCat ? secondBody as? LargeAsteroid : firstBody as? LargeAsteroid
             
-            
-            
-            println("large rock impact")
             playerHealth = playerHealth - 100
-            println("player health = \(playerHealth)")
+            
+            if bugzOn {
+                println("large rock impact")
+                println("player health = \(playerHealth)")
+            }
+            
             
         }
         
@@ -188,22 +249,27 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             let enemy = secondMask == enemyRocketCat ? secondBody : firstBody
             
-            
-            println("rocket contact")
             enemy?.removeFromParent()
             playerHealth = playerHealth - 50
-            println("player health = \(playerHealth)")
+            
+            if bugzOn {
+                println("rocket contact")
+                println("player health = \(playerHealth)")
+            }
+            
         }
         
         if player && (secondMask == enemyCategoryOne) || player1 && (firstMask == enemyCategoryOne) {
             
             let enemy = secondMask == enemyCategoryOne ? secondBody : firstBody
             
-            
-            println("enemy jet contact")
             enemy?.removeFromParent()
             playerHealth = playerHealth - 50
-            println("player health = \(playerHealth)")
+            
+            if bugzOn {
+                println("enemy jet contact")
+                println("player health = \(playerHealth)")
+            }
         }
         
         func dropOre(scene: SKScene, asteroid: SKSpriteNode) {
@@ -215,12 +281,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             orePiece.position = asteroid.position
             orePiece.glowWidth = 10
             
-            println(ranNum)
-            println(oreChance)
-            
             if oreChance == ranNum {
                 
-                println("drop")
                 scene.addChild(orePiece)
                 orePiece.physicsBody = SKPhysicsBody(circleOfRadius: 25)
                 orePiece.physicsBody?.applyImpulse(CGVector(dx: -15, dy: 0))
@@ -244,8 +306,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             let enemy = secondMask == smallRockCat ? secondBody as? SmallAsteroid : firstBody as? SmallAsteroid
             
-            
-            println(enemy?.health)
+            if bugzOn {
+                println(enemy?.health)
+            }
             
             projectile?.removeFromParent()
             
@@ -273,7 +336,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             let enemy = secondMask == largeRockCat ? secondBody as? LargeAsteroid : firstBody as? LargeAsteroid
             
-            println(enemy?.health)
+            if bugzOn {
+                println(enemy?.health)
+            }
             
             projectile?.removeFromParent()
             
@@ -295,8 +360,67 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        let playerBullet = (firstMask == playerProjectileOne)
+        let playerBullet1 = (secondMask == playerProjectileOne)
         
-        if (firstMask == playerProjectileOne) && (secondMask == enemyCategoryOne) || (secondMask == playerProjectileOne) && (firstMask == enemyCategoryOne) {
+        if playerBullet && (secondMask == strafeJetCat) || playerBullet1 && (firstMask == strafeJetCat) {
+            
+            let projectile = secondMask == playerProjectileOne ? secondBody : firstBody
+            let enemy = secondMask == strafeJetCat ? secondBody as? LittleMinion : firstBody as? LittleMinion
+            
+            projectile?.removeFromParent()
+            
+            enemy?.health = enemy!.health - autoCannonDamage
+            
+            if bugzOn {
+                println("minion health \(enemy?.health)")
+                
+            }
+            
+            if enemy?.health <= 0 {
+                
+                if let enemy = enemy {
+                    explodeFunc2(self, enemy)
+                    enemy.removeFromParent()
+                    currentScore += 25
+                    
+                    
+                }
+                
+            }
+            
+        }
+        
+        
+        
+        
+        
+        if playerBullet && (secondMask == strafeJetCat) || playerBullet1 && (firstMask == strafeJetCat) {
+            
+            let projectile = secondMask == playerProjectileOne ? secondBody : firstBody
+            let enemy = secondMask == strafeJetCat ? secondBody as? StrafeJet : firstBody as? StrafeJet
+            
+            projectile?.removeFromParent()
+            
+            enemy?.health = enemy!.health - autoCannonDamage
+            
+            if enemy?.health <= 0 {
+                
+                if let enemy = enemy {
+                    explodeFunc2(self, enemy)
+                    enemy.removeFromParent()
+                    currentScore += 50
+                    
+                    
+                }
+                
+            }
+            
+        }
+        
+        
+        
+        if playerBullet && (secondMask == enemyCategoryOne) || playerBullet1 && (firstMask == enemyCategoryOne) {
             
             let projectile = secondMask == playerProjectileOne ? secondBody : firstBody
             let enemy = secondMask == enemyCategoryOne ? secondBody as? WeakJet : firstBody as? WeakJet
@@ -305,23 +429,24 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             enemy?.health = enemy!.health - autoCannonDamage
             
-            println(enemy?.health)
+            if bugzOn {
+                println(enemy?.health)
+            }
             
             if enemy?.health <= 10 {
                 
-                //                enemy?.physicsBody?.applyImpulse(CGVectorMake(-40, -200))
                 enemy?.physicsBody?.allowsRotation = true
                 enemy?.physicsBody?.angularVelocity = 1
                 
             }
-            
-            if enemy?.health <= 0 {
+            if let enemy = enemy {
                 
-                explodeFunc2(self, enemy!)
-                
-                enemy?.removeFromParent()
-                currentScore += 50
-                
+                if enemy.health <= 0 {
+                    
+                    explodeFunc2(self, enemy)
+                    enemy.removeFromParent()
+                    currentScore += 50
+                }
             }
         }
     }
@@ -377,7 +502,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         retryButton.position = tryagainLabel.position
         addChild(retryButton)
-    
+        
         returnButton.position = returnMenuLabel.position
         addChild(returnButton)
         
@@ -392,14 +517,53 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     
     var bulletsFired: Int = 0
     var bulletDelay = 0
+    var strafeJetSpawnDelay: UInt32 = 0
+    var minionDelay: UInt32 = 0
     override func update(currentTime: CFTimeInterval) {
         
         
-        //        var origin = CFAbsoluteTime.self
-        //        var current = CFTimeInterval.self
-        //        var elapsed = origin - current4r
-        
         if menuActive == true { return }
+        
+        
+        if gameOn == true {
+            
+            if playerAlive == true {
+                strafeJetSpawnDelay++
+                minionDelay++
+                
+            } else {
+                strafeJetSpawnDelay = 0
+                minionDelay = 0
+            }
+            
+            if minionDelay > minionRandomizer + 200 {
+                
+                var point1 = CGPoint(x: frame.size.width, y: player.position.y + 30)
+                var point2 = CGPoint(x: frame.size.width, y: player.position.y - 30)
+                minionPattern.append(point1)
+                minionPattern.append(point2)
+                
+                for points in minionPattern {
+                    
+                    littionMinionSpawn(self, points)
+                    minionDelay = 0
+                
+                }
+                
+                minionPattern.removeAll(keepCapacity: false)
+                
+            }
+            
+            if strafeJetSpawnDelay > spawnRandomizer + 350 {
+                
+                strafeJetSpawn(self)
+                strafeJetSpawnDelay = 0
+            
+            }
+       
+        }
+        
+        
         
         BGScroll()
         BGScroll2()
@@ -414,9 +578,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             if playerAlive == false { return }
             
-            //            scene?.paused = true
             
-            println("u dide really bad")
+            if bugzOn {
+                println("player death \(playerAlive)")
+            }
             
             explodeFunc3(self, player)
             
@@ -438,13 +603,12 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             player.position.y = player.position.y - 15
         }
         
-        if (gunBool == true) && (bulletDelay > 2) {
+        if (gunBool == true) && (bulletDelay > 5) {
             
             bulletsFired++
-            beamCannon(self)
-            //            autoCannon(self)
+            //            beamCannon(self)
+            autoCannon(self)
             bulletDelay = 0
-            println(bulletsFired)
             
         }
         
@@ -470,10 +634,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             if retryButton .containsPoint(location) {
                 
-                println("button retry")
+                if playerAlive == true { return }
                 
                 for node in deathScreenItems { node.removeFromParent() }
-                
                 
                 startGame()
                 
@@ -499,18 +662,23 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
             }
             
+            //            if upgradeSystemsButton.containsPoint(location) {
+            //
+            //                upgradeSystemsMenu(self)
+            //
+            //            }
             
             
             if pauseButton.containsPoint(location) && (pauseLabel.hidden != true) {
                 
                 missionMenu(self)
                 
-//                if scene!.view!.paused == false {
-//                    scene!.view!.paused = true
-//                    
-//                }
-//                else if scene!.view!.paused == true { scene!.view!.paused = false }
-//                
+                //                if scene!.view!.paused == false {
+                //                    scene!.view!.paused = true
+                //
+                //                }
+                //                else if scene!.view!.paused == true { scene!.view!.paused = false }
+                //
             }
             
             if gunZone .containsPoint(location)  { gunBool = true }
@@ -531,6 +699,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             touchLocationY = location.y
             
             if gunZone .containsPoint(location) { gunBool = true }
+            if nullZone.containsPoint(location) { gunBool = false }
             
         }
         
@@ -639,7 +808,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         pauseLabel.text = "Menu"
         pauseLabel.fontSize = 40
-        pauseLabel.position = CGPoint(x: scene!.size.width - 100, y: scene!.size.height - 60)
+        pauseLabel.position = CGPoint(x: scene!.size.width * 0.12, y: scene!.size.height - 60)
         addChild(pauseLabel)
         
         pauseButton.position = pauseLabel.position

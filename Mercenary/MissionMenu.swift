@@ -56,18 +56,22 @@ func missionMenu(scene: SKScene) {
     scene.addChild(abortButton)
     resumeButton.position = resumeLabel.position
     scene.addChild(resumeButton)
+    upgradeSystemsButton.position = upgradeSystemsLabel.position
+    scene.addChild(upgradeSystemsButton)
+    
+
     
     
+    missionMenuItems.append(upgradeSystemsButton)
     missionMenuItems.append(abortButton)
     missionMenuItems.append(resumeButton)
     missionMenuItems.append(abortLabel)
     missionMenuItems.append(resumeLabel)
     missionMenuItems.append(menuLabel)
     missionMenuItems.append(menuOverlay)
-
+    missionMenuItems.append(upgradeSystemsLabel)
+    
     scene.paused = true
 
-    
-    
 }
 

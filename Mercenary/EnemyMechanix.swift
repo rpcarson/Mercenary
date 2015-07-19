@@ -12,6 +12,109 @@ import SpriteKit
 
 
 
+var minionPattern: [CGPoint] = []
+
+func littionMinionSpawn(scene: SKScene, spawnPoint: CGPoint) {
+    
+   
+    
+    
+    var randomizer = arc4random_uniform(200)
+    minionRandomizer = randomizer
+    
+    let enemy = LittleMinion(scene: scene)
+    enemy.position = spawnPoint
+    
+    scene.addChild(enemy)
+    
+    
+    let move = SKAction.moveToX( -scene.size.width + enemy.size.width, duration: 9)
+    let remove = SKAction.removeFromParent()
+    
+    enemy.runAction(SKAction.sequence([move,remove]))
+    
+    
+     masterEnemyArray.append(enemy)
+}
+
+
+
+func minionShot(scene: SKScene, enemyShip: LittleMinion) {
+   
+    
+    let shot = SKShapeNode(rectOfSize: CGSize(width: 15, height: 4))
+    
+    shot.position = enemyShip.position
+    shot.fillColor = UIColor.yellowColor()
+    shot.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 15, height: 4))
+    shot.physicsBody?.contactTestBitMask = playerCategory
+    shot.physicsBody?.categoryBitMask = enemyBulletCat
+    shot.physicsBody?.collisionBitMask = 0
+    
+    scene.addChild(shot)
+    
+    let movement = SKAction.moveToX(-scene.size.width, duration: 2)
+    let remove = SKAction.removeFromParent()
+    shot.runAction(SKAction.sequence([movement,remove]))  
+    
+    
+    
+}
+
+func strafeJetSpawn(scene: SKScene) {
+    
+    var randomizerStrafe = arc4random_uniform(350)
+    spawnRandomizer = randomizerStrafe
+    
+    let enemy = StrafeJet(scene: scene)
+    enemy.position = CGPoint(x: scene.size.width + enemy.size.width, y: scene.size.height - (enemy.size.height * 2))
+    
+    scene.addChild(enemy)
+    
+    
+    let move = SKAction.moveToX( -scene.size.width + enemy.size.width, duration: 12)
+    let remove = SKAction.removeFromParent()
+    
+    enemy.runAction(SKAction.sequence([move,remove]))
+    
+    masterEnemyArray.append(enemy)
+
+    
+}
+
+
+func strafeJetProjectile(scene: SKScene, enemyShip: StrafeJet) {
+    
+ 
+    let bullet = SKShapeNode(circleOfRadius: 5)
+    
+    bullet.physicsBody = SKPhysicsBody(circleOfRadius: 10)
+    bullet.physicsBody?.collisionBitMask = 0
+    bullet.physicsBody?.contactTestBitMask = playerCategory
+    bullet.physicsBody?.categoryBitMask = enemyBulletCat
+    bullet.position = CGPoint(x: enemyShip.position.x - 20, y: enemyShip.position.y - 10)
+    bullet.fillColor = UIColor.yellowColor()
+    bullet.strokeColor = UIColor.redColor()
+    bullet.glowWidth = 3
+    
+    scene.addChild(bullet)
+    
+    
+    let X = player.position.x - bullet.position.x
+    let Y = player.position.y - bullet.position.y
+    var magnitude: CGFloat = sqrt(X*X+Y*Y)
+    bullet.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*7, Y/magnitude*7))
+    
+  
+    let remove = SKAction.removeFromParent()
+    let wait = SKAction.waitForDuration(3.0)
+    bullet.runAction(SKAction.sequence([wait,remove]))
+    
+    
+}
+
+
+
 func weakJetSpawn(scene: SKScene) {
     
     let ranPointY2 = CGFloat(arc4random_uniform(100))
@@ -29,6 +132,10 @@ func weakJetSpawn(scene: SKScene) {
     let sequence = SKAction.sequence([move,remove])
     
     enemy.runAction(sequence)
+    
+
+    masterEnemyArray.append(enemy)
+
     
 }
 
@@ -48,6 +155,11 @@ func weakJetRocket(scene: SKScene, enemyShip: WeakJet) {
     scene.addChild(rocket)
     
     rocket.physicsBody?.applyImpulse(CGVector(dx: -100, dy: 0))
+    
+    let remove = SKAction.removeFromParent()
+    let wait = SKAction.waitForDuration(1.0)
+        rocket.runAction(SKAction.sequence([wait,remove]))
+    
 }
 
 

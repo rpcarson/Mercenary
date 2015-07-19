@@ -9,6 +9,10 @@
 import Foundation
 import SpriteKit
 
+var debugz: Bool = true
+
+let bugzOn = (debugz == true)
+
 
 
 var playerHealthBonus: Int = 0

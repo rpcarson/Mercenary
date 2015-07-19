@@ -19,7 +19,10 @@ func LargeAsteroidMechanix(scene: SKScene) {
     scene.addChild(object)
     
     asteroidArray.append(object)
-    println(asteroidArray.count)
+    
+    if debugz == true {
+    println("asteroid array\(asteroidArray.count)")
+    }
     
     var ranTork = CGFloat(arc4random_uniform(6)) - 3
     object.physicsBody?.applyTorque(ranTork)

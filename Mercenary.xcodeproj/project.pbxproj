@@ -12,12 +12,13 @@
 		5B2428C01B536CEA00D4D723 /* LevelOneMainLoop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5B2428BF1B536CEA00D4D723 /* LevelOneMainLoop.mp3 */; };
 		5B2428C21B53714E00D4D723 /* LevelOne.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5B2428C11B53714E00D4D723 /* LevelOne.mp3 */; };
 		5B25392F1B4673AB00642AD6 /* IntroThemeAughtV2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5B25392E1B4673AB00642AD6 /* IntroThemeAughtV2.mp3 */; };
-		5B2539311B4674C600642AD6 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2539301B4674C600642AD6 /* MainMenuScene.swift */; };
 		5B2539331B46751900642AD6 /* LevelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2539321B46751900642AD6 /* LevelData.swift */; };
 		5B2539351B46774A00642AD6 /* MainMenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5B2539341B46774A00642AD6 /* MainMenuScene.sks */; };
 		5B4A41221B458905001A6AEA /* EnemyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A41211B458905001A6AEA /* EnemyTypes.swift */; };
 		5B4A41241B458E6A001A6AEA /* CollisonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A41231B458E6A001A6AEA /* CollisonData.swift */; };
 		5B5435341B570EBE00CFB839 /* VariablesAndMultipliers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5435331B570EBE00CFB839 /* VariablesAndMultipliers.swift */; };
+		5B6064D21B598AB000FB346B /* UpgradeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6064D11B598AB000FB346B /* UpgradeMenu.swift */; };
+		5B6064D41B59ACF600FB346B /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6064D31B59ACF600FB346B /* MainMenuScene.swift */; };
 		5B68D91B1B48AAD300DD2284 /* EnemyInformation in Resources */ = {isa = PBXBuildFile; fileRef = 5B68D91A1B48AAD300DD2284 /* EnemyInformation */; };
 		5B68D9211B48C4C700DD2284 /* MainGameMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5B68D9201B48C4C700DD2284 /* MainGameMenu.sks */; };
 		5B68D9231B48C4DA00DD2284 /* MainGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B68D9221B48C4DA00DD2284 /* MainGameMenu.swift */; };
@@ -75,12 +76,13 @@
 		5B2428BF1B536CEA00D4D723 /* LevelOneMainLoop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = LevelOneMainLoop.mp3; sourceTree = "<group>"; };
 		5B2428C11B53714E00D4D723 /* LevelOne.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = LevelOne.mp3; sourceTree = "<group>"; };
 		5B25392E1B4673AB00642AD6 /* IntroThemeAughtV2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = IntroThemeAughtV2.mp3; sourceTree = "<group>"; };
-		5B2539301B4674C600642AD6 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMenuScene.swift; path = Mercenary/MainMenuScene.swift; sourceTree = "<group>"; };
 		5B2539321B46751900642AD6 /* LevelData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelData.swift; sourceTree = "<group>"; };
 		5B2539341B46774A00642AD6 /* MainMenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = MainMenuScene.sks; path = Mercenary/MainMenuScene.sks; sourceTree = "<group>"; };
 		5B4A41211B458905001A6AEA /* EnemyTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyTypes.swift; sourceTree = "<group>"; };
 		5B4A41231B458E6A001A6AEA /* CollisonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisonData.swift; sourceTree = "<group>"; };
 		5B5435331B570EBE00CFB839 /* VariablesAndMultipliers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariablesAndMultipliers.swift; sourceTree = "<group>"; };
+		5B6064D11B598AB000FB346B /* UpgradeMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeMenu.swift; sourceTree = "<group>"; };
+		5B6064D31B59ACF600FB346B /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		5B68D91A1B48AAD300DD2284 /* EnemyInformation */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EnemyInformation; sourceTree = "<group>"; };
 		5B68D9201B48C4C700DD2284 /* MainGameMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainGameMenu.sks; sourceTree = "<group>"; };
 		5B68D9221B48C4DA00DD2284 /* MainGameMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainGameMenu.swift; sourceTree = "<group>"; };
@@ -167,7 +169,7 @@
 		5B68D91E1B48C47600DD2284 /* StartScreen */ = {
 			isa = PBXGroup;
 			children = (
-				5B2539301B4674C600642AD6 /* MainMenuScene.swift */,
+				5B6064D31B59ACF600FB346B /* MainMenuScene.swift */,
 				5B2539341B46774A00642AD6 /* MainMenuScene.sks */,
 			);
 			name = StartScreen;
@@ -197,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				5B76438A1B5548000059C203 /* MissionMenu.swift */,
+				5B6064D11B598AB000FB346B /* UpgradeMenu.swift */,
 				5B95AE991B595A4600D5A4BE /* DeathMenu.swift */,
 			);
 			name = Menuze;
@@ -460,11 +463,12 @@
 				5BDF48641B42DEEB00CBD6E5 /* AppDelegate.swift in Sources */,
 				5B2539331B46751900642AD6 /* LevelData.swift in Sources */,
 				5B68D9231B48C4DA00DD2284 /* MainGameMenu.swift in Sources */,
+				5B6064D41B59ACF600FB346B /* MainMenuScene.swift in Sources */,
 				5B70C03A1B54564C00F2EA73 /* EnemyMechanix.swift in Sources */,
 				5B76438B1B5548000059C203 /* MissionMenu.swift in Sources */,
 				5B4A41241B458E6A001A6AEA /* CollisonData.swift in Sources */,
-				5B2539311B4674C600642AD6 /* MainMenuScene.swift in Sources */,
 				5B4A41221B458905001A6AEA /* EnemyTypes.swift in Sources */,
+				5B6064D21B598AB000FB346B /* UpgradeMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

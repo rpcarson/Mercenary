@@ -12,6 +12,76 @@ import SpriteKit
 
 
 
+class LittleMinion: SKSpriteNode {
+    
+    var health = 15
+    
+    init(scene: SKScene) {
+        let tex = SKTexture(imageNamed: "stupidAssMinion1")
+        super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
+        
+        size = CGSize(width: 100, height: 60)
+        physicsBody = SKPhysicsBody(texture: tex, size: size)
+        physicsBody?.contactTestBitMask = playerCategory | playerProjectileOne
+        physicsBody?.collisionBitMask = 0
+        physicsBody?.categoryBitMask = strafeJetCat
+        zPosition = 1
+        
+        let delay = SKAction.waitForDuration(0.6)
+        let wait = SKAction.waitForDuration(0.2)
+        let fire = SKAction.runBlock( { minionShot(scene, self) } )
+        let attackBehaviour = SKAction.sequence([delay,fire])
+    
+        
+        runAction(SKAction.repeatActionForever(attackBehaviour))
+        
+        
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    
+    
+}
+
+
+
+class StrafeJet: SKSpriteNode {
+    
+    var health = 50
+    
+    init(scene: SKScene) {
+        let tex = SKTexture(imageNamed: "strafeJet")
+        super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
+   
+        size = CGSize(width: 100, height: 70)
+        physicsBody = SKPhysicsBody(texture: tex, size: size)
+        physicsBody?.contactTestBitMask = playerCategory | playerProjectileOne
+        physicsBody?.collisionBitMask = 0
+        physicsBody?.categoryBitMask = strafeJetCat
+        zPosition = 1
+    
+        let delay = SKAction.waitForDuration(0.3)
+        let wait = SKAction.waitForDuration(1)
+        let fire = SKAction.runBlock( { strafeJetProjectile(scene, self) } )
+        let attackBehaviour = SKAction.sequence([wait,fire,delay,fire,delay,fire])
+        runAction(SKAction.repeatAction(attackBehaviour, count: 2))
+    
+    
+    
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+}
+
+
+
 var weakjetArray: [SKNode] = []
 
 class WeakJet: SKSpriteNode {
@@ -39,20 +109,14 @@ class WeakJet: SKSpriteNode {
         
         
         runAction(action)
-        
-//        fire = SKAction.runBlock { () -> Void in
-//                
-//            weakJetRocket(scene)
-//                
-//        }
+
 
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    var fire: SKAction!
+
     
 }
 
@@ -79,20 +143,7 @@ func enemyFighter(scene: SKScene) {
     
 }
 
-//class WeakFighter: SKSpriteNode {
-//    init(scene: SKScene) {
-//     let fighterTex = SKTexture(imageNamed: "crappyEnemy1")
-//        super.init(texture: fighterTex, color: UIColor.clearColor(), size: fighterTex.size())
-//
-//        size = CGSize(width: 100, height: 100)
-//        position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
-//
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//}
+
 
 class ShittyTank: SKSpriteNode {
     
@@ -124,28 +175,6 @@ class ShittyTank: SKSpriteNode {
 }
 
 
-//func shittyTankFunc(scene: SKScene) {
-//
-//
-//    let tankText = SKTexture(imageNamed: "shittyTank")
-//    let shittyTank = SKSpriteNode(imageNamed: "shittyTank")
-//    shittyTank.size = CGSize(width: 200, height: 100)
-//    shittyTank.physicsBody = SKPhysicsBody(texture: tankText, size: shittyTank.size)
-//
-//    shittyTank.physicsBody?.affectedByGravity = false
-//    shittyTank.physicsBody?.categoryBitMask = enemyCategoryOne
-//    shittyTank.physicsBody?.contactTestBitMask = playerProjectileOne
-//    shittyTank.physicsBody?.collisionBitMask = 0
-//    shittyTank.position = CGPoint(x: scene.frame.width + shittyTank.size.width, y: 120)
-//
-//    scene.addChild(shittyTank)
-//
-//    shittyTank.physicsBody?.applyImpulse(CGVector(dx: -30, dy: 0))
-//    shittyTank.physicsBody?.linearDamping = 0
-//
-//
-//}
-
 
 var helicopterOneAlive: Bool = false
 
@@ -160,30 +189,6 @@ var helicopter1Health: Int = 50
 let helicopter1 = SKSpriteNode(imageNamed: "shittyPlane")
 
 
-
-
-
-
-
-//func helicopterEnemy(scene: SKScene) {
-//    helicopterOneAlive = true
-//    var helicopterTextureOne: SKTexture!
-//    var helicopter1Health: Int! = 50
-//
-//    helicopterTextureOne = SKTexture(imageNamed: "shittyPlane")
-//    helicopter1.physicsBody = SKPhysicsBody(texture: helicopterTextureOne, size: helicopter1.size)
-//    helicopter1.position = enemySpawnPointOne
-//    helicopter1.physicsBody?.categoryBitMask = enemyCategoryOne
-//    helicopter1.physicsBody?.contactTestBitMask = playerProjectileOne
-//    helicopter1.physicsBody?.collisionBitMask = 0
-//    helicopter1.physicsBody?.usesPreciseCollisionDetection = true
-//    helicopter1.physicsBody?.linearDamping = 0
-//
-//    scene.addChild(helicopter1)
-//
-//    helicopter1.physicsBody?.applyImpulse(enemyOneImpulse)
-//
-//}
 
 var helicopterBulletDamage: Int! = 5
 
@@ -205,9 +210,7 @@ func helicopterAttack(scene: SKScene) {
     
     scene.addChild(bullets)
     
-    
-    bullets.physicsBody?.affectedByGravity = false
-    
+        
     let X = player.position.x - bullets.position.x
     let Y = player.position.y - bullets.position.y
     var magnitude: CGFloat = sqrt(X*X+Y*Y)

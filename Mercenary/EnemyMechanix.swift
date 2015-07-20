@@ -254,7 +254,7 @@ func weakJetRocket(scene: SKScene, enemyShip: WeakJet) {
     rocket.physicsBody?.applyImpulse(CGVector(dx: -100, dy: 0))
     
     let remove = SKAction.removeFromParent()
-    let wait = SKAction.waitForDuration(1.0)
+    let wait = SKAction.waitForDuration(2.0)
         rocket.runAction(SKAction.sequence([wait,remove]))
     
 }

@@ -24,6 +24,9 @@ var gunBool: Bool = false
 var playerAlive: Bool = true
 var menuActive: Bool = false
 
+var levelComplete: Bool = false
+
+
 
 var playerHealth: Int = 0
 var currentScore: Int = 0
@@ -42,11 +45,17 @@ var masterEnemyArray: [SKNode] = []
 
 var gunFX: SKAction!
 var playTex: SKTexture!
+var rico: SKAction!
+var rico1: SKAction!
+var rico2: SKAction!
 
 let music = SKAction.playSoundFileNamed("IntroThemeAughtV2.mp3", waitForCompletion: true)
 let loopMusic = SKAction.repeatActionForever(music)
 
 class BattleScene: SKScene, SKPhysicsContactDelegate {
+    
+    
+    
     
     
     override func didMoveToView(view: SKView) {
@@ -57,7 +66,15 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         gunFX = gunSFX
         let playerTex = SKTexture(imageNamed: "truckNoLoad1")
         playTex = playerTex
-
+        let ric1 = SKAction.playSoundFileNamed("ricochet1.wav", waitForCompletion: false)
+        let ric2 = SKAction.playSoundFileNamed("ricochet2.wav", waitForCompletion: false)
+        let ric3 = SKAction.playSoundFileNamed("shortRicochet.wav", waitForCompletion: false)
+        rico = ric1
+        rico1 = ric2
+        rico2 = ric3
+        
+        
+        
         
         pauseLabel.hidden = true
         
@@ -115,8 +132,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         
 //        bargeSpawn(self)
-        
-        enemyFighter(self)
+//        
+//        enemyFighter(self)
         
         
         
@@ -216,7 +233,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         if player && (secondMask == shieldRunnerCat) || player1 && (firstMask == shieldRunnerCat) {
             
             let playerShip = secondMask == playerCategory ? secondBody : firstBody
-
+            
             
             playerHealth = playerHealth - 200
             
@@ -250,7 +267,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             let enemy = secondMask == largeRockCat ? secondBody as? LargeAsteroid : firstBody as? LargeAsteroid
             
-            playerHealth = playerHealth - 100
+            playerHealth = playerHealth - 75
             
             if bugzOn {
                 println("large rock impact")
@@ -259,6 +276,22 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             
         }
+        
+        if player && (secondMask == strafeJetCat) || player1 && (firstMask == strafeJetCat) {
+            
+            let enemy = secondMask == strafeJetCat ? secondBody : firstBody
+            
+            enemy?.removeFromParent()
+            playerHealth = playerHealth - 25
+            
+            if bugzOn {
+                println("rocket contact")
+                println("player health = \(playerHealth)")
+            }
+            
+        }
+        
+        
         
         if player && (secondMask == enemyRocketCat) || player1 && (firstMask == enemyRocketCat) {
             
@@ -279,7 +312,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             let enemy = secondMask == enemyCategoryOne ? secondBody : firstBody
             
             enemy?.removeFromParent()
-            playerHealth = playerHealth - 50
+            playerHealth = playerHealth - 25
             
             if bugzOn {
                 println("enemy jet contact")
@@ -292,7 +325,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             let ranNum = arc4random_uniform(2)
             var oreChance: UInt32 = 1
             let orePiece = SKShapeNode(circleOfRadius: 10)
-            orePiece.fillColor = UIColor.yellowColor()
+            orePiece.fillColor = UIColor(red:0.25, green:0.92, blue:0.46, alpha:1)
             orePiece.position = asteroid.position
             orePiece.glowWidth = 10
             
@@ -300,11 +333,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
                 scene.addChild(orePiece)
                 orePiece.physicsBody = SKPhysicsBody(circleOfRadius: 25)
-//                orePiece.physicsBody?.applyImpulse(CGVector(dx: -15, dy: 0))
                 orePiece.physicsBody?.collisionBitMask = 0
                 orePiece.physicsBody?.contactTestBitMask = playerCategory
                 orePiece.physicsBody?.categoryBitMask = oreCategory
-
+                
                 
                 let move = SKAction.moveToX( -scene.size.width, duration: 9)
                 let remove = SKAction.removeFromParent()
@@ -321,6 +353,11 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             enemy?.removeFromParent()
             
             oreCount = oreCount + 1
+            
+            if oreCount == 9 {
+                
+                playerHealth = playerHealth + 100
+            }
             
         }
         
@@ -387,7 +424,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         if playerBullet && (secondMask == shieldRunnerCat) || playerBullet1 && (firstMask == shieldRunnerCat) {
             let projectile = secondMask == playerProjectileOne ? secondBody : firstBody
-
+            
             projectile?.removeFromParent()
             
         }
@@ -400,6 +437,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             let enemy = secondMask == strafeJetCat ? secondBody as? LittleMinion : firstBody as? LittleMinion
             
             projectile?.removeFromParent()
+            
+            //            runAction(rico)
             
             enemy?.health = enemy!.health - autoCannonDamage
             
@@ -451,27 +490,30 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         if playerBullet && (secondMask == bargeCat) || playerBullet1 && (firstMask == bargeCat) {
             
-             let enemy = secondMask == enemyCategoryOne ? secondBody as? ArtillaryBarge : firstBody as? ArtillaryBarge
+            let enemy = secondMask == enemyCategoryOne ? secondBody as? ArtillaryBarge : firstBody as? ArtillaryBarge
             
             projectile?.removeFromParent()
             
+            //            runAction(rico2)
+            
             if let enemy = enemy {
-            
-            enemy.health = enemy.health - autoCannonDamage
-            
-            if enemy.health <= 80 {
-                enemy.physicsBody?.allowsRotation = true
-                enemy.physicsBody?.angularVelocity = 0.1
                 
+                enemy.health = enemy.health - autoCannonDamage
+                
+                if enemy.health <= 80 {
+                    enemy.physicsBody?.allowsRotation = true
+                    enemy.physicsBody?.angularVelocity = 0.1
+                    
                 }
-            if enemy.health <= 0 {
-                enemy.removeFromParent()
-                explodeFunc2(self, enemy)
-                currentScore += 350
-                
+                if enemy.health <= 0 {
+                    enemy.removeFromParent()
+                    explodeFunc2(self, enemy)
+                    currentScore += 350
+                    
                 }
             }
         }
+        
         
         if playerBullet && (secondMask == enemyCategoryOne) || playerBullet1 && (firstMask == enemyCategoryOne) {
             
@@ -479,6 +521,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             let enemy = secondMask == enemyCategoryOne ? secondBody as? WeakJet : firstBody as? WeakJet
             
             projectile?.removeFromParent()
+            
+            //            runAction(rico1)
             
             enemy?.health = enemy!.health - autoCannonDamage
             
@@ -578,124 +622,155 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     var weakJetTimer: UInt32 = 0
     var bargeTimer: UInt32 = 0
     var shieldTimer: UInt32 = 0
+    var levelTime: UInt32 = 0
+    var singleMinion: UInt32 = 0
+    
+    func finishLevel() {
+        
+        levelComplete = true
+        reset()
+        
+    }
+    
     
     override func update(currentTime: CFTimeInterval) {
+//        println(levelTime)
+        
         
         
         if menuActive == true { return }
         
-        
-        if gameOn == true {
+        if levelComplete == false {
             
-            if playerAlive == true {
-                totalEllapsed++
-                strafeJetSpawnDelay++
-                minionDelay++
-                fighterWaveTimer++
-                weakJetTimer++
-                bargeTimer++
-                shieldTimer++
+            if gameOn == true {
                 
-            } else {
-                totalEllapsed = 0
-                strafeJetSpawnDelay = 0
-                minionDelay = 0
-                fighterWaveTimer = 0
-                weakJetTimer = 0
-                bargeTimer = 0
-                shieldTimer = 0
-            }
-            
-            
-            if currentScore > 1000 && shieldTimer > 2000 {
-                
-                enemyFighter(self)
-                shieldTimer = 0
-                
-            }
-            
-            
-            
-            if (currentScore == 2000) && bargeTimer > 3000 {
-                var point3 = CGPoint(x: frame.size.width + 30, y: player.position.y - 100)
-                var point4 = CGPoint(x: frame.size.width + 30, y: player.position.y - 200)
-                var point5 = CGPoint(x: frame.size.width + 30, y: player.position.y)
-                var point6 = CGPoint(x: frame.size.width + 30, y: player.position.y + 100)
-                var minionArray: [CGPoint] = [point3,point4,point5,point6]
-                
-                for point in minionArray {
-                
-                    littionMinionSpawn(self, point)
-
-                }
-                
-                bargeSpawn(self)
-                bargeTimer = 0
-            
-            }
-            
-            if fighterWaveTimer > 2000 + minionRandomizer {
-                var point1 = CGPoint(x: frame.size.width + 150, y: frame.size.height)
-                var point2 = CGPoint(x: frame.size.width + 300, y: frame.size.height - 100)
-                var point3 = CGPoint(x: frame.size.width + 450, y: frame.size.height - 200)
-                let pattern1: [CGPoint] = [point1,point2,point3]
-                
-                var ranPointY = arc4random_uniform(100)
-                
-                for points in pattern1 {
+                if playerAlive == true {
+                    totalEllapsed++
+                    strafeJetSpawnDelay++
+                    minionDelay++
+                    fighterWaveTimer++
+                    weakJetTimer++
+                    bargeTimer++
+                    shieldTimer++
+                    bulletDelay++
+                    bulletDelay1++
+                    levelTime++
+                    singleMinion++
                     
-                    fighterJetWave(self, points, ranPointY)
+                } else {
+                    totalEllapsed = 0
+                    strafeJetSpawnDelay = 0
+                    minionDelay = 0
                     fighterWaveTimer = 0
-                }
-            }
-            
-           if totalEllapsed > 600 {
-                if weakJetTimer > 200 + jetRandomizer {
-                    weakJetSpawn(self)
                     weakJetTimer = 0
+                    bargeTimer = 0
+                    shieldTimer = 0
+                    bulletDelay = 0
+                    bulletDelay1 = 0
+                    levelTime = 0
+                    singleMinion = 0
+                }
+                
+                if levelTime > 10000 {
+                    finishLevel()
                     
                 }
-            }
-            
-            
-            
-            if totalEllapsed > 1000 {
-                if minionDelay > minionRandomizer + 300 {
+                
+                if currentScore > 1000 && shieldTimer > 1200 {
                     
+                    enemyFighter(self)
+                    shieldTimer = 0
                     
-                    var point1 = CGPoint(x: frame.size.width + 150, y: player.position.y + 50)
-                    var point2 = CGPoint(x: frame.size.width + 150, y: player.position.y - 50)
-                    var point3 = CGPoint(x: frame.size.width + 30, y: player.position.y)
+                }
+                
+                if singleMinion > 400 {
+                    var rany = CGFloat(arc4random_uniform(300)) - 150
+                    var point5 = CGPoint(x: frame.size.width + 30, y: player.position.y + rany)
+
+                    littionMinionSpawn(self, point5)
+                    singleMinion = 0
+                    
+                }
+                
+                if bargeTimer > 4000 {
+                    var point3 = CGPoint(x: frame.size.width + 30, y: player.position.y - 100)
+                    var point4 = CGPoint(x: frame.size.width + 30, y: player.position.y - 200)
+                    var point5 = CGPoint(x: frame.size.width + 30, y: player.position.y)
+                    var point6 = CGPoint(x: frame.size.width + 30, y: player.position.y + 100)
+                    var minionArray: [CGPoint] = [point3,point4,point5,point6]
+                    
+                    for point in minionArray {
+                        
+                        littionMinionSpawn(self, point)
+                        
+                    }
+                    
+                    bargeSpawn(self)
+                    bargeTimer = 0
+                    
+                }
+                
+                if (fighterWaveTimer > 2000 + minionRandomizer) && totalEllapsed > 4000 {
+                    var point1 = CGPoint(x: frame.size.width + 150, y: frame.size.height)
+                    var point2 = CGPoint(x: frame.size.width + 300, y: frame.size.height - 200)
+                    var point3 = CGPoint(x: frame.size.width + 450, y: frame.size.height - 400)
                     let pattern1: [CGPoint] = [point1,point2,point3]
+                    
+                    var ranPointY = arc4random_uniform(100)
                     
                     for points in pattern1 {
                         
-                        littionMinionSpawn(self, points)
-                        minionDelay = 0
+                        fighterJetWave(self, points, ranPointY)
+                        fighterWaveTimer = 0
+                    }
+                }
+                
+                if totalEllapsed > 600 {
+                    if weakJetTimer > 200 + jetRandomizer {
+                        weakJetSpawn(self)
+                        weakJetTimer = 0
                         
+                    }
+                }
+                
+                
+                
+                if totalEllapsed > 2000 {
+                    if minionDelay > minionRandomizer + 500 {
+                        
+                        
+                        var point1 = CGPoint(x: frame.size.width + 150, y: player.position.y + 50)
+                        var point2 = CGPoint(x: frame.size.width + 150, y: player.position.y - 50)
+                        var point3 = CGPoint(x: frame.size.width + 30, y: player.position.y)
+                        let pattern1: [CGPoint] = [point1,point2,point3]
+                        
+                        for points in pattern1 {
+                            
+                            littionMinionSpawn(self, points)
+                            minionDelay = 0
+                            
+                            
+                            
+                        }
+                    }
+                }
+                
+                if totalEllapsed > 3000 {
+                    if strafeJetSpawnDelay > spawnRandomizer + 600 {
+                        
+                        strafeJetSpawn(self)
+                        strafeJetSpawnDelay = 0
                         
                         
                     }
                 }
             }
-            
-            if totalEllapsed > 1000 {
-                if strafeJetSpawnDelay > spawnRandomizer + 350 {
-                    
-                    strafeJetSpawn(self)
-                    strafeJetSpawnDelay = 0
-                    
-                    
-                }
-            }
         }
-        
         
         BGScroll()
         BGScroll2()
         
-        bulletDelay++
-        bulletDelay1++
+        
         
         healthLabel.text = "\(playerHealth)"
         scoreLabel.text = "\(currentScore)"
@@ -732,7 +807,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         if (gunBool == true) && (bulletDelay > 12) {
             println("bd \(bulletDelay)")
-//            bulletsFired++
+            //            bulletsFired++
             if beamEnabled == true {
                 
                 beamCannon(self)
@@ -746,7 +821,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             autoCannon1(self)
             bulletDelay1 = 0
             println("bd1 \(bulletDelay1)")
-
+            
             
         }
         
@@ -774,6 +849,14 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             if retryButton .containsPoint(location) {
                 
                 if playerAlive == true { return }
+                
+                beamEnabled = false
+                uraniumBool = false
+                explosiveBool = false
+                
+                oreCount = 0
+                
+                currentScore = 0
                 
                 for node in deathScreenItems { node.removeFromParent() }
                 
@@ -881,7 +964,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         player.zPosition = 2
         addChild(player)
         player.physicsBody?.affectedByGravity = false
-        playerHealth = 200 + playerHealthBonus
+        playerHealth = 500 + playerHealthBonus
         
         
         
@@ -947,13 +1030,6 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    override func removeAllChildren() {
-        
-    }
-    override func removeAllActions() {
-        
-        
-    }
 }
 
 

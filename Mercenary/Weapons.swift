@@ -18,7 +18,7 @@ var uraniumDam: Int = 0
 var explosiveDam: Int = 0
 var doubleShotBool: Bool = true
 var tripleShotBool: Bool = false
-var uraniumBool: Bool = true
+var uraniumBool: Bool = false
 var explosiveBool: Bool = false
 
 var beamEnabled: Bool = false
@@ -33,10 +33,13 @@ var cannonTexture: SKTexture!
 
 func autoCannon(scene: SKScene) {
     
-    if bugzOn {
-    println("AC Dam = \(autoCannonDamage)")
-    }
+    if oreCount > 2 { uraniumBool = true }
+    if oreCount > 4 { beamEnabled = true }
+    if oreCount > 6 { explosiveBool =  true }
     
+    if bugzOn {     }
+    println("AC Dam = \(autoCannonDamage)")
+
     
     let projectile = SKSpriteNode(texture: cannonTexture)
     let projectile1 = SKSpriteNode(texture: cannonTexture)
@@ -56,12 +59,14 @@ func autoCannon(scene: SKScene) {
         projectile.size = CGSize(width: 50, height: 16)
         
     }
-    
-//    let projectile = SKSpriteNode(imageNamed: "gunfire3")
-//    let projectile1 = SKSpriteNode(imageNamed: "gunfire3")
+
     if beamEnabled ==  true {
         
-        beamDamage = 2
+        beamDamage = 3
+    }
+    if explosiveBool == true {
+        
+        explosiveDam = 2
     }
     
     

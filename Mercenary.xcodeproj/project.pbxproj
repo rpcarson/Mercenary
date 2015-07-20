@@ -30,6 +30,11 @@
 		5B95AE971B593EBF00D5A4BE /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5B95AE951B593EBF00D5A4BE /* MyParticle.sks */; };
 		5B95AE981B593EBF00D5A4BE /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B95AE961B593EBF00D5A4BE /* spark.png */; };
 		5B95AE9C1B595C7100D5A4BE /* ButtonsAndLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B95AE9B1B595C7100D5A4BE /* ButtonsAndLabels.swift */; };
+		5BA8DC131B5D327300AE990F /* explosionSFX1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA8DC121B5D327300AE990F /* explosionSFX1.wav */; };
+		5BA8DC171B5D370800AE990F /* ricochet1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA8DC141B5D370800AE990F /* ricochet1.wav */; };
+		5BA8DC181B5D370800AE990F /* ricochet2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA8DC151B5D370800AE990F /* ricochet2.wav */; };
+		5BA8DC191B5D370800AE990F /* shortRicochet.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BA8DC161B5D370800AE990F /* shortRicochet.wav */; };
+		5BA8DC1B1B5D442100AE990F /* LevelCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA8DC1A1B5D442100AE990F /* LevelCompleted.swift */; };
 		5BCC58E91B5963FC0028AD55 /* Coalition_v2..ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BCC58E31B5963FC0028AD55 /* Coalition_v2..ttf */; };
 		5BCC58EA1B5963FC0028AD55 /* CodePredators-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BCC58E41B5963FC0028AD55 /* CodePredators-Regular.ttf */; };
 		5BCC58EB1B5963FC0028AD55 /* Mechfire.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5BCC58E51B5963FC0028AD55 /* Mechfire.otf */; };
@@ -94,6 +99,11 @@
 		5B95AE951B593EBF00D5A4BE /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
 		5B95AE961B593EBF00D5A4BE /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		5B95AE9B1B595C7100D5A4BE /* ButtonsAndLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonsAndLabels.swift; sourceTree = "<group>"; };
+		5BA8DC121B5D327300AE990F /* explosionSFX1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosionSFX1.wav; sourceTree = "<group>"; };
+		5BA8DC141B5D370800AE990F /* ricochet1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ricochet1.wav; sourceTree = "<group>"; };
+		5BA8DC151B5D370800AE990F /* ricochet2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ricochet2.wav; sourceTree = "<group>"; };
+		5BA8DC161B5D370800AE990F /* shortRicochet.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shortRicochet.wav; sourceTree = "<group>"; };
+		5BA8DC1A1B5D442100AE990F /* LevelCompleted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelCompleted.swift; sourceTree = "<group>"; };
 		5BCC58E31B5963FC0028AD55 /* Coalition_v2..ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Coalition_v2..ttf; sourceTree = "<group>"; };
 		5BCC58E41B5963FC0028AD55 /* CodePredators-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CodePredators-Regular.ttf"; sourceTree = "<group>"; };
 		5BCC58E51B5963FC0028AD55 /* Mechfire.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Mechfire.otf; sourceTree = "<group>"; };
@@ -151,8 +161,12 @@
 		5B25392D1B46739500642AD6 /* MusicAndSFX */ = {
 			isa = PBXGroup;
 			children = (
+				5BA8DC121B5D327300AE990F /* explosionSFX1.wav */,
 				5B2428BF1B536CEA00D4D723 /* LevelOneMainLoop.mp3 */,
 				5BE57E8B1B57C82300F13B5A /* basicGunV2.wav */,
+				5BA8DC141B5D370800AE990F /* ricochet1.wav */,
+				5BA8DC151B5D370800AE990F /* ricochet2.wav */,
+				5BA8DC161B5D370800AE990F /* shortRicochet.wav */,
 				5BE57E831B57C3B500F13B5A /* LevelOneV2.mp3 */,
 				5BE57E8D1B57C82C00F13B5A /* laserFireV2.wav */,
 				5BE57E851B57C3BB00F13B5A /* LevelOneMainLoopV2.mp3 */,
@@ -301,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				5BDF48671B42DEEB00CBD6E5 /* BattleScene.swift */,
+				5BA8DC1A1B5D442100AE990F /* LevelCompleted.swift */,
 				5BD1E7C91B4EB259003B1B49 /* BattleSceneBackground.swift */,
 			);
 			name = "Battle Scene";
@@ -395,11 +410,13 @@
 				5B2428BE1B536CE200D4D723 /* LevelOneIntroLoop.mp3 in Resources */,
 				5B2539351B46774A00642AD6 /* MainMenuScene.sks in Resources */,
 				5BE57E8E1B57C82C00F13B5A /* laserFireV2.wav in Resources */,
+				5BA8DC191B5D370800AE990F /* shortRicochet.wav in Resources */,
 				5B68D91B1B48AAD300DD2284 /* EnemyInformation in Resources */,
 				5BCC58EE1B5963FC0028AD55 /* SquaresBoldFree.otf in Resources */,
 				5BE57E8C1B57C82300F13B5A /* basicGunV2.wav in Resources */,
 				5BDF48661B42DEEB00CBD6E5 /* BattleScene.sks in Resources */,
 				5BCC58F61B596E9F0028AD55 /* RechargeRg-Bold.ttf in Resources */,
+				5BA8DC171B5D370800AE990F /* ricochet1.wav in Resources */,
 				5B2428C01B536CEA00D4D723 /* LevelOneMainLoop.mp3 in Resources */,
 				5BCC58F41B596E980028AD55 /* Xperia.ttf in Resources */,
 				5BCC58EC1B5963FC0028AD55 /* mensch-thin.ttf in Resources */,
@@ -411,9 +428,11 @@
 				5BDF48891B42E09100CBD6E5 /* Main.storyboard in Resources */,
 				5BE57E8A1B57C3C700F13B5A /* machinegun1.wav in Resources */,
 				5BE57E891B57C3C700F13B5A /* laserFire1.wav in Resources */,
+				5BA8DC181B5D370800AE990F /* ricochet2.wav in Resources */,
 				5BCC58F51B596E9A0028AD55 /* Blue.ttf in Resources */,
 				5B25392F1B4673AB00642AD6 /* IntroThemeAughtV2.mp3 in Resources */,
 				5BE57E841B57C3B500F13B5A /* LevelOneV2.mp3 in Resources */,
+				5BA8DC131B5D327300AE990F /* explosionSFX1.wav in Resources */,
 				5B68D9211B48C4C700DD2284 /* MainGameMenu.sks in Resources */,
 				5B95AE971B593EBF00D5A4BE /* MyParticle.sks in Resources */,
 				5BCC58E91B5963FC0028AD55 /* Coalition_v2..ttf in Resources */,
@@ -461,6 +480,7 @@
 				5B95AE9C1B595C7100D5A4BE /* ButtonsAndLabels.swift in Sources */,
 				5BDF486A1B42DEEB00CBD6E5 /* GameViewController.swift in Sources */,
 				5BDF48641B42DEEB00CBD6E5 /* AppDelegate.swift in Sources */,
+				5BA8DC1B1B5D442100AE990F /* LevelCompleted.swift in Sources */,
 				5B2539331B46751900642AD6 /* LevelData.swift in Sources */,
 				5B68D9231B48C4DA00DD2284 /* MainGameMenu.swift in Sources */,
 				5B6064D41B59ACF600FB346B /* MainMenuScene.swift in Sources */,

@@ -10,10 +10,28 @@ import Foundation
 import SpriteKit
 
 
-func explodeFunc(scene: SKScene, enemy: SKSpriteNode) {
-    let explosion = SKSpriteNode(imageNamed: "crappyExplosion1")
+func explodeFuncShape(scene: SKScene, enemy: SKShapeNode) {
+    let explosion = SKSpriteNode(imageNamed: "crappyExplosion2")
     explosion.position = enemy.position
-    explosion.size = enemy.size
+    explosion.size = CGSize(width: 100, height: 100)
+    
+    scene.addChild(explosion)
+    
+    let fade = SKAction.fadeOutWithDuration(0.8)
+    
+    let remove = SKAction.sequence([SKAction.waitForDuration(0.1),fade,SKAction.removeFromParent()])
+    
+//    explosion.runAction(remove)
+    
+    println("exploded")
+    
+}
+
+
+func explodeFunc(scene: SKScene, enemy: SKSpriteNode) {
+    let explosion = SKSpriteNode(imageNamed: "crappyExplosion2")
+    explosion.position = enemy.position
+    explosion.size = CGSize(width: enemy.size.width * 2, height: enemy.size.height * 2)
     
     scene.addChild(explosion)
     
@@ -25,9 +43,9 @@ func explodeFunc(scene: SKScene, enemy: SKSpriteNode) {
     
 }
 func explodeFunc2(scene: SKScene, enemy: SKSpriteNode) {
-    let explosion = SKSpriteNode(imageNamed: "crappyExplosion2")
+    let explosion = SKSpriteNode(imageNamed: "crappyExplosion1")
     explosion.position = enemy.position
-    explosion.size = enemy.size
+    explosion.size = CGSize(width: enemy.size.width * 2, height: enemy.size.height * 2)
     
     scene.addChild(explosion)
     

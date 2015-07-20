@@ -29,7 +29,6 @@
 		5B8AD2B11B54054900E213DD /* Asteroids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8AD2B01B54054900E213DD /* Asteroids.swift */; };
 		5B95AE971B593EBF00D5A4BE /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5B95AE951B593EBF00D5A4BE /* MyParticle.sks */; };
 		5B95AE981B593EBF00D5A4BE /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B95AE961B593EBF00D5A4BE /* spark.png */; };
-		5B95AE9A1B595A4600D5A4BE /* DeathMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B95AE991B595A4600D5A4BE /* DeathMenu.swift */; };
 		5B95AE9C1B595C7100D5A4BE /* ButtonsAndLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B95AE9B1B595C7100D5A4BE /* ButtonsAndLabels.swift */; };
 		5BCC58E91B5963FC0028AD55 /* Coalition_v2..ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BCC58E31B5963FC0028AD55 /* Coalition_v2..ttf */; };
 		5BCC58EA1B5963FC0028AD55 /* CodePredators-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BCC58E41B5963FC0028AD55 /* CodePredators-Regular.ttf */; };
@@ -41,6 +40,7 @@
 		5BCC58F41B596E980028AD55 /* Xperia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BCC58F31B596E980028AD55 /* Xperia.ttf */; };
 		5BCC58F51B596E9A0028AD55 /* Blue.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BCC58EF1B596E7C0028AD55 /* Blue.ttf */; };
 		5BCC58F61B596E9F0028AD55 /* RechargeRg-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BCC58F01B596E8A0028AD55 /* RechargeRg-Bold.ttf */; };
+		5BD016D21B5CEDD300F7551C /* AC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD016D11B5CEDD300F7551C /* AC2.swift */; };
 		5BD1E7CA1B4EB259003B1B49 /* BattleSceneBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1E7C91B4EB259003B1B49 /* BattleSceneBackground.swift */; };
 		5BDF48641B42DEEB00CBD6E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDF48631B42DEEB00CBD6E5 /* AppDelegate.swift */; };
 		5BDF48661B42DEEB00CBD6E5 /* BattleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF48651B42DEEB00CBD6E5 /* BattleScene.sks */; };
@@ -93,7 +93,6 @@
 		5B8AD2B01B54054900E213DD /* Asteroids.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asteroids.swift; sourceTree = "<group>"; };
 		5B95AE951B593EBF00D5A4BE /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
 		5B95AE961B593EBF00D5A4BE /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
-		5B95AE991B595A4600D5A4BE /* DeathMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeathMenu.swift; sourceTree = "<group>"; };
 		5B95AE9B1B595C7100D5A4BE /* ButtonsAndLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonsAndLabels.swift; sourceTree = "<group>"; };
 		5BCC58E31B5963FC0028AD55 /* Coalition_v2..ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Coalition_v2..ttf; sourceTree = "<group>"; };
 		5BCC58E41B5963FC0028AD55 /* CodePredators-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CodePredators-Regular.ttf"; sourceTree = "<group>"; };
@@ -105,6 +104,7 @@
 		5BCC58F01B596E8A0028AD55 /* RechargeRg-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RechargeRg-Bold.ttf"; sourceTree = "<group>"; };
 		5BCC58F11B596E920028AD55 /* ZrnicRg-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZrnicRg-Regular.ttf"; sourceTree = "<group>"; };
 		5BCC58F31B596E980028AD55 /* Xperia.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Xperia.ttf; sourceTree = "<group>"; };
+		5BD016D11B5CEDD300F7551C /* AC2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AC2.swift; sourceTree = "<group>"; };
 		5BD1E7C91B4EB259003B1B49 /* BattleSceneBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleSceneBackground.swift; sourceTree = "<group>"; };
 		5BDF485E1B42DEEB00CBD6E5 /* Mercenary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mercenary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BDF48621B42DEEB00CBD6E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -200,7 +200,6 @@
 			children = (
 				5B76438A1B5548000059C203 /* MissionMenu.swift */,
 				5B6064D11B598AB000FB346B /* UpgradeMenu.swift */,
-				5B95AE991B595A4600D5A4BE /* DeathMenu.swift */,
 			);
 			name = Menuze;
 			sourceTree = "<group>";
@@ -252,6 +251,7 @@
 				5BDF48871B42DFC300CBD6E5 /* Battle Scene */,
 				5B95AE9B1B595C7100D5A4BE /* ButtonsAndLabels.swift */,
 				5BDF48BA1B43405300CBD6E5 /* Weapons.swift */,
+				5BD016D11B5CEDD300F7551C /* AC2.swift */,
 				5B4A41231B458E6A001A6AEA /* CollisonData.swift */,
 				5BE57E911B57E92B00F13B5A /* Explosions.swift */,
 				5B5435331B570EBE00CFB839 /* VariablesAndMultipliers.swift */,
@@ -357,6 +357,7 @@
 				TargetAttributes = {
 					5BDF485D1B42DEEB00CBD6E5 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = X68KF89T7U;
 					};
 					5BDF48761B42DEEB00CBD6E5 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -456,7 +457,6 @@
 				5B5435341B570EBE00CFB839 /* VariablesAndMultipliers.swift in Sources */,
 				5BDF48681B42DEEB00CBD6E5 /* BattleScene.swift in Sources */,
 				5BE57E921B57E92B00F13B5A /* Explosions.swift in Sources */,
-				5B95AE9A1B595A4600D5A4BE /* DeathMenu.swift in Sources */,
 				5BDF48BB1B43405300CBD6E5 /* Weapons.swift in Sources */,
 				5B95AE9C1B595C7100D5A4BE /* ButtonsAndLabels.swift in Sources */,
 				5BDF486A1B42DEEB00CBD6E5 /* GameViewController.swift in Sources */,
@@ -468,6 +468,7 @@
 				5B76438B1B5548000059C203 /* MissionMenu.swift in Sources */,
 				5B4A41241B458E6A001A6AEA /* CollisonData.swift in Sources */,
 				5B4A41221B458905001A6AEA /* EnemyTypes.swift in Sources */,
+				5BD016D21B5CEDD300F7551C /* AC2.swift in Sources */,
 				5B6064D21B598AB000FB346B /* UpgradeMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -588,6 +589,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Mercenary",
@@ -603,6 +605,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Mercenary",

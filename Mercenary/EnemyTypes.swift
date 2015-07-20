@@ -9,12 +9,47 @@
 import Foundation
 import SpriteKit
 
+class ArtillaryBarge: SKSpriteNode {
+    
+    var health = 300
+    
+    init(scene: SKScene) {
+        let tex = SKTexture(imageNamed: "crappyBigAssThing1")
+        super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
+        
+        physicsBody = SKPhysicsBody(texture: tex, size: size)
+        physicsBody?.contactTestBitMask = playerCategory | playerProjectileOne
+        physicsBody?.categoryBitMask = bargeCat
+        physicsBody?.collisionBitMask = 0
+        zPosition = 1
+        
+        
+        
+        let delay = SKAction.waitForDuration(2)
+        let wait = SKAction.waitForDuration(0.2)
+        let fire = SKAction.runBlock( { bargeBarrage(scene, self) } )
+        let attackBehaviour = SKAction.sequence([delay,fire])
+        
+        
+        runAction(SKAction.repeatActionForever(attackBehaviour))
+        
+        
+        
+        
+        
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
 
 
 
 class LittleMinion: SKSpriteNode {
     
-    var health = 15
+    var health = 22
     
     init(scene: SKScene) {
         let tex = SKTexture(imageNamed: "stupidAssMinion1")
@@ -51,13 +86,13 @@ class LittleMinion: SKSpriteNode {
 
 class StrafeJet: SKSpriteNode {
     
-    var health = 50
+    var health = 100
     
     init(scene: SKScene) {
         let tex = SKTexture(imageNamed: "strafeJet")
         super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
    
-        size = CGSize(width: 100, height: 70)
+        size = CGSize(width: 130, height: 100)
         physicsBody = SKPhysicsBody(texture: tex, size: size)
         physicsBody?.contactTestBitMask = playerCategory | playerProjectileOne
         physicsBody?.collisionBitMask = 0
@@ -68,7 +103,7 @@ class StrafeJet: SKSpriteNode {
         let wait = SKAction.waitForDuration(1)
         let fire = SKAction.runBlock( { strafeJetProjectile(scene, self) } )
         let attackBehaviour = SKAction.sequence([wait,fire,delay,fire,delay,fire])
-        runAction(SKAction.repeatAction(attackBehaviour, count: 2))
+        runAction(SKAction.repeatAction(attackBehaviour, count: 3))
     
     
     
@@ -86,7 +121,7 @@ var weakjetArray: [SKNode] = []
 
 class WeakJet: SKSpriteNode {
     
-    var health = 25
+    var health = 50
     
     init(scene: SKScene) {
         
@@ -123,16 +158,16 @@ class WeakJet: SKSpriteNode {
 
 func enemyFighter(scene: SKScene) {
     
-    let fighterTex = SKTexture(imageNamed: "crapEnemy1")
+    let fighterTex = SKTexture(imageNamed: "shieldRunnerWithShield")
     let fighter = SKSpriteNode(texture: fighterTex)
     
     var ranY = CGFloat(arc4random_uniform(500)) - 250
-    fighter.size = CGSize(width: 100, height: 100)
-    fighter.physicsBody = SKPhysicsBody(circleOfRadius: 50)
+    fighter.size = CGSize(width: 200, height: 200)
+    fighter.physicsBody = SKPhysicsBody(circleOfRadius: 100)
     fighter.position = CGPoint(x: scene.size.width + fighter.size.width, y: (scene.size.height / 2) + ranY)
-    fighter.physicsBody?.contactTestBitMask = playerCategory
+    fighter.physicsBody?.contactTestBitMask = playerCategory | playerProjectileOne
     fighter.physicsBody?.collisionBitMask = 0
-    fighter.physicsBody?.categoryBitMask = fighterCategory
+    fighter.physicsBody?.categoryBitMask = shieldRunnerCat
     scene.addChild(fighter)
     
     let enemyMove = SKAction.moveToX(-scene.size.width + fighter.size.width, duration: 10)

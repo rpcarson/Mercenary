@@ -37,6 +37,10 @@ var strafeJetCat: UInt32 = 12
 
 var minionCat: UInt32 = 14
 
+var bargeCat: UInt32 = 15
+
+var shieldRunnerCat: UInt32 = 16
+
 
 func delay1(delay:Double, closure:()->()) {
     dispatch_after(

@@ -15,6 +15,7 @@ let oreLabel = SKLabelNode(fontNamed:"ZrnicRg-Regular")
 var pauseLabel = SKLabelNode(fontNamed: "ZrnicRg-Regular")
 
 var nullZone: SKSpriteNode!
+var nullMove: SKSpriteNode!
 
 let retryButton = SKSpriteNode(color: UIColor.clearColor(), size: CGSize(width: 250, height: 100))
 let abortButton = SKSpriteNode(color: UIColor.clearColor(), size: CGSize(width: 250, height: 100))

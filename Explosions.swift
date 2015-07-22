@@ -59,7 +59,7 @@ func explodeFunc2(scene: SKScene, enemy: SKSpriteNode) {
 func explodeFunc3(scene: SKScene, enemy: SKSpriteNode) {
     let explosion = SKSpriteNode(imageNamed: "crappyExplosion1")
     explosion.position = enemy.position
-    explosion.size = CGSize(width: enemy.size.width * 2, height: enemy.size.height * 2)
+    explosion.size = CGSize(width: enemy.size.width * 3, height: enemy.size.height * 3)
     
     scene.addChild(explosion)
     

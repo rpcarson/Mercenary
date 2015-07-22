@@ -41,6 +41,10 @@ var bargeCat: UInt32 = 15
 
 var shieldRunnerCat: UInt32 = 16
 
+var mineCat: UInt32 = 17
+
+var boundaryCat: UInt32 = 18
+
 
 func delay1(delay:Double, closure:()->()) {
     dispatch_after(

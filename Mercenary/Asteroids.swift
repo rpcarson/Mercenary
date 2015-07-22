@@ -9,20 +9,11 @@
 import Foundation
 import SpriteKit
 
-var asteroidArray: [SKNode] = []
-
-
 func LargeAsteroidMechanix(scene: SKScene) {
     
     var ranYLarge = CGFloat(arc4random_uniform(700)) - 350
     let object = LargeAsteroid(scene: scene)
     scene.addChild(object)
-    
-    asteroidArray.append(object)
-    
-    if debugz == true {
-    println("asteroid array\(asteroidArray.count)")
-    }
     
     var ranTork = CGFloat(arc4random_uniform(6)) - 3
     object.physicsBody?.applyTorque(ranTork)
@@ -40,7 +31,7 @@ class LargeAsteroid: SKSpriteNode {
     var health = 100
     
     init(scene: SKScene) {
-        let tex = SKTexture(imageNamed: "asteroid1")
+        let tex = smallAss
         super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
         
         physicsBody = SKPhysicsBody(circleOfRadius: 100)
@@ -63,7 +54,6 @@ func SmallAsteroidMechanix(scene: SKScene) {
     var ranYSmall = CGFloat(arc4random_uniform(800)) - 400
     let object = SmallAsteroid(scene: scene)
     scene.addChild(object)
-    asteroidArray.append(object)
     
     var ranTork = CGFloat(arc4random_uniform(6)) - 3
     object.physicsBody?.applyTorque(ranTork)
@@ -88,7 +78,7 @@ class SmallAsteroid: SKSpriteNode {
     init(scene: SKScene) {
         
         var ranSize = CGFloat(arc4random_uniform(120))
-        let tex = SKTexture(imageNamed: "asteroid1")
+        let tex = smallAss
         super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
         
         physicsBody = SKPhysicsBody(circleOfRadius: 35)
@@ -105,29 +95,6 @@ class SmallAsteroid: SKSpriteNode {
     }
     
 }
-
-//func dropOre(scene: SKScene, asteroid: SKSpriteNode) {
-//    
-//    let ranNum = arc4random_uniform(4)
-//    var oreChance: UInt32 = 3
-//    
-//    let orePiece = SKShapeNode(circleOfRadius: 20)
-//    orePiece.fillColor = UIColor.yellowColor()
-//    orePiece.physicsBody = SKPhysicsBody(circleOfRadius: 25)
-//    orePiece.position = asteroid.position
-//    orePiece.physicsBody?.collisionBitMask = 0
-//
-//    println(ranNum)
-//    println(oreChance)
-//    
-//    if oreChance == ranNum {
-//        
-//        scene.addChild(orePiece)
-//        orePiece.physicsBody?.applyImpulse(CGVector(dx: -10, dy: 0))
-//        
-//    }
-//}
-
 
 
 

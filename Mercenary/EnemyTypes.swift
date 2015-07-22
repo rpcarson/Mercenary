@@ -9,19 +9,48 @@
 import Foundation
 import SpriteKit
 
+
+class Mine: SKSpriteNode {
+    
+    var health = 15
+    
+    init(scene: SKScene) {
+        let tex = SKTexture(imageNamed: "mine1")
+        super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
+        
+        physicsBody = SKPhysicsBody(circleOfRadius: 40)
+        size = CGSize(width: 75, height: 75)
+        physicsBody?.contactTestBitMask = playerCategory | playerProjectileOne
+        physicsBody?.collisionBitMask = 0
+        physicsBody?.categoryBitMask = mineCat
+        zPosition = 3
+        physicsBody?.linearDamping = 0
+        
+        
+        
+        
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+
 class ArtillaryBarge: SKSpriteNode {
     
     var health = 300
     
     init(scene: SKScene) {
-        let tex = SKTexture(imageNamed: "crappyBigAssThing1")
+        let tex = SKTexture(imageNamed: "tankerGreen")
         super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
         
         physicsBody = SKPhysicsBody(texture: tex, size: size)
         physicsBody?.contactTestBitMask = playerCategory | playerProjectileOne
         physicsBody?.categoryBitMask = bargeCat
         physicsBody?.collisionBitMask = 0
-        zPosition = 1
+        zPosition = 3
         
         
         
@@ -31,7 +60,7 @@ class ArtillaryBarge: SKSpriteNode {
         let attackBehaviour = SKAction.sequence([delay,fire])
         
         
-        runAction(SKAction.repeatActionForever(attackBehaviour))
+//        runAction(SKAction.repeatActionForever(attackBehaviour))
         
         
         
@@ -52,7 +81,7 @@ class LittleMinion: SKSpriteNode {
     var health = 22
     
     init(scene: SKScene) {
-        let tex = SKTexture(imageNamed: "stupidAssMinion1")
+        let tex = minTex
         super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
         
         size = CGSize(width: 100, height: 60)
@@ -63,7 +92,7 @@ class LittleMinion: SKSpriteNode {
         zPosition = 1
         
         let delay = SKAction.waitForDuration(0.6)
-        let wait = SKAction.waitForDuration(0.2)
+        let wait = SKAction.waitForDuration(0.3)
         let fire = SKAction.runBlock( { minionShot(scene, self) } )
         let attackBehaviour = SKAction.sequence([delay,fire])
     
@@ -89,7 +118,7 @@ class StrafeJet: SKSpriteNode {
     var health = 100
     
     init(scene: SKScene) {
-        let tex = SKTexture(imageNamed: "strafeJet")
+        let tex = strayTex
         super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
    
         size = CGSize(width: 130, height: 100)
@@ -116,16 +145,13 @@ class StrafeJet: SKSpriteNode {
 }
 
 
-
-var weakjetArray: [SKNode] = []
-
 class WeakJet: SKSpriteNode {
     
     var health = 50
     
     init(scene: SKScene) {
         
-        let texture = SKTexture(imageNamed: "crapEnemy1")
+        let texture = jetTex
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
         size = CGSize(width: 150, height: 150)
@@ -170,7 +196,7 @@ func enemyFighter(scene: SKScene) {
     fighter.physicsBody?.categoryBitMask = shieldRunnerCat
     scene.addChild(fighter)
     
-    let enemyMove = SKAction.moveToX(-scene.size.width + fighter.size.width, duration: 10)
+    let enemyMove = SKAction.moveToX(-scene.size.width + fighter.size.width, duration: 25)
     let fighterDelay = SKAction.waitForDuration(3)
     let sequence = SKAction.sequence([fighterDelay,enemyMove])
     
@@ -335,7 +361,7 @@ class Bomber: SKSpriteNode {
 
 func rocketAttack(scene: SKScene) {
     
-    let rocketTex = SKTexture(imageNamed: "rocket1")
+    let rocketTex = rockTex
     let rocket = SKSpriteNode(texture: rocketTex)
     
     rocket.size = CGSize(width: 100, height: 50)

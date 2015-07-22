@@ -10,7 +10,30 @@ import Foundation
 import SpriteKit
 
 
-var barrageArray: [SKShapeNode] = []
+
+
+
+
+func layMines(scene: SKScene, point: CGPoint) {
+    
+    let mine = Mine(scene: scene)
+    mine.position = point
+    
+    scene.addChild(mine)
+    
+    mine.physicsBody?.applyTorque(1.2)
+    mine.physicsBody?.applyImpulse(CGVector(dx: -20, dy: 0))
+    
+    let wait = SKAction.waitForDuration(25, withRange: 5)
+    let explode = SKAction.runBlock(  { explodeFunc3(scene, mine) } )
+    let remove = SKAction.removeFromParent()
+    mine.runAction(SKAction.sequence([wait,explode,remove]))
+}
+
+
+
+
+
 
 func bargeBarrage(scene: SKScene, shotOrigin: ArtillaryBarge) {
     
@@ -27,9 +50,7 @@ func bargeBarrage(scene: SKScene, shotOrigin: ArtillaryBarge) {
     shot.glowWidth = 5
     
     scene.addChild(shot)
-    
-    barrageArray.append(shot)
-    
+        
 //    for point in barrageArray { println(point.hashValue) }
 //    for point in barrageArray { println(point.position) }
     
@@ -70,14 +91,13 @@ func bargeSpawn(scene: SKScene) {
     let flud = SKAction.runBlock({enemy.physicsBody?.applyImpulse(CGVector(dx: 0, dy: -15))})
     let floatSequence = SKAction.sequence([flup,delay,flud,flud,delay,flup])
     
-    enemy.runAction(SKAction.repeatActionForever(floatSequence))
+//    enemy.runAction(SKAction.repeatActionForever(floatSequence))
     
-    let move = SKAction.moveToX( -scene.size.width + enemy.size.width, duration: 45)
+    let move = SKAction.moveToX( -scene.size.width + enemy.size.width, duration: 12)
     let remove = SKAction.removeFromParent()
     
     enemy.runAction(SKAction.sequence([move,remove]))
     
-    masterEnemyArray.append(enemy)
     
 }
 
@@ -92,14 +112,13 @@ func fighterJetWave(scene: SKScene, spawnPoint: CGPoint, movePoint: UInt32) {
     enemy.position = spawnPoint
     scene.addChild(enemy)
     
-    let move = SKAction.moveTo(CGPoint(x: -scene.size.width + enemy.size.width, y: scene.size.height * (CGFloat(movePoint) / 100)), duration: 10)
+    let move = SKAction.moveTo(CGPoint(x: -scene.size.width + enemy.size.width, y: scene.size.height * (CGFloat(movePoint) / 100)), duration: 12)
     let remove = SKAction.removeFromParent()
     let sequence = SKAction.sequence([move,remove])
     
     enemy.runAction(sequence)
     
     
-    masterEnemyArray.append(enemy)
     
 }
 
@@ -111,7 +130,7 @@ func littionMinionSpawn(scene: SKScene, spawnPoint: CGPoint) {
    
     
     
-    var randomizer = arc4random_uniform(200)
+    var randomizer = arc4random_uniform(250)
     minionRandomizer = randomizer
     
     let enemy = LittleMinion(scene: scene)
@@ -120,13 +139,12 @@ func littionMinionSpawn(scene: SKScene, spawnPoint: CGPoint) {
     scene.addChild(enemy)
     
     
-    let move = SKAction.moveToX( -scene.size.width + enemy.size.width, duration: 11)
+    let move = SKAction.moveToX( -scene.size.width + enemy.size.width, duration: 9)
     let remove = SKAction.removeFromParent()
     
     enemy.runAction(SKAction.sequence([move,remove]))
     
     
-     masterEnemyArray.append(enemy)
 }
 
 
@@ -171,7 +189,6 @@ func strafeJetSpawn(scene: SKScene) {
     
     enemy.runAction(SKAction.sequence([move,remove]))
     
-    masterEnemyArray.append(enemy)
 
     
 }
@@ -197,11 +214,11 @@ func strafeJetProjectile(scene: SKScene, enemyShip: StrafeJet) {
     let X = player.position.x - bullet.position.x
     let Y = player.position.y - bullet.position.y
     var magnitude: CGFloat = sqrt(X*X+Y*Y)
-    bullet.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*7, Y/magnitude*7))
+    bullet.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*5, Y/magnitude*5))
     
   
     let remove = SKAction.removeFromParent()
-    let wait = SKAction.waitForDuration(3.0)
+    let wait = SKAction.waitForDuration(4.0)
     bullet.runAction(SKAction.sequence([wait,remove]))
     
     
@@ -222,16 +239,12 @@ func weakJetSpawn(scene: SKScene) {
     enemy.position = CGPoint(x: scene.size.width + enemy.size.width, y: scene.size.height * (ranPointY2 / 100))
     scene.addChild(enemy)
     
-    weakjetArray.append(enemy)
-    
     let move = SKAction.moveTo(CGPoint(x: -scene.size.width + enemy.size.width, y: scene.size.height * (ranPointY / 100)), duration: 10)
     let remove = SKAction.removeFromParent()
     let sequence = SKAction.sequence([move,remove])
     
     enemy.runAction(sequence)
     
-
-    masterEnemyArray.append(enemy)
 
     
 }
@@ -251,7 +264,7 @@ func weakJetRocket(scene: SKScene, enemyShip: WeakJet) {
     
     scene.addChild(rocket)
     
-    rocket.physicsBody?.applyImpulse(CGVector(dx: -100, dy: 0))
+    rocket.physicsBody?.applyImpulse(CGVector(dx: -75, dy: 0))
     
     let remove = SKAction.removeFromParent()
     let wait = SKAction.waitForDuration(2.0)

@@ -9,6 +9,18 @@
 import Foundation
 import SpriteKit
 
+var continueLabel = SKLabelNode(fontNamed: "ZrnicRg-Regular")
+
+var completeLabel = SKLabelNode(fontNamed: "ZrnicRg-Regular")
+var totalLabel = SKLabelNode(fontNamed: "ZrnicRg-Regular")
+var shotsLabel = SKLabelNode(fontNamed: "ZrnicRg-Regular")
+var accuracyLabel = SKLabelNode(fontNamed: "ZrnicRg-Regular")
+var enemiesLabel = SKLabelNode(fontNamed: "ZrnicRg-Regular")
+var endOreLabel = SKLabelNode(fontNamed: "ZrnicRg-Regular")
+
+
+
+
 var scoreLabel = SKLabelNode(fontNamed: "ZrnicRg-Regular")
 let healthLabel = SKLabelNode(fontNamed:"ZrnicRg-Regular")
 let oreLabel = SKLabelNode(fontNamed:"ZrnicRg-Regular")

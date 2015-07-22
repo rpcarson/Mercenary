@@ -55,8 +55,9 @@ func autoCannon(scene: SKScene) {
     }
 
     if beamEnabled ==  true {
-        
+       
         beamDamage = 3
+
     }
     if explosiveBool == true {
         

@@ -31,7 +31,7 @@ class GameViewController: UIViewController {
   
         super.viewDidLayoutSubviews()
 
-        if let scene = BattleScene.unarchiveFromFile("BattleScene") as? BattleScene {
+        if let scene = MainGameMenu.unarchiveFromFile("MainGameMenu") as? MainGameMenu {
             // Configure the view.
            
             

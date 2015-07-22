@@ -9,6 +9,13 @@
 import SpriteKit
 
 
+
+var bulletsFired: Double = 0
+var bulletsHit: Double = 0
+var enemiesDestroyed: Int = 0
+var accuracy: Double = bulletsHit / bulletsFired
+
+
 var enemiesCount: Int = 0
 
 
@@ -126,6 +133,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         ready()
         
+playerHealth = 2000
         
         
         
@@ -147,12 +155,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         playerAlive = true
         
-        
-        if bugzOn {
-            playerHealth = 100000
-        }
-        
-        
+
     }
     
     var gameOn: Bool = false
@@ -167,12 +170,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         minionDelay = 0
         strafeJetSpawnDelay = 0
         
-        
-//        bargeSpawn(self)
-//        
-//        enemyFighter(self)
-        
-        
+
         
         runAction(SKAction.repeatActionForever(SKAction.sequence([
             SKAction.runBlock{
@@ -188,7 +186,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             SKAction.waitForDuration(12, withRange: 5)
             ])), withKey: "largeAsteroid")
         
-
+        
         
     }
     
@@ -232,8 +230,6 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     
     func didBeginContact(contact: SKPhysicsContact) {
         
-        
-        
         var firstBody = contact.bodyA.node
         var secondBody = contact.bodyB.node
         
@@ -248,23 +244,25 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         if player && (secondMask == enemyBulletCat) || player1 && (firstMask == enemyBulletCat) {
             
-            
             let projectile = secondMask == enemyBulletCat ? secondBody : firstBody
             
             playerHealth = playerHealth - 5
+            
             projectile?.removeFromParent()
-            if debugz == true{
-                println("bullet contact")
-            }
+            
+            projectile?.physicsBody = nil
+            
         }
         
         if player && (secondMask == shieldRunnerCat) || player1 && (firstMask == shieldRunnerCat) {
             
             let playerShip = secondMask == playerCategory ? secondBody : firstBody
+            let enemy = secondMask == shieldRunnerCat ? secondBody : firstBody
             
             
-            playerHealth = playerHealth - 200
+            playerHealth = playerHealth - 80
             
+            enemy?.physicsBody = nil
             
         }
         
@@ -272,15 +270,18 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             let playerShip = secondMask == playerCategory ? secondBody : firstBody
             let enemy = secondMask == mineCat ? secondBody as? Mine : firstBody as? Mine
-
+            
             
             playerHealth = playerHealth - 70
             
             enemy?.removeFromParent()
-          
-            if let enemy = enemy {
             
-            explodeFunc3(self, enemy)
+            enemy?.physicsBody = nil
+            
+            if let enemy = enemy {
+                
+                explodeFunc3(self, enemy)
+                
             }
             
         }
@@ -291,31 +292,26 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             let enemy = secondMask == smallRockCat ? secondBody as? SmallAsteroid : firstBody as? SmallAsteroid
             
-            if debugz == true {
-                println("small rock impact")
-                println("player health = \(playerHealth)")
-            }
-            
             playerHealth = playerHealth - 20
             
             if let enemy = enemy {
                 explodeFunc(self, enemy)
+                
+                
+                enemy.removeFromParent()
+                
+                enemy.physicsBody = nil
+                
             }
-            enemy?.removeFromParent()
-            
-            
-            
         }
+        
         if player && (secondMask == largeRockCat) || player1 && (firstMask == largeRockCat) {
             
             let enemy = secondMask == largeRockCat ? secondBody as? LargeAsteroid : firstBody as? LargeAsteroid
             
             playerHealth = playerHealth - 75
             
-            if bugzOn {
-                println("large rock impact")
-                println("player health = \(playerHealth)")
-            }
+            enemy?.physicsBody = nil
             
             
         }
@@ -325,14 +321,12 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             let enemy = secondMask == strafeJetCat ? secondBody : firstBody
             
             enemy?.removeFromParent()
+            
+            enemy?.physicsBody = nil
+            
             playerHealth = playerHealth - 25
+            
             enemiesCount -= 1
-            
-            
-            if bugzOn {
-                println("rocket contact")
-                println("player health = \(playerHealth)")
-            }
             
         }
         
@@ -343,6 +337,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             let enemy = secondMask == enemyRocketCat ? secondBody : firstBody
             
             enemy?.removeFromParent()
+            
+            enemy?.physicsBody = nil
+            
             playerHealth = playerHealth - 50
             
             if bugzOn {
@@ -357,21 +354,21 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             let enemy = secondMask == enemyCategoryOne ? secondBody : firstBody
             
             enemy?.removeFromParent()
+            
+            enemy?.physicsBody = nil
+            
             playerHealth = playerHealth - 25
             
             
             enemiesCount -= 1
             
-            if bugzOn {
-                println("enemy jet contact")
-                println("player health = \(playerHealth)")
-            }
+
         }
         
         func dropOre(scene: SKScene, asteroid: SKSpriteNode) {
             
-            let ranNum = arc4random_uniform(1)
-            var oreChance: UInt32 = 0
+            let ranNum = arc4random_uniform(3)
+            var oreChance: UInt32 = 0|1
             let orePiece = SKShapeNode(circleOfRadius: 10)
             orePiece.fillColor = UIColor(red:0.25, green:0.92, blue:0.46, alpha:1)
             orePiece.position = asteroid.position
@@ -399,13 +396,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             let enemy = secondMask == oreCategory ? secondBody : firstBody
             
             enemy?.removeFromParent()
-            
-            oreCount = oreCount + 1
-            
-            if oreCount == 9 {
-                
-                playerHealth = playerHealth + 100
-            }
+            enemy?.physicsBody = nil
+            oreCount++
             
         }
         
@@ -413,11 +405,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             let enemy = secondMask == smallRockCat ? secondBody as? SmallAsteroid : firstBody as? SmallAsteroid
             
-            if bugzOn {
-                println(enemy?.health)
-            }
-            
+
+            projectile?.physicsBody = nil
             projectile?.removeFromParent()
+            bulletsHit++
             
             enemy?.health = enemy!.health - autoCannonDamage
             
@@ -433,6 +424,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                     
                     enemy.removeFromParent()
                     
+                    enemy.physicsBody = nil
+                    
                     currentScore = currentScore + 25
                 }
                 
@@ -443,11 +436,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             let enemy = secondMask == largeRockCat ? secondBody as? LargeAsteroid : firstBody as? LargeAsteroid
             
-            if bugzOn {
-                println(enemy?.health)
-            }
-            
             projectile?.removeFromParent()
+            projectile?.physicsBody = nil
+            bulletsHit++
             
             enemy?.health = enemy!.health - autoCannonDamage
             
@@ -474,6 +465,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             let projectile = secondMask == playerProjectileOne ? secondBody : firstBody
             
             projectile?.removeFromParent()
+            projectile?.physicsBody = nil
+            bulletsHit++
             
         }
         if playerBullet && (secondMask == mineCat) || playerBullet1 && (firstMask == mineCat) {
@@ -482,7 +475,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             let enemy = secondMask == mineCat ? secondBody as? Mine : firstBody as? Mine
             
             projectile?.removeFromParent()
-      
+            projectile?.physicsBody = nil
+            bulletsHit++
+            
             if let enemy = enemy {
                 
                 enemy.health = enemy.health - autoCannonDamage
@@ -490,6 +485,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                     explodeFunc(self, enemy)
                     enemy.removeFromParent()
                     currentScore += 10
+                    enemiesDestroyed++
+
                 }
             }
             
@@ -502,18 +499,12 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             let enemy = secondMask == strafeJetCat ? secondBody as? LittleMinion : firstBody as? LittleMinion
             
             projectile?.removeFromParent()
+            projectile?.physicsBody = nil
+            bulletsHit++
             
-            
-            
-            
-            //            runAction(rico)
+ //~~~~~~~~           //            runAction(rico)
             
             enemy?.health = enemy!.health - autoCannonDamage
-            
-            if bugzOn {
-                println("minion health \(enemy?.health)")
-                
-            }
             
             if enemy?.health <= 0 {
                 
@@ -521,9 +512,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                     explodeFunc2(self, enemy)
                     enemy.removeFromParent()
                     currentScore += 25
-                    
                     enemiesCount -= 1
-
+                    enemiesDestroyed++
                     
                 }
                 
@@ -531,16 +521,14 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
         }
         
-        
-        
-        
-        
         if playerBullet && (secondMask == strafeJetCat) || playerBullet1 && (firstMask == strafeJetCat) {
             
             let projectile = secondMask == playerProjectileOne ? secondBody : firstBody
             let enemy = secondMask == strafeJetCat ? secondBody as? StrafeJet : firstBody as? StrafeJet
             
             projectile?.removeFromParent()
+            projectile?.physicsBody = nil
+            bulletsHit++
             
             enemy?.health = enemy!.health - autoCannonDamage
             
@@ -550,9 +538,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                     explodeFunc2(self, enemy)
                     enemy.removeFromParent()
                     currentScore += 50
-                    
-                    
                     enemiesCount -= 1
+                    enemiesDestroyed++
 
                     
                 }
@@ -566,8 +553,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             let enemy = secondMask == enemyCategoryOne ? secondBody as? ArtillaryBarge : firstBody as? ArtillaryBarge
             
             projectile?.removeFromParent()
+            projectile?.physicsBody = nil
+            bulletsHit++
             
-            //            runAction(rico2)
+//~~~~~~~~            //            runAction(rico2)
             
             if let enemy = enemy {
                 
@@ -582,11 +571,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                     enemy.removeFromParent()
                     explodeFunc2(self, enemy)
                     currentScore += 350
-                    
-                    
                     enemiesCount -= 1
+                    enemiesDestroyed++
 
-                    
                     
                 }
             }
@@ -599,8 +586,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             let enemy = secondMask == enemyCategoryOne ? secondBody as? WeakJet : firstBody as? WeakJet
             
             projectile?.removeFromParent()
+            projectile?.physicsBody = nil
+            bulletsHit++
             
-            //            runAction(rico1)
+//~~~~~~~~~~~~            //            runAction(rico1)
             
             enemy?.health = enemy!.health - autoCannonDamage
             
@@ -621,10 +610,11 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                     explodeFunc2(self, enemy)
                     enemy.removeFromParent()
                     currentScore += 50
-               
-                    enemiesCount -= 1
+                    enemiesDestroyed++
 
-                
+                    enemiesCount -= 1
+                    
+                    
                 }
             }
         }
@@ -632,14 +622,12 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     
     
     var deathScreenItems: [SKNode] = []
-    
     func playerDeathScreen() {
         
         pauseButton.hidden = true
         pauseLabel.hidden = true
         
         reset()
-        
         
         let darkOverlay = SKSpriteNode(color: UIColor.blackColor(), size: scene!.size)
         darkOverlay.anchorPoint = CGPointZero
@@ -694,7 +682,6 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    var bulletsFired: Int = 0
     var bulletDelay = 0
     var bulletDelay1 = 0
     var strafeJetSpawnDelay: UInt32 = 0
@@ -707,6 +694,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     var levelTime: UInt32 = 0
     var singleMinion: UInt32 = 0
     
+    
+    
     func finishLevel() {
         
         levelComplete = true
@@ -718,9 +707,58 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(currentTime: CFTimeInterval) {
         
-        println(totalEllapsed)
+       levelTime++
+        
+        if levelTime == 8300 {
+            
+            levelCompleted(self)
+            
+        }
+        
+        
+        if playerHealth < 300 {
+            healthLabel.fontColor = UIColor.yellowColor()
+        }
+        if playerHealth < 150 {
+            healthLabel.fontColor = UIColor.redColor()
+        }
         
         if menuActive == true { return }
+        
+        
+        if (playerUp == true) && (player.position.y < frame.height - 70) {
+            player.position.y = player.position.y + 15
+        }
+        if (playerDown == true) && (player.position.y > frame.height - frame.height + 70) {
+            player.position.y = player.position.y - 15
+        }
+        
+        if (gunBool == true) && (bulletDelay > 12) {
+            
+            
+            bulletsFired++
+            
+            //            if beamEnabled == true {
+            //
+            //                beamCannon(self)
+            //            }
+            
+            autoCannon(self)
+            bulletDelay = 0
+            bulletDelay1 = 6
+            
+        }
+        if (gunBool == true) && (bulletDelay1 > 12) {
+            autoCannon1(self)
+            bulletDelay1 = 0
+            
+            bulletsFired++
+
+            
+        }
+        
+        bulletDelay++
+        bulletDelay1++
         
         if levelComplete == false {
             
@@ -734,9 +772,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                     weakJetTimer++
                     bargeTimer++
                     shieldTimer++
-                    bulletDelay++
-                    bulletDelay1++
-                    levelTime++
+               
+                   
                     singleMinion++
                     
                 } else {
@@ -747,43 +784,42 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                     weakJetTimer = 0
                     bargeTimer = 0
                     shieldTimer = 0
-                    bulletDelay = 0
-                    bulletDelay1 = 0
                     levelTime = 0
                     singleMinion = 0
                 }
                 
-                if levelTime > 10000 {
+                if levelTime > 8150 {
+                    
                     finishLevel()
                     
                 }
                 
-                if levelTime == 200 {
+                if totalEllapsed == 200 {
                     
                     bargeSpawn(self)
                 }
                 
-                if levelTime == 7000 {
+                if totalEllapsed == 7000 {
                     
                     bargeSpawn(self)
                 }
                 
-                if levelTime == 400 || levelTime == 8000 {
+                if totalEllapsed == 400 || totalEllapsed == 6500 {
                     var point1 = CGPoint(x: frame.size.width + 200, y: (frame.size.height / 2) + 300)
                     var point2 = CGPoint(x: frame.size.width + 180, y: (frame.size.height / 2) + 80)
                     var point3 = CGPoint(x: frame.size.width + 100, y: (frame.size.height / 2) - 100)
                     var point4 = CGPoint(x: frame.size.width + 60, y: (frame.size.height / 2) - 220)
                     var point5 = CGPoint(x: frame.size.width + 40, y: (frame.size.height / 2) - 30)
                     var point6 = CGPoint(x: frame.size.width + 10, y: (frame.size.height / 2) + 120)
-
+                    
                     var mineField: [CGPoint] = [point1,point2,point3,point4,point5,point6]
                     
-                                        
-                    for point in mineField {
                     
-
-                    layMines(self, point)
-                   
+                    for point in mineField {
+                        
+                        
+                        layMines(self, point)
+                        
                     }
                 }
                 
@@ -801,7 +837,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 if singleMinion > 350 {
                     var rany = CGFloat(arc4random_uniform(300)) - 150
                     var point5 = CGPoint(x: frame.size.width + 30, y: player.position.y + rany)
-
+                    
                     littionMinionSpawn(self, point5)
                     singleMinion = 0
                     
@@ -841,8 +877,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                         fighterJetWave(self, points, ranPointY)
                         fighterWaveTimer = 0
                     }
-               enemiesCount += 3
-                
+                    enemiesCount += 3
+                    
                 }
                 
                 if totalEllapsed > 600 {
@@ -850,8 +886,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                         weakJetSpawn(self)
                         weakJetTimer = 0
                         
-                    enemiesCount++
-                    
+                        enemiesCount++
+                        
                     }
                 }
                 
@@ -874,8 +910,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                             
                             
                         }
-                    enemiesCount += 3
-                    
+                        enemiesCount += 3
+                        
                     }
                 }
                 
@@ -895,82 +931,33 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         BGScroll()
         BGScroll2()
         
-        
-        
-        healthLabel.text = "\(playerHealth)"
+        healthLabel.text = "Health: \(playerHealth)"
         scoreLabel.text = "\(currentScore)"
-        oreLabel.text = "\(oreCount)"
+        oreLabel.text = "Ore: \(oreCount)"
         
-        if playerHealth <= 0 {
+        if playerHealth <= 0 && levelComplete != true {
             
             if playerAlive == false { return }
             
-            
-            if bugzOn {
-                println("player death \(playerAlive)")
-            }
-            
             explodeFunc3(self, player)
             
-            
             player.removeFromParent()
-            
             
             playerAlive = false
             
             playerDeathScreen()
             
         }
-        
-        
-        if (playerUp == true) && (player.position.y < frame.height - 70) {
-            player.position.y = player.position.y + 15
-        }
-        if (playerDown == true) && (player.position.y > frame.height - frame.height + 70) {
-            player.position.y = player.position.y - 15
-        }
-        
-        if (gunBool == true) && (bulletDelay > 12) {
-         
-            
-            
-            //            bulletsFired++
-//            if beamEnabled == true {
-//                
-//                beamCannon(self)
-//            }
-            autoCannon(self)
-            bulletDelay = 0
-            bulletDelay1 = 6
-            
-        }
-        if (gunBool == true) && (bulletDelay1 > 12) {
-            autoCannon1(self)
-            bulletDelay1 = 0
-            println("bd1 \(bulletDelay1)")
-            
-            
-        }
-        
+
         
     }
-    
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//\/\/\//\/\/\//\//\/\/\//\/\/\\
-    
-    // touches stuff
-    
-    
-    
-    
-    
+
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         
         for touch in (touches as! Set<UITouch>) {
             
             let location = touch.locationInNode(self)
-            
-         
             
             if retryButton .containsPoint(location) {
                 
@@ -981,8 +968,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 explosiveBool = false
                 
                 oreCount = 0
-                
                 currentScore = 0
+                bulletsFired = 0
+                bulletsHit = 0
+                enemiesDestroyed = 0
                 
                 for node in deathScreenItems { node.removeFromParent() }
                 
@@ -1029,6 +1018,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 touchLocationY = location.y
                 
                 gunBool = true }
+           
             if moveUp .containsPoint(location)   { playerUp = true }
             if moveDown .containsPoint(location) { playerDown = true }
             
@@ -1042,7 +1032,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             let location = touch.locationInNode(self)
             
-          
+            
             
             if gunZone .containsPoint(location) {
                 
@@ -1050,7 +1040,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 touchLocationY = location.y
                 
                 gunBool = true }
+            
             if nullZone.containsPoint(location) { gunBool = false }
+            
             if nullMove.containsPoint(location) { playerUp = false; playerDown = false }
             
         }
@@ -1067,26 +1059,22 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             if moveUp .containsPoint(location)   { playerUp = false }
             if moveDown .containsPoint(location) { playerDown = false }
             if nullMove.containsPoint(location) { playerUp = false; playerDown = false }
-
+            
             
         }
         
         if touches.count == 1 {
             
-            gunBool = false
-//            playerUp = false
-//            playerDown = false
+//            gunBool = false
+                        playerUp = false
+                        playerDown = false
             
         }
         
     }
     
     
-    //touches stuff ends
-    
-    
-    //~~~~~~~~~~~\//\/\/\//\/\\//\
-    
+
     
     let engine = SKEmitterNode(fileNamed: "MyParticle")
     
@@ -1102,7 +1090,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         player.zPosition = 2
         addChild(player)
         player.physicsBody?.affectedByGravity = false
-        playerHealth = 2000 + playerHealthBonus
+        playerHealth = 500 + playerHealthBonus
         
         
         
@@ -1143,24 +1131,28 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         currentScore = 0
         scoreLabel.text = "\(currentScore)"
-        scoreLabel.position = CGPoint(x: scene!.size.width / 2, y: scene!.size.height - 60)
-        scoreLabel.fontSize = 60
+        scoreLabel.position = CGPoint(x: scene!.size.width * 0.05, y: scene!.size.height - 40)
+        scoreLabel.fontSize = 40
+        scoreLabel.fontColor = UIColor.whiteColor()
         addChild(scoreLabel)
         
         healthLabel.text = "\(playerHealth)"
         healthLabel.fontSize = 50
         healthLabel.position = CGPoint(x: scene!.size.width *  0.25, y: scene!.size.height - 60)
+
         addChild(healthLabel)
         
+      
         oreCount = 0
-        oreLabel.text = "Ore: \(oreCount)"
+        oreLabel.text = "Ore:\(oreCount)"
         oreLabel.fontSize = 50
         oreLabel.position = CGPoint(x: scene!.size.width *  0.75, y: scene!.size.height - 60)
+        oreLabel.fontColor = UIColor.greenColor()
         addChild(oreLabel)
         
         pauseLabel.text = "Menu"
         pauseLabel.fontSize = 40
-        pauseLabel.position = CGPoint(x: scene!.size.width * 0.12, y: scene!.size.height - 60)
+        pauseLabel.position = CGPoint(x: scene!.size.width / 2, y: scene!.size.height - 60)
         addChild(pauseLabel)
         
         pauseButton.position = pauseLabel.position

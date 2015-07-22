@@ -237,53 +237,6 @@ class ShittyTank: SKSpriteNode {
 
 
 
-var helicopterOneAlive: Bool = false
-
-var enemySpawnPointOne: CGPoint!
-var enemyOneImpulse: CGVector!
-var gravBoolEOne: Bool!
-var helicopterPosition: CGPoint!
-
-
-
-var helicopter1Health: Int = 50
-let helicopter1 = SKSpriteNode(imageNamed: "shittyPlane")
-
-
-
-var helicopterBulletDamage: Int! = 5
-
-var bulletCount: Double = 0
-
-
-
-func helicopterAttack(scene: SKScene) {
-    
-    var bullets: SKShapeNode!
-    bullets = SKShapeNode(circleOfRadius: 7)
-    
-    bullets.physicsBody = SKPhysicsBody(circleOfRadius: 7)
-    bullets.fillColor = UIColor.whiteColor()
-    bullets.physicsBody?.categoryBitMask = enemyAttackCategory
-    bullets.physicsBody?.contactTestBitMask = playerCategory
-    bullets.physicsBody?.collisionBitMask = 0
-    //    bullets.position =
-    
-    scene.addChild(bullets)
-    
-        
-    let X = player.position.x - bullets.position.x
-    let Y = player.position.y - bullets.position.y
-    var magnitude: CGFloat = sqrt(X*X+Y*Y)
-    bullets.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*7, Y/magnitude*7))
-    
-    
-    
-}
-
-
-
-
 class Bomber: SKSpriteNode {
     
     var health = 100

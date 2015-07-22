@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-var debugz: Bool = false
+var debugz: Bool = true
 
 let bugzOn = (debugz == true)
 

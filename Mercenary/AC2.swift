@@ -90,6 +90,6 @@ func autoCannon1(scene: SKScene) {
     
     
 
-    projectile.runAction(gunFX)
+//    projectile.runAction(gunFX)
     
 }

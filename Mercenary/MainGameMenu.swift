@@ -27,7 +27,7 @@ class MainGameMenu: SKScene {
         size.height = 750
         backgroundColor = UIColor.blackColor()
         
-        let starsBG = SKSpriteNode(imageNamed: "dynamicMainMenu")
+        let starsBG = SKSpriteNode(imageNamed: "spaceTruckMainOverlay")
         starsBG.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
         starsBG.size = CGSize(width: frame.width, height: frame.height)
         addChild(starsBG)

@@ -64,6 +64,9 @@ var jetTex: SKTexture!
 var rockTex: SKTexture!
 var strayTex: SKTexture!
 var smallAss: SKTexture!
+var explodeSFX1: SKAction!
+var explodeSFX2: SKAction!
+var explodeSFX3: SKAction!
 
 let music = SKAction.playSoundFileNamed("IntroThemeAughtV2.mp3", waitForCompletion: true)
 let loopMusic = SKAction.repeatActionForever(music)
@@ -78,6 +81,12 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         //        runAction(loopMusic)
         
+        let exp3 = SKAction.playSoundFileNamed("explosion3.wav", waitForCompletion: false)
+      explodeSFX3 = exp3
+        let exp1 =  SKAction.playSoundFileNamed("explosion1.wav", waitForCompletion: false)
+      explodeSFX1 = exp1
+        let exp2 =  SKAction.playSoundFileNamed("explosion2.wav", waitForCompletion: false)
+        explodeSFX2 = exp2
         
         let norCan = SKTexture(imageNamed: "gunfire3")
         let urCan = SKTexture(imageNamed: "uraniumCannon")
@@ -95,7 +104,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         let smallroidTex = SKTexture(imageNamed: "asteroid1")
         smallAss = smallroidTex
         
-        let gunSFX = SKAction.playSoundFileNamed("basicGun.wav", waitForCompletion: false)
+        let gunSFX = SKAction.playSoundFileNamed("bestMachinegun.wav", waitForCompletion: true
+        )
         gunFX = gunSFX
         
         let beamsSFX = SKAction.playSoundFileNamed("laserFireV2.wav", waitForCompletion: false)
@@ -106,9 +116,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         let playerTex = SKTexture(imageNamed: "truckNoLoad1")
         playTex = playerTex
-        let ric1 = SKAction.playSoundFileNamed("ricochet1.wav", waitForCompletion: false)
+        let ric1 = SKAction.playSoundFileNamed("ricochet3.wav", waitForCompletion: false)
         let ric2 = SKAction.playSoundFileNamed("ricochet2.wav", waitForCompletion: false)
-        let ric3 = SKAction.playSoundFileNamed("shortRicochet.wav", waitForCompletion: false)
+        let ric3 = SKAction.playSoundFileNamed("ricochet23.wav", waitForCompletion: false)
         rico = ric1
         rico1 = ric2
         rico2 = ric3
@@ -478,6 +488,19 @@ playerHealth = 2000
             projectile?.physicsBody = nil
             bulletsHit++
             
+            
+            let ranNum = arc4random_uniform(2)
+            if ranNum == 1 {
+                let ranNum2 = arc4random_uniform(2)
+                if ranNum2 == 0|1 {
+                    runAction(rico)
+
+                }else{
+                    runAction(rico1)
+                    
+                }
+            }
+            
             if let enemy = enemy {
                 
                 enemy.health = enemy.health - autoCannonDamage
@@ -501,6 +524,20 @@ playerHealth = 2000
             projectile?.removeFromParent()
             projectile?.physicsBody = nil
             bulletsHit++
+            
+            
+            
+            let ranNum = arc4random_uniform(2)
+            if ranNum == 1 {
+                let ranNum2 = arc4random_uniform(2)
+                if ranNum2 == 0|1 {
+                    runAction(rico)
+                    
+                }else{
+                    runAction(rico1)
+                    
+                }
+            }
             
  //~~~~~~~~           //            runAction(rico)
             
@@ -530,6 +567,18 @@ playerHealth = 2000
             projectile?.physicsBody = nil
             bulletsHit++
             
+            let ranNum = arc4random_uniform(2)
+            if ranNum == 1 {
+                let ranNum2 = arc4random_uniform(2)
+                if ranNum2 == 0|1 {
+                    runAction(rico)
+                    
+                }else{
+                    runAction(rico1)
+                    
+                }
+            }
+            
             enemy?.health = enemy!.health - autoCannonDamage
             
             if enemy?.health <= 0 {
@@ -555,6 +604,18 @@ playerHealth = 2000
             projectile?.removeFromParent()
             projectile?.physicsBody = nil
             bulletsHit++
+            
+            let ranNum = arc4random_uniform(2)
+            if ranNum == 1 {
+                let ranNum2 = arc4random_uniform(2)
+                if ranNum2 == 0|1 {
+                    runAction(rico)
+                    
+                }else{
+                    runAction(rico1)
+                    
+                }
+            }
             
 //~~~~~~~~            //            runAction(rico2)
             
@@ -589,7 +650,19 @@ playerHealth = 2000
             projectile?.physicsBody = nil
             bulletsHit++
             
-//~~~~~~~~~~~~            //            runAction(rico1)
+            
+            let ranNum = arc4random_uniform(2)
+            if ranNum == 1 {
+                let ranNum2 = arc4random_uniform(2)
+                if ranNum2 == 0|1 {
+                    runAction(rico)
+                    
+                }else{
+                    runAction(rico1)
+                    
+                }
+            }
+            
             
             enemy?.health = enemy!.health - autoCannonDamage
             
@@ -613,7 +686,6 @@ playerHealth = 2000
                     enemiesDestroyed++
 
                     enemiesCount -= 1
-                    
                     
                 }
             }

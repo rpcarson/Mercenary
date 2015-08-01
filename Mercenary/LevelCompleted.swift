@@ -14,6 +14,9 @@ import SpriteKit
 var levelCompleteArray: [SKNode] = []
 func levelCompleted(scene: SKScene) {
     
+    var accuracy: Double = round((bulletsHit / bulletsFired) * 100)
+
+    
     player.removeFromParent()
     
     completeLabel.text = "Mission Complete!"
@@ -76,6 +79,11 @@ func levelCompleted(scene: SKScene) {
     scene.addChild(fullTruck)
     levelCompleteArray.append(fullTruck)
     
+    
+    retryButton.size = CGSize(width: 300, height: 200)
+    retryButton.position = continueLabel.position
+    retryButton.color = UIColor.clearColor()
+    scene.addChild(retryButton)
     
     // CREATE CONTINUE BUTTON FUNCTIONALITY -  return to main menu ..... finalize temp main menu
     

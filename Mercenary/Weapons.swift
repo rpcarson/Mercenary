@@ -10,10 +10,8 @@ import Foundation
 import SpriteKit
 
 
-let uraniumShot = SKTexture(imageNamed: "uraniumShot")
 var cannonColor: UIColor = UIColor.yellowColor()
 var normalCannnon = UIColor.yellowColor()
-//var uraniumCannon = UIColor(red:0.25, green:0.92, blue:0.46, alpha:1)
 var uraniumDam: Int = 0
 var explosiveDam: Int = 0
 var doubleShotBool: Bool = true
@@ -33,11 +31,17 @@ var cannonTexture: SKTexture!
 
 func autoCannon(scene: SKScene) {
     
+    
+    var angleX = touchLocationX - player.position.x
+    var angleY = touchLocationY - (player.position.y + 20)
+    var nodeAngle = atan2(angleY, angleX)
+    
+    
+    
     if oreCount > 3 { uraniumBool = true }
     if oreCount > 9 { beamEnabled = true }
     if oreCount > 6 { explosiveBool =  true }
     
-    if bugzOn {     }
     println("AC Dam = \(autoCannonDamage)")
 
     
@@ -49,31 +53,27 @@ func autoCannon(scene: SKScene) {
     if uraniumBool ==  true {
         
         uraniumDam = 2
-        cannonTexture = uraniumShot
+        cannonTexture = can2
         projectile.size = CGSize(width: 50, height: 16)
         
     }
-
-    if beamEnabled ==  true {
-       
-        beamDamage = 3
-
-    }
+    
     if explosiveBool == true {
         
         explosiveDam = 2
+
+        cannonTexture = can3
+        projectile.size = CGSize(width: 100, height: 60)
+        
     }
+
+ 
     
     
     autoCannonDamage = autoBaseDamage + uraniumDam + explosiveDam + beamDamage
     
     
-//    let soundDelay = SKAction.waitForDuration(0.02)
-//    let sfxSequence = SKAction.sequence([gunFX,soundDelay])
-    
-    var angleX = touchLocationX - player.position.x
-    var angleY = touchLocationY - player.position.y
-    var nodeAngle = atan2(angleY, angleX)
+  
    
 
     
@@ -120,6 +120,42 @@ func autoCannon(scene: SKScene) {
     
     scene.addChild(muzzleFlash)
     muzzleFlash.runAction(flashRemove)
+
+
+    if beamEnabled ==  true {
+        
+//        projectile.runAction(beamFX)
+        beamDamage = 3
+        
+//        var beamSize = CGSize(width: 60, height: 2)
+//        
+//        let beam = SKShapeNode(rectOfSize: beamSize, cornerRadius: 5)
+//        
+//        beam.physicsBody = SKPhysicsBody(rectangleOfSize: beamSize)
+//        beam.fillColor = UIColor(red:0.13, green:0.45, blue:0.93, alpha:1)
+//        beam.strokeColor = UIColor(red:0.24, green:0.81, blue:0.96, alpha:1)
+//        beam.glowWidth = 6
+//        beam.position = CGPoint(x: player.position.x + (player.size.width / 2), y: player.position.y + 20)
+//        beam.physicsBody?.collisionBitMask = 0
+//        beam.physicsBody?.categoryBitMask = playerProjectileOne
+//        beam.physicsBody?.contactTestBitMask = enemyCategoryOne
+//        beam.zRotation = nodeAngle
+//        
+//        
+//        scene.addChild(beam)
+//        
+//        beam.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*11, Y/magnitude*11))
+//        
+//        let remove = SKAction.removeFromParent()
+//        let wait = SKAction.waitForDuration(1.0)
+//        let removeSequence = SKAction.sequence([wait,remove])
+//        beam.runAction(removeSequence)
+        
+        
+    }
+
+
+
 
 }
 

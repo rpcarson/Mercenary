@@ -66,6 +66,8 @@
 		5BE57E8E1B57C82C00F13B5A /* laserFireV2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BE57E8D1B57C82C00F13B5A /* laserFireV2.wav */; };
 		5BE57E901B57E8BF00F13B5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BE57E8F1B57E8BF00F13B5A /* Images.xcassets */; };
 		5BE57E921B57E92B00F13B5A /* Explosions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE57E911B57E92B00F13B5A /* Explosions.swift */; };
+		5BF1C0911B614CF100740DF8 /* organTruckV1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1C0901B614CF100740DF8 /* organTruckV1.mp3 */; };
+		5BF1C0931B6154AA00740DF8 /* organTruckV2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1C0921B6154AA00740DF8 /* organTruckV2.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +144,8 @@
 		5BE57E8D1B57C82C00F13B5A /* laserFireV2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laserFireV2.wav; sourceTree = "<group>"; };
 		5BE57E8F1B57E8BF00F13B5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5BE57E911B57E92B00F13B5A /* Explosions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Explosions.swift; path = ../Explosions.swift; sourceTree = "<group>"; };
+		5BF1C0901B614CF100740DF8 /* organTruckV1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = organTruckV1.mp3; sourceTree = "<group>"; };
+		5BF1C0921B6154AA00740DF8 /* organTruckV2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = organTruckV2.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,7 +174,9 @@
 				5BA8DC121B5D327300AE990F /* explosionSFX1.wav */,
 				5B2428BF1B536CEA00D4D723 /* LevelOneMainLoop.mp3 */,
 				5B04AAD71B6088EF00F27F58 /* bestMachinegun.wav */,
+				5BF1C0921B6154AA00740DF8 /* organTruckV2.mp3 */,
 				5B04AADB1B608AA200F27F58 /* ricochet23.wav */,
+				5BF1C0901B614CF100740DF8 /* organTruckV1.mp3 */,
 				5B04AAD91B608A9300F27F58 /* ricochet2.wav */,
 				5B04AADD1B608ABC00F27F58 /* ricochet3.wav */,
 				5BA8DC161B5D370800AE990F /* shortRicochet.wav */,
@@ -435,9 +441,11 @@
 				5B95AE981B593EBF00D5A4BE /* spark.png in Resources */,
 				5BE57E861B57C3BB00F13B5A /* LevelOneMainLoopV2.mp3 in Resources */,
 				5B2428C21B53714E00D4D723 /* LevelOne.mp3 in Resources */,
+				5BF1C0931B6154AA00740DF8 /* organTruckV2.mp3 in Resources */,
 				5BDF48891B42E09100CBD6E5 /* Main.storyboard in Resources */,
 				5BE57E891B57C3C700F13B5A /* laserFire1.wav in Resources */,
 				5BCC58F51B596E9A0028AD55 /* Blue.ttf in Resources */,
+				5BF1C0911B614CF100740DF8 /* organTruckV1.mp3 in Resources */,
 				5B25392F1B4673AB00642AD6 /* IntroThemeAughtV2.mp3 in Resources */,
 				5BE57E841B57C3B500F13B5A /* LevelOneV2.mp3 in Resources */,
 				5BA8DC131B5D327300AE990F /* explosionSFX1.wav in Resources */,

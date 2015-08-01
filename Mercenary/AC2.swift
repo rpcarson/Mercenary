@@ -19,25 +19,32 @@ func autoCannon1(scene: SKScene) {
 
     
     let projectile = SKSpriteNode(texture: cannonTexture)
-    
     let normalCannon = SKTexture(imageNamed: "gunfire3")
     let uraniumCannon = SKTexture(imageNamed: "uraniumCannon")
+    
+    
     
     cannonTexture = normalCannon
     
     if uraniumBool ==  true {
         
-        cannonTexture = uraniumShot
+        cannonTexture = can2
         projectile.size = CGSize(width: 50, height: 16)
         
     }
-    
+    if explosiveBool == true {
+        
+        
+        cannonTexture = can3
+        projectile.size = CGSize(width: 100, height: 60)
+
+    }
 
     
     
 
     var angleX = touchLocationX - player.position.x
-    var angleY = touchLocationY - player.position.y
+    var angleY = touchLocationY - (player.position.y - 64)
     var nodeAngle = atan2(angleY, angleX)
 
     
@@ -64,6 +71,39 @@ func autoCannon1(scene: SKScene) {
     projectile.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*11, Y/magnitude*11))
     
     
+    if beamEnabled ==  true {
+        
+//        projectile.runAction(beamFX)
+        
+        
+//        var beamSize = CGSize(width: 60, height: 2)
+//        
+//        let beam = SKShapeNode(rectOfSize: beamSize, cornerRadius: 5)
+//        
+//        beam.physicsBody = SKPhysicsBody(rectangleOfSize: beamSize)
+//        beam.fillColor = UIColor(red:0.13, green:0.45, blue:0.93, alpha:1)
+//        beam.strokeColor = UIColor(red:0.24, green:0.81, blue:0.96, alpha:1)
+//        beam.glowWidth = 6
+//        beam.position = CGPoint(x: player.position.x + (player.size.width / 2), y: player.position.y - 64)
+//        beam.physicsBody?.collisionBitMask = 0
+//        beam.physicsBody?.categoryBitMask = playerProjectileOne
+//        beam.physicsBody?.contactTestBitMask = enemyCategoryOne
+//        beam.zRotation = nodeAngle
+//        
+//        
+//        scene.addChild(beam)
+//        
+//        beam.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*11, Y/magnitude*11))
+//        let remove = SKAction.removeFromParent()
+//        let wait = SKAction.waitForDuration(1.0)
+//        let removeSequence = SKAction.sequence([wait,remove])
+//        beam.runAction(removeSequence)
+        
+        
+        
+        
+    }
+    
     
     let remove = SKAction.removeFromParent()
     let wait = SKAction.waitForDuration(1.0)
@@ -89,7 +129,5 @@ func autoCannon1(scene: SKScene) {
     muzzleFlash1.runAction(flashRemove)
     
     
-
-//    projectile.runAction(gunFX)
     
 }

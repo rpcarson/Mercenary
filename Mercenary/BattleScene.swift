@@ -9,11 +9,12 @@
 import SpriteKit
 
 
+var retryOverride: Bool = false
+
 
 var bulletsFired: Double = 0
 var bulletsHit: Double = 0
 var enemiesDestroyed: Int = 0
-var accuracy: Double = bulletsHit / bulletsFired
 
 
 var enemiesCount: Int = 0
@@ -58,6 +59,7 @@ var rico2: SKAction!
 var flashTex: SKTexture!
 var can1:  SKTexture!
 var can2: SKTexture!
+var can3: SKTexture!
 
 var minTex: SKTexture!
 var jetTex: SKTexture!
@@ -68,8 +70,7 @@ var explodeSFX1: SKAction!
 var explodeSFX2: SKAction!
 var explodeSFX3: SKAction!
 
-let music = SKAction.playSoundFileNamed("IntroThemeAughtV2.mp3", waitForCompletion: true)
-let loopMusic = SKAction.repeatActionForever(music)
+
 
 class BattleScene: SKScene, SKPhysicsContactDelegate {
     
@@ -79,7 +80,13 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMoveToView(view: SKView) {
         
-        //        runAction(loopMusic)
+//        organTruckV2
+//        introThemeAughtV2
+        
+        let music = SKAction.playSoundFileNamed("organTruckV2.mp3", waitForCompletion: true)
+        let loopMusic = SKAction.repeatActionForever(music)
+        runAction(loopMusic)
+
         
         let exp3 = SKAction.playSoundFileNamed("explosion3.wav", waitForCompletion: false)
       explodeSFX3 = exp3
@@ -88,10 +95,14 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         let exp2 =  SKAction.playSoundFileNamed("explosion2.wav", waitForCompletion: false)
         explodeSFX2 = exp2
         
+        
+        
+        let exCan = SKTexture(imageNamed: "explosiveShot1")
+        can3 = exCan
         let norCan = SKTexture(imageNamed: "gunfire3")
-        let urCan = SKTexture(imageNamed: "uraniumCannon")
+        let uraniumShot = SKTexture(imageNamed: "uraniumShot")
         can1 = norCan
-        can2 = urCan
+        can2 = uraniumShot
         
         let minionTex = SKTexture(imageNamed: "stupidAssMinion1")
         minTex = minionTex
@@ -143,9 +154,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         ready()
         
-playerHealth = 2000
         
+//        levelCompleted(self)
         
+        println(playerAlive)
         
     }
     
@@ -164,8 +176,34 @@ playerHealth = 2000
         ready.runAction(fullSeq)
         
         playerAlive = true
+        retryOverride = false
         
-
+        
+        totalEllapsed = 0
+        strafeJetSpawnDelay = 0
+        minionDelay = 0
+        fighterWaveTimer = 0
+        weakJetTimer = 0
+        bargeTimer = 0
+        shieldTimer = 0
+        levelTime = 0
+        singleMinion = 0
+        
+        retryButton.removeFromParent()
+        
+        healthLabel.hidden = false
+        oreLabel.hidden = false
+        scoreLabel.hidden = false
+        pauseLabel.hidden = false
+        
+        beamEnabled = false
+        uraniumBool = false
+        explosiveBool = false
+        oreCount = 0
+        uraniumDam = 0
+        explosiveDam = 0
+        beamDamage = 0
+        
     }
     
     var gameOn: Bool = false
@@ -202,16 +240,12 @@ playerHealth = 2000
     
     func startGame() {
         
-        //        runAction(SKAction.playSoundFileNamed("LevelOneMainLoopV2.mp3", waitForCompletion: true))
+    
         
         initializePlayer()
         
         
         playerAlive = true
-        
-        
-        //                        runAction(loopMusic)
-        
         
         
         moveDown = childNodeWithName("moveDown") as? SKSpriteNode
@@ -235,6 +269,7 @@ playerHealth = 2000
         removeActionForKey("largeAsteroid")
         removeActionForKey("weakJet")
         
+    
     }
     
     
@@ -378,13 +413,13 @@ playerHealth = 2000
         func dropOre(scene: SKScene, asteroid: SKSpriteNode) {
             
             let ranNum = arc4random_uniform(3)
-            var oreChance: UInt32 = 0|1
+            var oreChance: UInt32 = 0
             let orePiece = SKShapeNode(circleOfRadius: 10)
             orePiece.fillColor = UIColor(red:0.25, green:0.92, blue:0.46, alpha:1)
             orePiece.position = asteroid.position
             orePiece.glowWidth = 10
             
-            if oreChance == ranNum {
+            if ranNum == 1 || ranNum == 2 {
                 
                 scene.addChild(orePiece)
                 orePiece.physicsBody = SKPhysicsBody(circleOfRadius: 25)
@@ -405,9 +440,11 @@ playerHealth = 2000
         if player && (secondMask == oreCategory) || player1 && (firstMask == oreCategory) {
             let enemy = secondMask == oreCategory ? secondBody : firstBody
             
-            enemy?.removeFromParent()
-            enemy?.physicsBody = nil
             oreCount++
+           
+            enemy?.physicsBody = nil
+
+            enemy?.removeFromParent()
             
         }
         
@@ -784,10 +821,13 @@ playerHealth = 2000
         if levelTime == 8300 {
             
             levelCompleted(self)
-            
+            playerAlive = false
         }
         
-        
+        if playerHealth > 500 {
+            
+            healthLabel.fontColor = UIColor.whiteColor()
+        }
         if playerHealth < 300 {
             healthLabel.fontColor = UIColor.yellowColor()
         }
@@ -906,7 +946,7 @@ playerHealth = 2000
                     
                 }
                 
-                if singleMinion > 350 {
+                if singleMinion > 200 {
                     var rany = CGFloat(arc4random_uniform(300)) - 150
                     var point5 = CGPoint(x: frame.size.width + 30, y: player.position.y + rany)
                     
@@ -1024,7 +1064,6 @@ playerHealth = 2000
         
     }
 
-    
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         
         for touch in (touches as! Set<UITouch>) {
@@ -1033,11 +1072,13 @@ playerHealth = 2000
             
             if retryButton .containsPoint(location) {
                 
+                
+                
                 if playerAlive == true { return }
                 
-                beamEnabled = false
-                uraniumBool = false
-                explosiveBool = false
+//                if retryOverride == true { return }
+                
+               
                 
                 oreCount = 0
                 currentScore = 0
@@ -1045,6 +1086,7 @@ playerHealth = 2000
                 bulletsHit = 0
                 enemiesDestroyed = 0
                 
+                for node in levelCompleteArray { node.removeFromParent() }
                 for node in deathScreenItems { node.removeFromParent() }
                 
                 startGame()
@@ -1056,6 +1098,7 @@ playerHealth = 2000
                 
                 ready()
                 
+                retryOverride = true
                 
             }
             
@@ -1162,7 +1205,7 @@ playerHealth = 2000
         player.zPosition = 2
         addChild(player)
         player.physicsBody?.affectedByGravity = false
-        playerHealth = 500 + playerHealthBonus
+        playerHealth = 20000 + playerHealthBonus
         
         
         

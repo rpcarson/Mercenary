@@ -22,7 +22,7 @@ func layMines(scene: SKScene, point: CGPoint) {
     scene.addChild(mine)
     
     mine.physicsBody?.applyTorque(1.2)
-    mine.physicsBody?.applyImpulse(CGVector(dx: -20, dy: 0))
+    mine.physicsBody?.applyImpulse(CGVector(dx: -30, dy: 0))
     
     let wait = SKAction.waitForDuration(25, withRange: 5)
     let explode = SKAction.runBlock(  { explodeFunc3(scene, mine) } )

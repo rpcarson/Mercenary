@@ -31,7 +31,7 @@ class GameViewController: UIViewController {
   
         super.viewDidLayoutSubviews()
 
-        if let scene = MainGameMenu.unarchiveFromFile("MainGameMenu") as? MainGameMenu {
+        if let scene = BattleScene.unarchiveFromFile("BattleScene") as? BattleScene {
             // Configure the view.
            
             
@@ -40,8 +40,8 @@ class GameViewController: UIViewController {
             
             
             let skView = self.view as! SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
+//            skView.showsFPS = true
+//            skView.showsNodeCount = true
             
 //            skView.frameInterval = 2
             

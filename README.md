@@ -5,3 +5,6 @@ Mercenary is the original and temporary title given to a game I began developing
 Sound effects are temporary place holders found online. 
 Soundtrack is my own original work created with FL Studio.
 The graphics are also original work using Sketch 3. 
+
+
+Looking back several months later, I can see how cumbersome and complex this code is. In the future I will either refactor this code or write a new app from scratch utilizing the design principles and better understanding of swift I have come to have since.

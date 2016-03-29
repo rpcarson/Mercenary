@@ -157,7 +157,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
 //        levelCompleted(self)
         
-        println(playerAlive)
+        print(playerAlive)
         
     }
     
@@ -325,7 +325,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             if let enemy = enemy {
                 
-                explodeFunc3(self, enemy)
+                explodeFunc3(self, enemy: enemy)
                 
             }
             
@@ -340,7 +340,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             playerHealth = playerHealth - 20
             
             if let enemy = enemy {
-                explodeFunc(self, enemy)
+                explodeFunc(self, enemy: enemy)
                 
                 
                 enemy.removeFromParent()
@@ -388,8 +388,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             playerHealth = playerHealth - 50
             
             if bugzOn {
-                println("rocket contact")
-                println("player health = \(playerHealth)")
+                print("rocket contact")
+                print("player health = \(playerHealth)")
             }
             
         }
@@ -465,9 +465,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
                 if let enemy = enemy {
                     
-                    dropOre(self, enemy)
+                    dropOre(self, asteroid: enemy)
                     
-                    explodeFunc(self, enemy)
+                    explodeFunc(self, enemy: enemy)
                     
                     enemy.removeFromParent()
                     
@@ -493,9 +493,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
                 if let enemy = enemy {
                     
-                    dropOre(self, enemy)
+                    dropOre(self, asteroid: enemy)
                     
-                    explodeFunc(self, enemy)
+                    explodeFunc(self, enemy: enemy)
                     
                     enemy.removeFromParent()
                     
@@ -542,7 +542,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
                 enemy.health = enemy.health - autoCannonDamage
                 if enemy.health <= 0 {
-                    explodeFunc(self, enemy)
+                    explodeFunc(self, enemy: enemy)
                     enemy.removeFromParent()
                     currentScore += 10
                     enemiesDestroyed++
@@ -583,7 +583,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             if enemy?.health <= 0 {
                 
                 if let enemy = enemy {
-                    explodeFunc2(self, enemy)
+                    explodeFunc2(self, enemy: enemy)
                     enemy.removeFromParent()
                     currentScore += 25
                     enemiesCount -= 1
@@ -621,7 +621,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             if enemy?.health <= 0 {
                 
                 if let enemy = enemy {
-                    explodeFunc2(self, enemy)
+                    explodeFunc2(self, enemy: enemy)
                     enemy.removeFromParent()
                     currentScore += 50
                     enemiesCount -= 1
@@ -667,7 +667,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 }
                 if enemy.health <= 0 {
                     enemy.removeFromParent()
-                    explodeFunc2(self, enemy)
+                    explodeFunc2(self, enemy: enemy)
                     currentScore += 350
                     enemiesCount -= 1
                     enemiesDestroyed++
@@ -704,7 +704,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             enemy?.health = enemy!.health - autoCannonDamage
             
             if bugzOn {
-                println(enemy?.health)
+                print(enemy?.health)
             }
             
             if enemy?.health <= 10 {
@@ -717,7 +717,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
                 if enemy.health <= 0 {
                     
-                    explodeFunc2(self, enemy)
+                    explodeFunc2(self, enemy: enemy)
                     enemy.removeFromParent()
                     currentScore += 50
                     enemiesDestroyed++
@@ -917,20 +917,20 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 if totalEllapsed == 400 || totalEllapsed == 6500 {
-                    var point1 = CGPoint(x: frame.size.width + 200, y: (frame.size.height / 2) + 300)
-                    var point2 = CGPoint(x: frame.size.width + 180, y: (frame.size.height / 2) + 80)
-                    var point3 = CGPoint(x: frame.size.width + 100, y: (frame.size.height / 2) - 100)
-                    var point4 = CGPoint(x: frame.size.width + 60, y: (frame.size.height / 2) - 220)
-                    var point5 = CGPoint(x: frame.size.width + 40, y: (frame.size.height / 2) - 30)
-                    var point6 = CGPoint(x: frame.size.width + 10, y: (frame.size.height / 2) + 120)
+                    let point1 = CGPoint(x: frame.size.width + 200, y: (frame.size.height / 2) + 300)
+                    let point2 = CGPoint(x: frame.size.width + 180, y: (frame.size.height / 2) + 80)
+                    let point3 = CGPoint(x: frame.size.width + 100, y: (frame.size.height / 2) - 100)
+                    let point4 = CGPoint(x: frame.size.width + 60, y: (frame.size.height / 2) - 220)
+                    let point5 = CGPoint(x: frame.size.width + 40, y: (frame.size.height / 2) - 30)
+                    let point6 = CGPoint(x: frame.size.width + 10, y: (frame.size.height / 2) + 120)
                     
-                    var mineField: [CGPoint] = [point1,point2,point3,point4,point5,point6]
+                    let mineField: [CGPoint] = [point1,point2,point3,point4,point5,point6]
                     
                     
                     for point in mineField {
                         
                         
-                        layMines(self, point)
+                        layMines(self, point: point)
                         
                     }
                 }
@@ -947,10 +947,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 if singleMinion > 200 {
-                    var rany = CGFloat(arc4random_uniform(300)) - 150
-                    var point5 = CGPoint(x: frame.size.width + 30, y: player.position.y + rany)
+                    let rany = CGFloat(arc4random_uniform(300)) - 150
+                    let point5 = CGPoint(x: frame.size.width + 30, y: player.position.y + rany)
                     
-                    littionMinionSpawn(self, point5)
+                    littionMinionSpawn(self, spawnPoint: point5)
                     singleMinion = 0
                     
                     enemiesCount++
@@ -958,15 +958,15 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 if bargeTimer > 3500 {
-                    var point3 = CGPoint(x: frame.size.width + 30, y: player.position.y - 100)
-                    var point4 = CGPoint(x: frame.size.width + 30, y: player.position.y - 200)
-                    var point5 = CGPoint(x: frame.size.width + 30, y: player.position.y)
-                    var point6 = CGPoint(x: frame.size.width + 30, y: player.position.y + 100)
-                    var minionArray: [CGPoint] = [point3,point4,point5,point6]
+                    let point3 = CGPoint(x: frame.size.width + 30, y: player.position.y - 100)
+                    let point4 = CGPoint(x: frame.size.width + 30, y: player.position.y - 200)
+                    let point5 = CGPoint(x: frame.size.width + 30, y: player.position.y)
+                    let point6 = CGPoint(x: frame.size.width + 30, y: player.position.y + 100)
+                    let minionArray: [CGPoint] = [point3,point4,point5,point6]
                     
                     for point in minionArray {
                         
-                        littionMinionSpawn(self, point)
+                        littionMinionSpawn(self, spawnPoint: point)
                         
                     }
                     
@@ -977,16 +977,16 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 if (fighterWaveTimer > 2000 + minionRandomizer) && totalEllapsed > 4000 {
-                    var point1 = CGPoint(x: frame.size.width + 150, y: frame.size.height)
-                    var point2 = CGPoint(x: frame.size.width + 300, y: frame.size.height - 200)
-                    var point3 = CGPoint(x: frame.size.width + 450, y: frame.size.height - 400)
+                    let point1 = CGPoint(x: frame.size.width + 150, y: frame.size.height)
+                    let point2 = CGPoint(x: frame.size.width + 300, y: frame.size.height - 200)
+                    let point3 = CGPoint(x: frame.size.width + 450, y: frame.size.height - 400)
                     let pattern1: [CGPoint] = [point1,point2,point3]
                     
-                    var ranPointY = arc4random_uniform(100)
+                    let ranPointY = arc4random_uniform(100)
                     
                     for points in pattern1 {
                         
-                        fighterJetWave(self, points, ranPointY)
+                        fighterJetWave(self, spawnPoint: points, movePoint: ranPointY)
                         fighterWaveTimer = 0
                     }
                     enemiesCount += 3
@@ -1009,14 +1009,14 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                     if minionDelay > minionRandomizer + 500 {
                         
                         
-                        var point1 = CGPoint(x: frame.size.width + 180, y: player.position.y + 120)
-                        var point2 = CGPoint(x: frame.size.width + 180, y: player.position.y - 120)
-                        var point3 = CGPoint(x: frame.size.width + 30, y: player.position.y)
+                        let point1 = CGPoint(x: frame.size.width + 180, y: player.position.y + 120)
+                        let point2 = CGPoint(x: frame.size.width + 180, y: player.position.y - 120)
+                        let point3 = CGPoint(x: frame.size.width + 30, y: player.position.y)
                         let pattern1: [CGPoint] = [point1,point2,point3]
                         
                         for points in pattern1 {
                             
-                            littionMinionSpawn(self, points)
+                            littionMinionSpawn(self, spawnPoint: points)
                             minionDelay = 0
                             
                             
@@ -1051,7 +1051,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             if playerAlive == false { return }
             
-            explodeFunc3(self, player)
+            explodeFunc3(self, enemy: player)
             
             player.removeFromParent()
             
@@ -1064,9 +1064,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
     }
 
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        for touch in (touches as! Set<UITouch>) {
+        for touch in (touches ) {
             
             let location = touch.locationInNode(self)
             
@@ -1141,9 +1141,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        for touch in (touches as! Set<UITouch>) {
+        for touch in (touches ) {
             
             let location = touch.locationInNode(self)
             
@@ -1164,9 +1164,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        for touch in (touches as! Set<UITouch>) {
+        for touch in (touches ) {
             
             let location = touch.locationInNode(self)
             

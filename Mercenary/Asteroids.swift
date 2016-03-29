@@ -11,11 +11,11 @@ import SpriteKit
 
 func LargeAsteroidMechanix(scene: SKScene) {
     
-    var ranYLarge = CGFloat(arc4random_uniform(700)) - 350
+    let ranYLarge = CGFloat(arc4random_uniform(700)) - 350
     let object = LargeAsteroid(scene: scene)
     scene.addChild(object)
     
-    var ranTork = CGFloat(arc4random_uniform(6)) - 3
+    let ranTork = CGFloat(arc4random_uniform(6)) - 3
     object.physicsBody?.applyTorque(ranTork)
     object.position = CGPoint(x: scene.size.width + object.size.width, y: (scene.size.height / 2) + ranYLarge)
     
@@ -49,13 +49,13 @@ class LargeAsteroid: SKSpriteNode {
 
 func SmallAsteroidMechanix(scene: SKScene) {
     
-    var ranYSmall2 = CGFloat(arc4random_uniform(800)) - 400
+    let ranYSmall2 = CGFloat(arc4random_uniform(800)) - 400
 
-    var ranYSmall = CGFloat(arc4random_uniform(800)) - 400
+    let ranYSmall = CGFloat(arc4random_uniform(800)) - 400
     let object = SmallAsteroid(scene: scene)
     scene.addChild(object)
     
-    var ranTork = CGFloat(arc4random_uniform(6)) - 3
+    let ranTork = CGFloat(arc4random_uniform(6)) - 3
     object.physicsBody?.applyTorque(ranTork)
     object.position = CGPoint(x: scene.size.width + object.size.width, y: (scene.size.height / 2) + ranYSmall)
     
@@ -77,7 +77,7 @@ class SmallAsteroid: SKSpriteNode {
     
     init(scene: SKScene) {
         
-        var ranSize = CGFloat(arc4random_uniform(120))
+        let ranSize = CGFloat(arc4random_uniform(120))
         let tex = smallAss
         super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
         

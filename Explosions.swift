@@ -26,7 +26,7 @@ func explodeFuncShape(scene: SKScene, enemy: SKShapeNode) {
     
 //    explosion.runAction(remove)
     
-    println("exploded")
+    print("exploded")
     
 }
 
@@ -88,7 +88,7 @@ func explodeFunc2(scene: SKScene, enemy: SKSpriteNode) {
         explosion.runAction(explodeSFX1)
         
     }
-    println(ranNum)
+    print(ranNum)
     
     explosion.runAction(remove)
     

@@ -43,9 +43,9 @@ func autoCannon1(scene: SKScene) {
     
     
 
-    var angleX = touchLocationX - player.position.x
-    var angleY = touchLocationY - (player.position.y - 64)
-    var nodeAngle = atan2(angleY, angleX)
+    let angleX = touchLocationX - player.position.x
+    let angleY = touchLocationY - (player.position.y - 64)
+    let nodeAngle = atan2(angleY, angleX)
 
     
     projectile.zRotation = nodeAngle
@@ -67,7 +67,7 @@ func autoCannon1(scene: SKScene) {
 
     let X = touchLocationX - player.position.x
     let Y = touchLocationY - (player.position.y - 64)
-    var magnitude: CGFloat = sqrt(X*X+Y*Y)
+    let magnitude: CGFloat = sqrt(X*X+Y*Y)
     projectile.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*11, Y/magnitude*11))
     
     
@@ -112,7 +112,7 @@ func autoCannon1(scene: SKScene) {
     
     
     
-    var muzzleFlashTex = SKTexture(imageNamed: "muzzleFlash2")
+    let muzzleFlashTex = SKTexture(imageNamed: "muzzleFlash2")
 
     let muzzleFlash1 = SKSpriteNode(texture: muzzleFlashTex)
     muzzleFlash1.size = CGSize(width: 60, height: 75)

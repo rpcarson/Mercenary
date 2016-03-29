@@ -20,11 +20,11 @@ let startButton = SKLabelNode(fontNamed: "HelveticaNeue-UltraLight")
 
 class MainMenuScene: SKScene {
     
-    
-    
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+   
+ 
+     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        for touch in (touches as! Set<UITouch>) {
+        for touch in touches {
            
             let location = touch.locationInNode(self)
             
@@ -99,10 +99,10 @@ class MainMenuScene: SKScene {
         let fadeOut = SKAction.fadeAlphaTo(0, duration: 2)
         let fadeIn = SKAction.fadeAlphaTo(1, duration: 2)
         let fadeSequence = SKAction.sequence([fadeOut,fadeIn])
-        let repeat = SKAction.repeatActionForever(fadeSequence)
-        titleLabel.runAction(repeat)
+        let repeatAction = SKAction.repeatActionForever(fadeSequence)
+        titleLabel.runAction(repeatAction)
 
-          startButton.runAction(repeat)
+          startButton.runAction(repeatAction)
         
         let loopMusic = SKAction.repeatActionForever(SKAction.playSoundFileNamed("IntroThemeAughtV2.mp3", waitForCompletion: true))
         

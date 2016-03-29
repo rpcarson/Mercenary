@@ -32,9 +32,9 @@ var cannonTexture: SKTexture!
 func autoCannon(scene: SKScene) {
     
     
-    var angleX = touchLocationX - player.position.x
-    var angleY = touchLocationY - (player.position.y + 20)
-    var nodeAngle = atan2(angleY, angleX)
+    let angleX = touchLocationX - player.position.x
+    let angleY = touchLocationY - (player.position.y + 20)
+    let nodeAngle = atan2(angleY, angleX)
     
     
     
@@ -42,7 +42,7 @@ func autoCannon(scene: SKScene) {
     if oreCount > 9 { beamEnabled = true }
     if oreCount > 6 { explosiveBool =  true }
     
-    println("AC Dam = \(autoCannonDamage)")
+    print("AC Dam = \(autoCannonDamage)")
 
     
     let projectile = SKSpriteNode(texture: cannonTexture)
@@ -98,7 +98,7 @@ func autoCannon(scene: SKScene) {
     
     let X = touchLocationX - player.position.x
     let Y = touchLocationY - (player.position.y + 20)
-    var magnitude: CGFloat = sqrt(X*X+Y*Y)
+    let magnitude: CGFloat = sqrt(X*X+Y*Y)
     projectile.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*11, Y/magnitude*11))
     
     let remove = SKAction.removeFromParent()
@@ -166,10 +166,10 @@ func beamCannon(scene: SKScene) {
     
     let X = touchLocationX - player.position.x
     let Y = touchLocationY - player.position.y
-    var nodeAngle = atan2(Y, X)
+    let nodeAngle = atan2(Y, X)
     
     
-    var beamSize = CGSize(width: 60, height: 2)
+    let beamSize = CGSize(width: 60, height: 2)
     
     let beam = SKShapeNode(rectOfSize: beamSize, cornerRadius: 5)
     
@@ -190,7 +190,7 @@ func beamCannon(scene: SKScene) {
     
    
   
-    var magnitude: CGFloat = sqrt(X*X+Y*Y)
+    let magnitude: CGFloat = sqrt(X*X+Y*Y)
     
     
     beam.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*11, Y/magnitude*11))

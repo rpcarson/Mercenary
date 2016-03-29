@@ -46,6 +46,9 @@ class ArtillaryBarge: SKSpriteNode {
         let tex = SKTexture(imageNamed: "tankerGreen")
         super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
         
+       
+
+        
         physicsBody = SKPhysicsBody(texture: tex, size: size)
         physicsBody?.contactTestBitMask = playerCategory | playerProjectileOne
         physicsBody?.categoryBitMask = bargeCat
@@ -56,7 +59,7 @@ class ArtillaryBarge: SKSpriteNode {
         
         let delay = SKAction.waitForDuration(2)
         let wait = SKAction.waitForDuration(0.2)
-        let fire = SKAction.runBlock( { bargeBarrage(scene, self) } )
+        let fire = SKAction.runBlock( { bargeBarrage(scene, shotOrigin: self) } )
         let attackBehaviour = SKAction.sequence([delay,fire])
         
         
@@ -93,7 +96,7 @@ class LittleMinion: SKSpriteNode {
         
         let delay = SKAction.waitForDuration(0.6)
         let wait = SKAction.waitForDuration(0.3)
-        let fire = SKAction.runBlock( { minionShot(scene, self) } )
+        let fire = SKAction.runBlock( { minionShot(scene, enemyShip: self) } )
         let attackBehaviour = SKAction.sequence([delay,fire])
     
         
@@ -130,7 +133,7 @@ class StrafeJet: SKSpriteNode {
     
         let delay = SKAction.waitForDuration(0.3)
         let wait = SKAction.waitForDuration(1)
-        let fire = SKAction.runBlock( { strafeJetProjectile(scene, self) } )
+        let fire = SKAction.runBlock( { strafeJetProjectile(scene, enemyShip: self) } )
         let attackBehaviour = SKAction.sequence([wait,fire,delay,fire,delay,fire])
         runAction(SKAction.repeatAction(attackBehaviour, count: 3))
     
@@ -164,7 +167,7 @@ class WeakJet: SKSpriteNode {
         zPosition = 1
         
         let wait = SKAction.waitForDuration(1)
-        let fire = SKAction.runBlock( { weakJetRocket(scene, self) } )
+        let fire = SKAction.runBlock( { weakJetRocket(scene, enemyShip: self) } )
         let sequence = SKAction.sequence([wait,fire])
         let action = SKAction.repeatAction(sequence, count: 2)
         
@@ -187,7 +190,7 @@ func enemyFighter(scene: SKScene) {
     let fighterTex = SKTexture(imageNamed: "shieldRunnerWithShield")
     let fighter = SKSpriteNode(texture: fighterTex)
     
-    var ranY = CGFloat(arc4random_uniform(500)) - 250
+    let ranY = CGFloat(arc4random_uniform(500)) - 250
     fighter.size = CGSize(width: 200, height: 200)
     fighter.physicsBody = SKPhysicsBody(circleOfRadius: 100)
     fighter.position = CGPoint(x: scene.size.width + fighter.size.width, y: (scene.size.height / 2) + ranY)

@@ -25,7 +25,7 @@ func layMines(scene: SKScene, point: CGPoint) {
     mine.physicsBody?.applyImpulse(CGVector(dx: -30, dy: 0))
     
     let wait = SKAction.waitForDuration(25, withRange: 5)
-    let explode = SKAction.runBlock(  { explodeFunc3(scene, mine) } )
+    let explode = SKAction.runBlock(  { explodeFunc3(scene, enemy: mine) } )
     let remove = SKAction.removeFromParent()
     mine.runAction(SKAction.sequence([wait,explode,remove]))
 }
@@ -56,7 +56,7 @@ func bargeBarrage(scene: SKScene, shotOrigin: ArtillaryBarge) {
     
     let X = player.position.x - shotOrigin.position.x
     let Y = player.position.y - shotOrigin.position.y
-    var magnitude: CGFloat = sqrt(X*X+Y*Y)
+    let magnitude: CGFloat = sqrt(X*X+Y*Y)
     shot.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*5, Y/magnitude*5))
     
     
@@ -130,7 +130,7 @@ func littionMinionSpawn(scene: SKScene, spawnPoint: CGPoint) {
    
     
     
-    var randomizer = arc4random_uniform(250)
+    let randomizer = arc4random_uniform(250)
     minionRandomizer = randomizer
     
     let enemy = LittleMinion(scene: scene)
@@ -173,7 +173,7 @@ func minionShot(scene: SKScene, enemyShip: LittleMinion) {
 
 func strafeJetSpawn(scene: SKScene) {
     
-    var randomizerStrafe = arc4random_uniform(350)
+    let randomizerStrafe = arc4random_uniform(350)
     spawnRandomizer = randomizerStrafe
     
     let ranY = CGFloat(arc4random_uniform(50)) - 25
@@ -213,7 +213,7 @@ func strafeJetProjectile(scene: SKScene, enemyShip: StrafeJet) {
     
     let X = player.position.x - bullet.position.x
     let Y = player.position.y - bullet.position.y
-    var magnitude: CGFloat = sqrt(X*X+Y*Y)
+    let magnitude: CGFloat = sqrt(X*X+Y*Y)
     bullet.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*5, Y/magnitude*5))
     
   
@@ -228,7 +228,7 @@ func strafeJetProjectile(scene: SKScene, enemyShip: StrafeJet) {
 
 func weakJetSpawn(scene: SKScene) {
     
-    var randomizer = arc4random_uniform(300)
+    let randomizer = arc4random_uniform(300)
     jetRandomizer = randomizer
     
     let ranPointY2 = CGFloat(arc4random_uniform(100))

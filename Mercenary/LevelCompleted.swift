@@ -14,7 +14,7 @@ import SpriteKit
 var levelCompleteArray: [SKNode] = []
 func levelCompleted(scene: SKScene) {
     
-    var accuracy: Double = round((bulletsHit / bulletsFired) * 100)
+    let accuracy: Double = round((bulletsHit / bulletsFired) * 100)
 
     
     player.removeFromParent()

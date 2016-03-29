@@ -41,9 +41,9 @@ class MainGameMenu: SKScene {
     }
 
 
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        for touch in (touches as! Set<UITouch>) {
+        for touch in (touches ) {
             
             let location = touch.locationInNode(self)
             
@@ -54,7 +54,7 @@ class MainGameMenu: SKScene {
                 
                 let scene = BattleScene.unarchiveFromFile("BattleScene") as? BattleScene
                 let transition = SKTransition.crossFadeWithDuration(2)
-                self.scene?.view?.presentScene(scene, transition: transition)
+                self.scene?.view?.presentScene(scene!, transition: transition)
                 
                 
             }

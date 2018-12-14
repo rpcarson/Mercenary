@@ -19,10 +19,10 @@ func LargeAsteroidMechanix(scene: SKScene) {
     object.physicsBody?.applyTorque(ranTork)
     object.position = CGPoint(x: scene.size.width + object.size.width, y: (scene.size.height / 2) + ranYLarge)
     
-    let move = SKAction.moveToX(-scene.size.width + object.size.width, duration: 20)
+    let move = SKAction.moveTo(x: -scene.size.width + object.size.width, duration: 20)
     let remove = SKAction.removeFromParent()
     let sequence = SKAction.sequence([move,remove])
-    object.runAction(sequence)
+    object.run(sequence)
     
 }
 
@@ -32,7 +32,7 @@ class LargeAsteroid: SKSpriteNode {
     
     init(scene: SKScene) {
         let tex = smallAss
-        super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
+        super.init(texture: tex, color: UIColor.clear, size: tex!.size())
         
         physicsBody = SKPhysicsBody(circleOfRadius: 100)
         size = CGSize(width: 300, height: 300)
@@ -59,10 +59,10 @@ func SmallAsteroidMechanix(scene: SKScene) {
     object.physicsBody?.applyTorque(ranTork)
     object.position = CGPoint(x: scene.size.width + object.size.width, y: (scene.size.height / 2) + ranYSmall)
     
-    let move = SKAction.moveTo(CGPoint(x: -scene.size.width + object.size.width, y: (scene.size.height / 2) + ranYSmall2), duration: 10)
+    let move = SKAction.move(to: CGPoint(x: -scene.size.width + object.size.width, y: (scene.size.height / 2) + ranYSmall2), duration: 10)
     let remove = SKAction.removeFromParent()
     let sequence = SKAction.sequence([move,remove])
-    object.runAction(sequence)
+    object.run(sequence)
     
 }
 
@@ -79,7 +79,7 @@ class SmallAsteroid: SKSpriteNode {
         
         let ranSize = CGFloat(arc4random_uniform(120))
         let tex = smallAss
-        super.init(texture: tex, color: UIColor.clearColor(), size: tex.size())
+        super.init(texture: tex, color: UIColor.clear, size: tex!.size())
         
         physicsBody = SKPhysicsBody(circleOfRadius: 35)
         size = CGSize(width: 75 + ranSize, height: 75 + ranSize)

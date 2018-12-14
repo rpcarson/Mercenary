@@ -46,11 +46,8 @@ var mineCat: UInt32 = 17
 var boundaryCat: UInt32 = 18
 
 
-func delay1(delay:Double, closure:()->()) {
-    dispatch_after(
-        dispatch_time(
-            DISPATCH_TIME_NOW,
-            Int64(delay * Double(NSEC_PER_SEC))
-        ),
-        dispatch_get_main_queue(), closure)
+func delay1(delay:Double, closure:@escaping ()->()) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+        closure()
+    }
 }

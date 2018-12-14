@@ -28,12 +28,12 @@ var pauseLabel = SKLabelNode(fontNamed: "ZrnicRg-Regular")
 var nullZone: SKSpriteNode!
 var nullMove: SKSpriteNode!
 
-let retryButton = SKSpriteNode(color: UIColor.clearColor(), size: CGSize(width: 250, height: 100))
-let abortButton = SKSpriteNode(color: UIColor.clearColor(), size: CGSize(width: 250, height: 100))
-let resumeButton = SKSpriteNode(color: UIColor.clearColor(), size: CGSize(width: 250, height: 100))
-let returnButton = SKSpriteNode(color: UIColor.clearColor(), size: CGSize(width: 250, height: 100))
-let upgradeSystemsButton = SKSpriteNode(color: UIColor.clearColor(), size: CGSize(width: 250, height: 100))
-var pauseButton = SKSpriteNode(color: UIColor.clearColor(), size: CGSize(width: 150, height: 70))
+let retryButton = SKSpriteNode(color: UIColor.clear, size: CGSize(width: 250, height: 100))
+let abortButton = SKSpriteNode(color: UIColor.clear, size: CGSize(width: 250, height: 100))
+let resumeButton = SKSpriteNode(color: UIColor.clear, size: CGSize(width: 250, height: 100))
+let returnButton = SKSpriteNode(color: UIColor.clear, size: CGSize(width: 250, height: 100))
+let upgradeSystemsButton = SKSpriteNode(color: UIColor.clear, size: CGSize(width: 250, height: 100))
+var pauseButton = SKSpriteNode(color: UIColor.clear, size: CGSize(width: 150, height: 70))
 
 
 

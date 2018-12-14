@@ -14,7 +14,7 @@ var missionMenuItems: [SKNode] = []
 func missionMenu(scene: SKScene) {
     
     menuActive = true
-    pauseLabel.hidden = true
+    pauseLabel.isHidden = true
     
     let menuOverlay = SKSpriteNode(imageNamed: "menuOverlay")
     menuOverlay.size = scene.size
@@ -71,7 +71,7 @@ func missionMenu(scene: SKScene) {
     missionMenuItems.append(menuOverlay)
     missionMenuItems.append(upgradeSystemsLabel)
     
-    scene.paused = true
+    scene.isPaused = true
 
 }
 

@@ -69,10 +69,10 @@ func levelCompleted(scene: SKScene) {
     levelCompleteArray.append(continueLabel)
     
     
-    healthLabel.hidden = true
-    oreLabel.hidden = true
-    scoreLabel.hidden = true
-    pauseLabel.hidden = true
+    healthLabel.isHidden = true
+    oreLabel.isHidden = true
+    scoreLabel.isHidden = true
+    pauseLabel.isHidden = true
     
     let fullTruck = SKSpriteNode(imageNamed: "truck1")
     fullTruck.position = CGPoint(x: scene.size.width * 0.3, y: scene.size.height / 2)
@@ -82,7 +82,7 @@ func levelCompleted(scene: SKScene) {
     
     retryButton.size = CGSize(width: 300, height: 200)
     retryButton.position = continueLabel.position
-    retryButton.color = UIColor.clearColor()
+    retryButton.color = UIColor.clear
     scene.addChild(retryButton)
     
     // CREATE CONTINUE BUTTON FUNCTIONALITY -  return to main menu ..... finalize temp main menu

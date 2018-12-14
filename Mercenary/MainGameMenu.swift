@@ -17,15 +17,15 @@ let bg11 = SKSpriteNode(imageNamed: "mmStarSlide1")
 let bg22 = SKSpriteNode(imageNamed: "mmStarSlide1")
 
 class MainGameMenu: SKScene {
-   
-    override func didMoveToView(view: SKView) {
+    
+    override func didMove(to view: SKView) {
         
         
-       initializeBackground()
+        initializeBackground()
         
         size.width = 1334
         size.height = 750
-        backgroundColor = UIColor.blackColor()
+        backgroundColor = UIColor.black
         
         let starsBG = SKSpriteNode(imageNamed: "spaceTruckMainOverlay")
         starsBG.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
@@ -35,61 +35,60 @@ class MainGameMenu: SKScene {
         
         
         
-        playButton = childNodeWithName("demoButton") as? SKSpriteNode
-        playButton.hidden = true
-    
-    }
-
-
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        playButton = childNode(withName: "demoButton") as? SKSpriteNode
+        playButton.isHidden = true
         
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in (touches ) {
             
-            let location = touch.locationInNode(self)
+            let location = touch.location(in: self)
             
             
-            if playButton .containsPoint(location) {
+            if playButton .contains(location) {
                 
-                removeActionForKey("loopKey")
+                removeAction(forKey: "loopKey")
                 
-                let scene = BattleScene.unarchiveFromFile("BattleScene") as? BattleScene
-                let transition = SKTransition.crossFadeWithDuration(2)
+                let scene = BattleScene.unarchiveFromFile(file: "BattleScene") as? BattleScene
+                let transition = SKTransition.crossFade(withDuration: 2)
                 self.scene?.view?.presentScene(scene!, transition: transition)
                 
                 
             }
             
         }
-    }
-    
-          func initializeBackground() {
-           
         
-        bg11.anchorPoint = CGPointZero
+        
+    }
+    func initializeBackground() {
+        
+        
+        bg11.anchorPoint = CGPoint.zero
         bg11.position = CGPoint(x: 0, y: 0)
         bg11.zPosition = -5
         addChild(bg11)
         
-        bg22.anchorPoint = CGPointZero
+        bg22.anchorPoint = CGPoint.zero
         bg22.position = CGPoint(x: bg11.size.width - 1, y: 0)
         bg22.zPosition = -5
         addChild(bg22)
         
     }
     
-        func BGScroll() {
+    func BGScroll() {
         
         
         
-        bg11.position = CGPointMake(bg11.position.x - 2, bg11.position.y)
-        bg22.position = CGPointMake(bg22.position.x - 2, bg22.position.y)
+        bg11.position = CGPoint(x: bg11.position.x - 2, y: bg11.position.y)
+        bg22.position = CGPoint(x: bg22.position.x - 2, y: bg22.position.y)
         
         
         if(bg11.position.x < -bg11.size.width)
             
         {
             
-            bg11.position = CGPointMake(bg22.position.x + bg11.size.width, bg22.position.y)
+            bg11.position = CGPoint(x: bg22.position.x + bg11.size.width, y: bg22.position.y)
             
         }
         
@@ -97,23 +96,24 @@ class MainGameMenu: SKScene {
             
         {
             
-            bg22.position = CGPointMake(bg11.position.x + bg22.size.width, bg11.position.y)
+            bg22.position = CGPoint(x: bg11.position.x + bg22.size.width, y: bg11.position.y)
             
         }
     }
     
-
-
     
-    override func update(currentTime: NSTimeInterval) {
+    
+    
+    override func update(_ currentTime: TimeInterval) {
         
         BGScroll()
         
     }
-
+    
 }
 
-  
+
+
 
 
 

@@ -20,7 +20,7 @@ func autoCannon1(scene: SKScene) {
     
     let projectile = SKSpriteNode(texture: cannonTexture)
     let normalCannon = SKTexture(imageNamed: "gunfire3")
-    let uraniumCannon = SKTexture(imageNamed: "uraniumCannon")
+    _ = SKTexture(imageNamed: "uraniumCannon")
     
     
     
@@ -49,7 +49,7 @@ func autoCannon1(scene: SKScene) {
 
     
     projectile.zRotation = nodeAngle
-    projectile.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 16, height: 8))
+    projectile.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 16, height: 8))
     projectile.position = CGPoint(x: player.position.x + (player.size.width / 2), y: player.position.y - 64)
     projectile.physicsBody?.linearDamping = 0
     projectile.physicsBody?.categoryBitMask = playerProjectileOne
@@ -68,7 +68,7 @@ func autoCannon1(scene: SKScene) {
     let X = touchLocationX - player.position.x
     let Y = touchLocationY - (player.position.y - 64)
     let magnitude: CGFloat = sqrt(X*X+Y*Y)
-    projectile.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*11, Y/magnitude*11))
+    projectile.physicsBody?.applyImpulse(CGVector(dx: X/magnitude*11, dy: Y/magnitude*11))
     
     
     if beamEnabled ==  true {
@@ -106,9 +106,9 @@ func autoCannon1(scene: SKScene) {
     
     
     let remove = SKAction.removeFromParent()
-    let wait = SKAction.waitForDuration(1.0)
+    let wait = SKAction.wait(forDuration: 1.0)
     let removeSequence = SKAction.sequence([wait,remove])
-    projectile.runAction(removeSequence)
+    projectile.run(removeSequence)
     
     
     
@@ -120,13 +120,13 @@ func autoCannon1(scene: SKScene) {
     muzzleFlash1.anchorPoint = CGPoint(x: 0, y: 0.5)
     muzzleFlash1.zRotation = nodeAngle
     
-    let waitFlash = SKAction.waitForDuration(0.01)
+    let waitFlash = SKAction.wait(forDuration: 0.01)
     let flashRemove = SKAction.sequence([waitFlash,remove])
     
     scene.addChild(muzzleFlash1)
     
     
-    muzzleFlash1.runAction(flashRemove)
+    muzzleFlash1.run(flashRemove)
     
     
     

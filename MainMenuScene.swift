@@ -22,57 +22,42 @@ class MainMenuScene: SKScene {
     
    
  
-     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         for touch in touches {
-           
-            let location = touch.locationInNode(self)
-            
             if (startButtonTapped == false) {
                 
                 
-                let fadeToBlack = SKShapeNode(rectOfSize: CGSize(width: frame.width, height: frame.height))
+                let fadeToBlack = SKShapeNode(rectOf: CGSize(width: frame.width, height: frame.height))
                 
                 fadeToBlack.position = CGPoint(x: frame.width / 2, y: frame.height / 2)
                 fadeToBlack.alpha = 0
-                fadeToBlack.fillColor = UIColor.blackColor()
+                fadeToBlack.fillColor = UIColor.black
                 fadeToBlack.zPosition = 100
                 
                 
-                let fadeOut = SKAction.fadeAlphaTo(1, duration: 2)
-                let sceneChange = SKAction.runBlock({ () -> Void in
+                let fadeOut = SKAction.fadeAlpha(to: 1, duration: 2)
+                let sceneChange = SKAction.run({ () -> Void in
                     
-                    let scene =  MainGameMenu.unarchiveFromFile("MainGameMenu") as? MainGameMenu
-                    let transistion = SKTransition.crossFadeWithDuration(2)
+                    let scene =  MainGameMenu.unarchiveFromFile(file: "MainGameMenu") as? MainGameMenu
                     self.scene?.view?.presentScene(scene)
-                    
-                    
-                    
                 })
                 let sceneTransition = SKAction.sequence([fadeOut,sceneChange])
 
                 
                 addChild(fadeToBlack)
                 
-                fadeToBlack.runAction(sceneTransition)
+                fadeToBlack.run(sceneTransition)
                 
                 startButtonTapped = true
-            
-                
-                
-                
-                
                 }
-            
-            
+
         }
         
         
     }
-   
-   
 
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         
        size.width = 1334
         size.height = 750
@@ -83,7 +68,7 @@ class MainMenuScene: SKScene {
         
         startButton.text = "tap to start"
         startButton.fontSize = 50
-        startButton.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame) - 100)
+        startButton.position = CGPoint(x: self.frame.midX, y: self.frame.midY - 100)
         
         addChild(startButton)
         
@@ -92,19 +77,19 @@ class MainMenuScene: SKScene {
         let titleLabel = SKLabelNode(fontNamed:"HelveticaNeue-UltraLight")
         titleLabel.text = "MERCENARY"
         titleLabel.fontSize = 100
-        titleLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+        titleLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         
         addChild(titleLabel)
         
-        let fadeOut = SKAction.fadeAlphaTo(0, duration: 2)
-        let fadeIn = SKAction.fadeAlphaTo(1, duration: 2)
+        let fadeOut = SKAction.fadeAlpha(to: 0, duration: 2)
+        let fadeIn = SKAction.fadeAlpha(to: 1, duration: 2)
         let fadeSequence = SKAction.sequence([fadeOut,fadeIn])
-        let repeatAction = SKAction.repeatActionForever(fadeSequence)
-        titleLabel.runAction(repeatAction)
+        let repeatAction = SKAction.repeatForever(fadeSequence)
+        titleLabel.run(repeatAction)
 
-          startButton.runAction(repeatAction)
+        startButton.run(repeatAction)
         
-        let loopMusic = SKAction.repeatActionForever(SKAction.playSoundFileNamed("IntroThemeAughtV2.mp3", waitForCompletion: true))
+        _ = SKAction.repeatForever(SKAction.playSoundFileNamed("IntroThemeAughtV2.mp3", waitForCompletion: true))
         
         
 //        runAction((loopMusic), withKey: "loopKey")
@@ -115,19 +100,12 @@ class MainMenuScene: SKScene {
         
         
     }
-    
-    override func update(currentTime: NSTimeInterval) {
-        
-
-        
-        
-    }
 
     func initializeBackground() {
         
         
         
-        bgStars.anchorPoint = CGPointZero
+        bgStars.anchorPoint = CGPoint.zero
         bgStars.position = CGPoint(x: 0, y: 0)
         bgStars.zPosition = -5
         addChild(bgStars)

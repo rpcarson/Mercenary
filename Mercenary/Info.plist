@@ -4,18 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>SPACEMAN.TTF</string>
-		<string>SquaresBoldFree.otf</string>
-		<string>Coalition_v2..ttf</string>
-		<string>mensch-thin.ttf</string>
-		<string>Mechfire.otf</string>
-		<string>Xperia.ttf</string>
-		<string>Blue.ttf</string>
-		<string>ZrnicRg-Regular.ttf</string>
-		<string>RechargeRg-Bold.ttf</string>
-	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
@@ -23,7 +11,7 @@
 	<key>CFBundleIcons~ipad</key>
 	<dict/>
 	<key>CFBundleIdentifier</key>
-	<string>starPirate</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -36,22 +24,20 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>Fabric</key>
-	<dict>
-		<key>APIKey</key>
-		<string>919c1dcc4c93b4fe1ee65e25b0c8eacae9997ac5</string>
-		<key>Kits</key>
-		<array>
-			<dict>
-				<key>KitInfo</key>
-				<dict/>
-				<key>KitName</key>
-				<string>Crashlytics</string>
-			</dict>
-		</array>
-	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SPACEMAN.TTF</string>
+		<string>SquaresBoldFree.otf</string>
+		<string>Coalition_v2..ttf</string>
+		<string>mensch-thin.ttf</string>
+		<string>Mechfire.otf</string>
+		<string>Xperia.ttf</string>
+		<string>Blue.ttf</string>
+		<string>ZrnicRg-Regular.ttf</string>
+		<string>RechargeRg-Bold.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

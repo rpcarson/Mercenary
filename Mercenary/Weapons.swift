@@ -10,8 +10,8 @@ import Foundation
 import SpriteKit
 
 
-var cannonColor: UIColor = UIColor.yellowColor()
-var normalCannnon = UIColor.yellowColor()
+var cannonColor: UIColor = UIColor.yellow
+var normalCannnon = UIColor.yellow
 var uraniumDam: Int = 0
 var explosiveDam: Int = 0
 var doubleShotBool: Bool = true
@@ -47,7 +47,7 @@ func autoCannon(scene: SKScene) {
     
     let projectile = SKSpriteNode(texture: cannonTexture)
    let normalCannon = can1
-    let uraniumCannon = can2
+    _ = can2
     cannonTexture = normalCannon
     
     if uraniumBool ==  true {
@@ -78,7 +78,7 @@ func autoCannon(scene: SKScene) {
 
     
     projectile.zRotation = nodeAngle
-    projectile.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 16, height: 8))
+    projectile.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 16, height: 8))
     projectile.position = CGPoint(x: player.position.x + (player.size.width / 2), y: player.position.y + 20)
     projectile.physicsBody?.linearDamping = 0
     projectile.physicsBody?.categoryBitMask = playerProjectileOne
@@ -93,21 +93,21 @@ func autoCannon(scene: SKScene) {
         
         scene.addChild(projectile)
     
-    projectile.runAction(gunFX)
+    projectile.run(gunFX)
     
     
     let X = touchLocationX - player.position.x
     let Y = touchLocationY - (player.position.y + 20)
     let magnitude: CGFloat = sqrt(X*X+Y*Y)
-    projectile.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*11, Y/magnitude*11))
+    projectile.physicsBody?.applyImpulse(CGVector(dx: X/magnitude*11, dy: Y/magnitude*11))
     
     let remove = SKAction.removeFromParent()
-    let wait = SKAction.waitForDuration(1.0)
+    let wait = SKAction.wait(forDuration: 1.0)
     let removeSequence = SKAction.sequence([wait,remove])
-    projectile.runAction(removeSequence)
+    projectile.run(removeSequence)
     
     
-    var muzzleFlashTex = flashTex
+    _ = flashTex
     let muzzleFlash = SKSpriteNode(texture: flashTex)
     muzzleFlash.size = CGSize(width: 60, height: 75)
     muzzleFlash.position = CGPoint(x: player.position.x + (player.size.width / 2) - 20, y: player.position.y + 20)
@@ -115,11 +115,11 @@ func autoCannon(scene: SKScene) {
     muzzleFlash.zRotation = nodeAngle
     
     
-    let waitFlash = SKAction.waitForDuration(0.01)
+    let waitFlash = SKAction.wait(forDuration: 0.01)
     let flashRemove = SKAction.sequence([waitFlash,remove])
     
     scene.addChild(muzzleFlash)
-    muzzleFlash.runAction(flashRemove)
+    muzzleFlash.run(flashRemove)
 
 
     if beamEnabled ==  true {
@@ -171,9 +171,9 @@ func beamCannon(scene: SKScene) {
     
     let beamSize = CGSize(width: 60, height: 2)
     
-    let beam = SKShapeNode(rectOfSize: beamSize, cornerRadius: 5)
+    let beam = SKShapeNode(rectOf: beamSize, cornerRadius: 5)
     
-    beam.physicsBody = SKPhysicsBody(rectangleOfSize: beamSize)
+    beam.physicsBody = SKPhysicsBody(rectangleOf: beamSize)
     beam.fillColor = UIColor(red:0.13, green:0.45, blue:0.93, alpha:1)
     beam.strokeColor = UIColor(red:0.24, green:0.81, blue:0.96, alpha:1)
     beam.glowWidth = 6
@@ -193,16 +193,16 @@ func beamCannon(scene: SKScene) {
     let magnitude: CGFloat = sqrt(X*X+Y*Y)
     
     
-    beam.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*11, Y/magnitude*11))
+    beam.physicsBody?.applyImpulse(CGVector(dx: X/magnitude*11, dy: Y/magnitude*11))
     
     
-    let wait = SKAction.waitForDuration(1.5)
+    let wait = SKAction.wait(forDuration: 1.5)
     let remove = SKAction.removeFromParent()
     let seq = SKAction.sequence([wait,remove])
     
-    beam.runAction(seq)
+    beam.run(seq)
     
-    beam.runAction(beamFX)
+    beam.run(beamFX)
     
     
     

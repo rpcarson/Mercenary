@@ -57,7 +57,6 @@
 		5BDF48681B42DEEB00CBD6E5 /* BattleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDF48671B42DEEB00CBD6E5 /* BattleScene.swift */; };
 		5BDF486A1B42DEEB00CBD6E5 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDF48691B42DEEB00CBD6E5 /* GameViewController.swift */; };
 		5BDF48721B42DEEB00CBD6E5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF48701B42DEEB00CBD6E5 /* LaunchScreen.xib */; };
-		5BDF487E1B42DEEB00CBD6E5 /* MercenaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDF487D1B42DEEB00CBD6E5 /* MercenaryTests.swift */; };
 		5BDF48891B42E09100CBD6E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BDF48881B42E09100CBD6E5 /* Main.storyboard */; };
 		5BDF48BB1B43405300CBD6E5 /* Weapons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDF48BA1B43405300CBD6E5 /* Weapons.swift */; };
 		5BE57E841B57C3B500F13B5A /* LevelOneV2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5BE57E831B57C3B500F13B5A /* LevelOneV2.mp3 */; };
@@ -69,16 +68,6 @@
 		5BF1C0911B614CF100740DF8 /* organTruckV1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1C0901B614CF100740DF8 /* organTruckV1.mp3 */; };
 		5BF1C0931B6154AA00740DF8 /* organTruckV2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5BF1C0921B6154AA00740DF8 /* organTruckV2.mp3 */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		5BDF48781B42DEEB00CBD6E5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5BDF48561B42DEEA00CBD6E5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5BDF485D1B42DEEB00CBD6E5;
-			remoteInfo = Mercenary;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5B04AAD11B6084B100F27F58 /* basicGun.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = basicGun.wav; sourceTree = "<group>"; };
@@ -133,7 +122,6 @@
 		5BDF48671B42DEEB00CBD6E5 /* BattleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleScene.swift; sourceTree = "<group>"; };
 		5BDF48691B42DEEB00CBD6E5 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		5BDF48711B42DEEB00CBD6E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		5BDF48771B42DEEB00CBD6E5 /* MercenaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MercenaryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BDF487C1B42DEEB00CBD6E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BDF487D1B42DEEB00CBD6E5 /* MercenaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercenaryTests.swift; sourceTree = "<group>"; };
 		5BDF48881B42E09100CBD6E5 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -155,13 +143,6 @@
 			files = (
 				5B70C03F1B545C7000F2EA73 /* Crashlytics.framework in Frameworks */,
 				5B70C03E1B545C6F00F2EA73 /* Fabric.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5BDF48741B42DEEB00CBD6E5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +246,6 @@
 			isa = PBXGroup;
 			children = (
 				5BDF485E1B42DEEB00CBD6E5 /* Mercenary.app */,
-				5BDF48771B42DEEB00CBD6E5 /* MercenaryTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -357,24 +337,6 @@
 			productReference = 5BDF485E1B42DEEB00CBD6E5 /* Mercenary.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5BDF48761B42DEEB00CBD6E5 /* MercenaryTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5BDF48841B42DEEB00CBD6E5 /* Build configuration list for PBXNativeTarget "MercenaryTests" */;
-			buildPhases = (
-				5BDF48731B42DEEB00CBD6E5 /* Sources */,
-				5BDF48741B42DEEB00CBD6E5 /* Frameworks */,
-				5BDF48751B42DEEB00CBD6E5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5BDF48791B42DEEB00CBD6E5 /* PBXTargetDependency */,
-			);
-			name = MercenaryTests;
-			productName = MercenaryTests;
-			productReference = 5BDF48771B42DEEB00CBD6E5 /* MercenaryTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -388,11 +350,7 @@
 				TargetAttributes = {
 					5BDF485D1B42DEEB00CBD6E5 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = X68KF89T7U;
-					};
-					5BDF48761B42DEEB00CBD6E5 = {
-						CreatedOnToolsVersion = 6.3.1;
-						TestTargetID = 5BDF485D1B42DEEB00CBD6E5;
+						DevelopmentTeam = Y948R2WGKG;
 					};
 				};
 			};
@@ -410,7 +368,6 @@
 			projectRoot = "";
 			targets = (
 				5BDF485D1B42DEEB00CBD6E5 /* Mercenary */,
-				5BDF48761B42DEEB00CBD6E5 /* MercenaryTests */,
 			);
 		};
 /* End PBXProject section */
@@ -462,13 +419,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5BDF48751B42DEEB00CBD6E5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -514,23 +464,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5BDF48731B42DEEB00CBD6E5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5BDF487E1B42DEEB00CBD6E5 /* MercenaryTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		5BDF48791B42DEEB00CBD6E5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5BDF485D1B42DEEB00CBD6E5 /* Mercenary */;
-			targetProxy = 5BDF48781B42DEEB00CBD6E5 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5BDF48701B42DEEB00CBD6E5 /* LaunchScreen.xib */ = {
@@ -585,6 +519,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -621,6 +556,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -631,13 +567,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = Y948R2WGKG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Mercenary",
 				);
 				INFOPLIST_FILE = Mercenary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mercenary.spacegame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -647,45 +586,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = Y948R2WGKG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Mercenary",
 				);
 				INFOPLIST_FILE = Mercenary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mercenary.spacegame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		5BDF48851B42DEEB00CBD6E5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = MercenaryTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "";
-			};
-			name = Debug;
-		};
-		5BDF48861B42DEEB00CBD6E5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = MercenaryTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -706,15 +616,6 @@
 			buildConfigurations = (
 				5BDF48821B42DEEB00CBD6E5 /* Debug */,
 				5BDF48831B42DEEB00CBD6E5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5BDF48841B42DEEB00CBD6E5 /* Build configuration list for PBXNativeTarget "MercenaryTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5BDF48851B42DEEB00CBD6E5 /* Debug */,
-				5BDF48861B42DEEB00CBD6E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

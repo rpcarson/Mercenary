@@ -78,14 +78,14 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     
     
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         
 //        organTruckV2
 //        introThemeAughtV2
         
         let music = SKAction.playSoundFileNamed("organTruckV2.mp3", waitForCompletion: true)
-        let loopMusic = SKAction.repeatActionForever(music)
-        runAction(loopMusic)
+        let loopMusic = SKAction.repeatForever(music)
+        run(loopMusic)
 
         
         let exp3 = SKAction.playSoundFileNamed("explosion3.wav", waitForCompletion: false)
@@ -135,22 +135,22 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         rico2 = ric3
         
         
-        nullMove = childNodeWithName("nullMoveZone") as? SKSpriteNode
-        nullZone = childNodeWithName("nullGunZone") as? SKSpriteNode
-        nullZone.hidden = true
-        nullMove.hidden = true
+        nullMove = childNode(withName: "nullMoveZone") as? SKSpriteNode
+        nullZone = childNode(withName: "nullGunZone") as? SKSpriteNode
+        nullZone.isHidden = true
+        nullMove.isHidden = true
         
         
-        pauseLabel.hidden = true
+        pauseLabel.isHidden = true
         
         initializeBackground()
         initializeLabels()
         startGame()
         
-        let delay = SKAction.waitForDuration(4)
-        let bloc = SKAction.runBlock( {self.beginGameplay()} )
+        let delay = SKAction.wait(forDuration: 4)
+        let bloc = SKAction.run( {self.beginGameplay()} )
         
-        runAction(SKAction.sequence([delay,bloc]))
+        run(SKAction.sequence([delay,bloc]))
         
         ready()
         
@@ -167,13 +167,13 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         ready.fontSize = 60
         ready.position = CGPoint(x: scene!.size.width / 2, y: scene!.size.height / 2)
         addChild(ready)
-        let fadeOut = SKAction.fadeOutWithDuration(1)
-        let fadeIn = SKAction.fadeInWithDuration(0.2)
+        let fadeOut = SKAction.fadeOut(withDuration: 1)
+        let fadeIn = SKAction.fadeIn(withDuration: 0.2)
         let remove = SKAction.removeFromParent()
         let fadeSeq = SKAction.sequence([fadeOut,fadeIn])
-        let fade = SKAction.repeatAction(fadeSeq, count: 3)
+        let fade = SKAction.repeat(fadeSeq, count: 3)
         let fullSeq = SKAction.sequence([fade,fadeOut,remove])
-        ready.runAction(fullSeq)
+        ready.run(fullSeq)
         
         playerAlive = true
         retryOverride = false
@@ -191,10 +191,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         retryButton.removeFromParent()
         
-        healthLabel.hidden = false
-        oreLabel.hidden = false
-        scoreLabel.hidden = false
-        pauseLabel.hidden = false
+        healthLabel.isHidden = false
+        oreLabel.isHidden = false
+        scoreLabel.isHidden = false
+        pauseLabel.isHidden = false
         
         beamEnabled = false
         uraniumBool = false
@@ -211,8 +211,8 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
         gameOn = true
         
-        pauseButton.hidden = false
-        pauseLabel.hidden = false
+        pauseButton.isHidden = false
+        pauseLabel.isHidden = false
         
         
         minionDelay = 0
@@ -220,18 +220,19 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
 
         
-        runAction(SKAction.repeatActionForever(SKAction.sequence([
-            SKAction.runBlock{
-                (SmallAsteroidMechanix(self))
+        
+        run(SKAction.repeatForever(SKAction.sequence([
+            SKAction.run{
+                (SmallAsteroidMechanix(scene: self))
             },
-            SKAction.waitForDuration(6, withRange: 2)
+            SKAction.wait(forDuration: 6, withRange: 2)
             ])), withKey: "smallAsteroid")
         
-        runAction(SKAction.repeatActionForever(SKAction.sequence([
-            SKAction.runBlock{
-                (LargeAsteroidMechanix(self))
+        run(SKAction.repeatForever(SKAction.sequence([
+            SKAction.run{
+                (LargeAsteroidMechanix(scene: self))
             },
-            SKAction.waitForDuration(12, withRange: 5)
+            SKAction.wait(forDuration: 12, withRange: 5)
             ])), withKey: "largeAsteroid")
         
         
@@ -248,14 +249,14 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         playerAlive = true
         
         
-        moveDown = childNodeWithName("moveDown") as? SKSpriteNode
-        moveUp = childNodeWithName("moveUp") as? SKSpriteNode
-        gunZone = childNodeWithName("gunZone") as? SKSpriteNode
+        moveDown = childNode(withName: "moveDown") as? SKSpriteNode
+        moveUp = childNode(withName: "moveUp") as? SKSpriteNode
+        gunZone = childNode(withName: "gunZone") as? SKSpriteNode
         
         
-        moveDown.hidden = true
-        moveUp.hidden = true
-        gunZone.hidden = true
+        moveDown.isHidden = true
+        moveUp.isHidden = true
+        gunZone.isHidden = true
         
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         physicsWorld.contactDelegate = self
@@ -265,9 +266,9 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     
     func reset() {
         
-        removeActionForKey("smallAsteroid")
-        removeActionForKey("largeAsteroid")
-        removeActionForKey("weakJet")
+        removeAction(forKey: "smallAsteroid")
+        removeAction(forKey: "largeAsteroid")
+        removeAction(forKey: "weakJet")
         
     
     }
@@ -325,7 +326,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             if let enemy = enemy {
                 
-                explodeFunc3(self, enemy: enemy)
+                explodeFunc3(scene: self, enemy: enemy)
                 
             }
             
@@ -340,7 +341,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             playerHealth = playerHealth - 20
             
             if let enemy = enemy {
-                explodeFunc(self, enemy: enemy)
+                explodeFunc(scene: self, enemy: enemy)
                 
                 
                 enemy.removeFromParent()
@@ -413,7 +414,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         func dropOre(scene: SKScene, asteroid: SKSpriteNode) {
             
             let ranNum = arc4random_uniform(3)
-            var oreChance: UInt32 = 0
+            var _: UInt32 = 0
             let orePiece = SKShapeNode(circleOfRadius: 10)
             orePiece.fillColor = UIColor(red:0.25, green:0.92, blue:0.46, alpha:1)
             orePiece.position = asteroid.position
@@ -428,10 +429,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 orePiece.physicsBody?.categoryBitMask = oreCategory
                 
                 
-                let move = SKAction.moveToX( -scene.size.width, duration: 9)
+                let move = SKAction.moveTo( x: -scene.size.width, duration: 9)
                 let remove = SKAction.removeFromParent()
                 
-                orePiece.runAction(SKAction.sequence([move,remove]))
+                orePiece.run(SKAction.sequence([move,remove]))
                 
                 
             }
@@ -440,7 +441,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         if player && (secondMask == oreCategory) || player1 && (firstMask == oreCategory) {
             let enemy = secondMask == oreCategory ? secondBody : firstBody
             
-            oreCount++
+            oreCount   += 1
            
             enemy?.physicsBody = nil
 
@@ -455,19 +456,19 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
 
             projectile?.physicsBody = nil
             projectile?.removeFromParent()
-            bulletsHit++
+            bulletsHit   += 1
             
             enemy?.health = enemy!.health - autoCannonDamage
             
-            if enemy?.health <= 0
+            if enemy?.health ?? 0 <= 0
                 
             {
                 
                 if let enemy = enemy {
                     
-                    dropOre(self, asteroid: enemy)
+                    dropOre(scene: self, asteroid: enemy)
                     
-                    explodeFunc(self, enemy: enemy)
+                    explodeFunc(scene: self, enemy: enemy)
                     
                     enemy.removeFromParent()
                     
@@ -485,17 +486,17 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             projectile?.removeFromParent()
             projectile?.physicsBody = nil
-            bulletsHit++
+            bulletsHit   += 1
             
             enemy?.health = enemy!.health - autoCannonDamage
             
-            if enemy?.health <= 0  {
+            if enemy?.health ?? 0 <= 0  {
                 
                 if let enemy = enemy {
                     
-                    dropOre(self, asteroid: enemy)
+                    dropOre(scene: self, asteroid: enemy)
                     
-                    explodeFunc(self, enemy: enemy)
+                    explodeFunc(scene: self, enemy: enemy)
                     
                     enemy.removeFromParent()
                     
@@ -513,27 +514,27 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             projectile?.removeFromParent()
             projectile?.physicsBody = nil
-            bulletsHit++
+            bulletsHit   += 1
             
         }
         if playerBullet && (secondMask == mineCat) || playerBullet1 && (firstMask == mineCat) {
             
-            let playerShip = secondMask == playerProjectileOne ? secondBody : firstBody
+            _ = secondMask == playerProjectileOne ? secondBody : firstBody
             let enemy = secondMask == mineCat ? secondBody as? Mine : firstBody as? Mine
             
             projectile?.removeFromParent()
             projectile?.physicsBody = nil
-            bulletsHit++
+            bulletsHit   += 1
             
             
             let ranNum = arc4random_uniform(2)
             if ranNum == 1 {
                 let ranNum2 = arc4random_uniform(2)
                 if ranNum2 == 0|1 {
-                    runAction(rico)
+                    run(rico)
 
                 }else{
-                    runAction(rico1)
+                    run(rico1)
                     
                 }
             }
@@ -542,10 +543,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
                 enemy.health = enemy.health - autoCannonDamage
                 if enemy.health <= 0 {
-                    explodeFunc(self, enemy: enemy)
+                    explodeFunc(scene: self, enemy: enemy)
                     enemy.removeFromParent()
-                    currentScore += 10
-                    enemiesDestroyed++
+                    currentScore  += 10
+                    enemiesDestroyed += 1
 
                 }
             }
@@ -560,7 +561,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             projectile?.removeFromParent()
             projectile?.physicsBody = nil
-            bulletsHit++
+            bulletsHit  += 1
             
             
             
@@ -568,10 +569,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             if ranNum == 1 {
                 let ranNum2 = arc4random_uniform(2)
                 if ranNum2 == 0|1 {
-                    runAction(rico)
+                    run(rico)
                     
                 }else{
-                    runAction(rico1)
+                    run(rico1)
                     
                 }
             }
@@ -580,14 +581,14 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             enemy?.health = enemy!.health - autoCannonDamage
             
-            if enemy?.health <= 0 {
+            if enemy?.health ?? 0 <= 0 {
                 
                 if let enemy = enemy {
-                    explodeFunc2(self, enemy: enemy)
+                    explodeFunc2(scene: self, enemy: enemy)
                     enemy.removeFromParent()
                     currentScore += 25
                     enemiesCount -= 1
-                    enemiesDestroyed++
+                    enemiesDestroyed += 1
                     
                 }
                 
@@ -602,30 +603,30 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             projectile?.removeFromParent()
             projectile?.physicsBody = nil
-            bulletsHit++
+            bulletsHit  += 1
             
             let ranNum = arc4random_uniform(2)
             if ranNum == 1 {
                 let ranNum2 = arc4random_uniform(2)
                 if ranNum2 == 0|1 {
-                    runAction(rico)
+                    run(rico)
                     
                 }else{
-                    runAction(rico1)
+                    run(rico1)
                     
                 }
             }
             
             enemy?.health = enemy!.health - autoCannonDamage
             
-            if enemy?.health <= 0 {
+            if enemy?.health ?? 0 <= 0 {
                 
                 if let enemy = enemy {
-                    explodeFunc2(self, enemy: enemy)
+                    explodeFunc2(scene: self, enemy: enemy)
                     enemy.removeFromParent()
                     currentScore += 50
                     enemiesCount -= 1
-                    enemiesDestroyed++
+                    enemiesDestroyed  += 1
 
                     
                 }
@@ -640,16 +641,16 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             projectile?.removeFromParent()
             projectile?.physicsBody = nil
-            bulletsHit++
+            bulletsHit  += 1
             
             let ranNum = arc4random_uniform(2)
             if ranNum == 1 {
                 let ranNum2 = arc4random_uniform(2)
                 if ranNum2 == 0|1 {
-                    runAction(rico)
+                    run(rico)
                     
                 }else{
-                    runAction(rico1)
+                    run(rico1)
                     
                 }
             }
@@ -667,10 +668,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 }
                 if enemy.health <= 0 {
                     enemy.removeFromParent()
-                    explodeFunc2(self, enemy: enemy)
+                    explodeFunc2(scene: self, enemy: enemy)
                     currentScore += 350
                     enemiesCount -= 1
-                    enemiesDestroyed++
+                    enemiesDestroyed  += 1
 
                     
                 }
@@ -685,17 +686,17 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             projectile?.removeFromParent()
             projectile?.physicsBody = nil
-            bulletsHit++
+            bulletsHit  += 1
             
             
             let ranNum = arc4random_uniform(2)
             if ranNum == 1 {
                 let ranNum2 = arc4random_uniform(2)
                 if ranNum2 == 0|1 {
-                    runAction(rico)
+                    run(rico)
                     
                 }else{
-                    runAction(rico1)
+                    run(rico1)
                     
                 }
             }
@@ -707,7 +708,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 print(enemy?.health)
             }
             
-            if enemy?.health <= 10 {
+            if enemy?.health ?? 0 <= 10 {
                 
                 enemy?.physicsBody?.allowsRotation = true
                 enemy?.physicsBody?.angularVelocity = 1
@@ -717,10 +718,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
                 if enemy.health <= 0 {
                     
-                    explodeFunc2(self, enemy: enemy)
+                    explodeFunc2(scene: self, enemy: enemy)
                     enemy.removeFromParent()
                     currentScore += 50
-                    enemiesDestroyed++
+                    enemiesDestroyed += 1
 
                     enemiesCount -= 1
                     
@@ -733,20 +734,20 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     var deathScreenItems: [SKNode] = []
     func playerDeathScreen() {
         
-        pauseButton.hidden = true
-        pauseLabel.hidden = true
+        pauseButton.isHidden = true
+        pauseLabel.isHidden = true
         
         reset()
         
-        let darkOverlay = SKSpriteNode(color: UIColor.blackColor(), size: scene!.size)
-        darkOverlay.anchorPoint = CGPointZero
+        let darkOverlay = SKSpriteNode(color: UIColor.black, size: scene!.size)
+        darkOverlay.anchorPoint = CGPoint.zero
         darkOverlay.alpha = 0.0
         addChild(darkOverlay)
-        let fade = SKAction.fadeAlphaTo(0.5, duration: 3)
-        let textFade = SKAction.fadeInWithDuration(3)
+        let fade = SKAction.fadeAlpha(to: 0.5, duration: 3)
+        let textFade = SKAction.fadeIn(withDuration: 3)
         
         
-        darkOverlay.runAction(fade)
+        darkOverlay.run(fade)
         
         let gameoverLabel = SKLabelNode(fontNamed:"HelveticaNeue-UltraLight")
         let tryagainLabel = SKLabelNode(fontNamed:"HelveticaNeue-UltraLight")
@@ -768,13 +769,13 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         addChild(tryagainLabel)
         addChild(returnMenuLabel)
         addChild(gameoverLabel)
-        gameoverLabel.runAction(textFade)
-        tryagainLabel.runAction(textFade)
-        returnMenuLabel.runAction(textFade)
+        gameoverLabel.run(textFade)
+        tryagainLabel.run(textFade)
+        returnMenuLabel.run(textFade)
         
-        let goIn = SKAction.fadeOutWithDuration(2)
-        let goOut = SKAction.fadeInWithDuration(2)
-        gameoverLabel.runAction(SKAction.repeatActionForever(SKAction.sequence([goIn,goOut])))
+        let goIn = SKAction.fadeOut(withDuration: 2)
+        let goOut = SKAction.fadeIn(withDuration: 2)
+        gameoverLabel.run(SKAction.repeatForever(SKAction.sequence([goIn,goOut])))
         
         retryButton.position = tryagainLabel.position
         addChild(retryButton)
@@ -814,25 +815,25 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     
     
     
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: CFTimeInterval) {
         
-       levelTime++
+       levelTime  += 1
         
         if levelTime == 8300 {
             
-            levelCompleted(self)
+            levelCompleted(scene: self)
             playerAlive = false
         }
         
         if playerHealth > 500 {
             
-            healthLabel.fontColor = UIColor.whiteColor()
+            healthLabel.fontColor = UIColor.white
         }
         if playerHealth < 300 {
-            healthLabel.fontColor = UIColor.yellowColor()
+            healthLabel.fontColor = UIColor.yellow
         }
         if playerHealth < 150 {
-            healthLabel.fontColor = UIColor.redColor()
+            healthLabel.fontColor = UIColor.red
         }
         
         if menuActive == true { return }
@@ -848,45 +849,45 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         if (gunBool == true) && (bulletDelay > 12) {
             
             
-            bulletsFired++
+            bulletsFired  += 1
             
             //            if beamEnabled == true {
             //
             //                beamCannon(self)
             //            }
             
-            autoCannon(self)
+            autoCannon(scene: self)
             bulletDelay = 0
             bulletDelay1 = 6
             
         }
         if (gunBool == true) && (bulletDelay1 > 12) {
-            autoCannon1(self)
+            autoCannon1(scene: self)
             bulletDelay1 = 0
             
-            bulletsFired++
+            bulletsFired  += 1
 
             
         }
         
-        bulletDelay++
-        bulletDelay1++
+        bulletDelay  += 1
+        bulletDelay1  += 1
         
         if levelComplete == false {
             
             if gameOn == true {
                 
                 if playerAlive == true {
-                    totalEllapsed++
-                    strafeJetSpawnDelay++
-                    minionDelay++
-                    fighterWaveTimer++
-                    weakJetTimer++
-                    bargeTimer++
-                    shieldTimer++
+                    totalEllapsed  += 1
+                    strafeJetSpawnDelay  += 1
+                    minionDelay  += 1
+                    fighterWaveTimer  += 1
+                    weakJetTimer += 1
+                    bargeTimer += 1
+                    shieldTimer += 1
                
                    
-                    singleMinion++
+                    singleMinion += 1
                     
                 } else {
                     totalEllapsed = 0
@@ -908,12 +909,12 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
                 if totalEllapsed == 200 {
                     
-                    bargeSpawn(self)
+                    bargeSpawn(scene: self)
                 }
                 
                 if totalEllapsed == 7000 {
                     
-                    bargeSpawn(self)
+                    bargeSpawn(scene: self)
                 }
                 
                 if totalEllapsed == 400 || totalEllapsed == 6500 {
@@ -930,7 +931,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                     for point in mineField {
                         
                         
-                        layMines(self, point: point)
+                        layMines(scene: self, point: point)
                         
                     }
                 }
@@ -939,10 +940,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
                 if currentScore > 1000 && shieldTimer > 1200 {
                     
-                    enemyFighter(self)
+                    enemyFighter(scene: self)
                     shieldTimer = 0
                     
-                    enemiesCount++
+                    enemiesCount += 1
                     
                 }
                 
@@ -950,10 +951,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                     let rany = CGFloat(arc4random_uniform(300)) - 150
                     let point5 = CGPoint(x: frame.size.width + 30, y: player.position.y + rany)
                     
-                    littionMinionSpawn(self, spawnPoint: point5)
+                    littionMinionSpawn(scene: self, spawnPoint: point5)
                     singleMinion = 0
                     
-                    enemiesCount++
+                    enemiesCount += 1
                     
                 }
                 
@@ -966,7 +967,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                     
                     for point in minionArray {
                         
-                        littionMinionSpawn(self, spawnPoint: point)
+                        littionMinionSpawn(scene: self, spawnPoint: point)
                         
                     }
                     
@@ -986,7 +987,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                     
                     for points in pattern1 {
                         
-                        fighterJetWave(self, spawnPoint: points, movePoint: ranPointY)
+                        fighterJetWave(scene: self, spawnPoint: points, movePoint: ranPointY)
                         fighterWaveTimer = 0
                     }
                     enemiesCount += 3
@@ -995,10 +996,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
                 if totalEllapsed > 600 {
                     if weakJetTimer > 200 + jetRandomizer {
-                        weakJetSpawn(self)
+                        weakJetSpawn(scene: self)
                         weakJetTimer = 0
                         
-                        enemiesCount++
+                        enemiesCount += 1
                         
                     }
                 }
@@ -1016,7 +1017,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                         
                         for points in pattern1 {
                             
-                            littionMinionSpawn(self, spawnPoint: points)
+                            littionMinionSpawn(scene: self, spawnPoint: points)
                             minionDelay = 0
                             
                             
@@ -1030,10 +1031,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 if totalEllapsed > 3000 {
                     if strafeJetSpawnDelay > spawnRandomizer + 600 {
                         
-                        strafeJetSpawn(self)
+                        strafeJetSpawn(scene: self)
                         strafeJetSpawnDelay = 0
                         
-                        enemiesCount++
+                        enemiesCount += 1
                         
                     }
                 }
@@ -1051,7 +1052,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             
             if playerAlive == false { return }
             
-            explodeFunc3(self, enemy: player)
+            explodeFunc3(scene: self, enemy: player)
             
             player.removeFromParent()
             
@@ -1064,13 +1065,13 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         for touch in (touches ) {
             
-            let location = touch.locationInNode(self)
+            let location = touch.location(in: self)
             
-            if retryButton .containsPoint(location) {
+            if retryButton .contains(location) {
                 
                 
                 
@@ -1091,10 +1092,10 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
                 startGame()
                 
-                let delay = SKAction.waitForDuration(4)
-                let bloc = SKAction.runBlock( {self.beginGameplay()} )
+                let delay = SKAction.wait(forDuration: 4)
+                let bloc = SKAction.run( {self.beginGameplay()} )
                 
-                runAction(SKAction.sequence([delay,bloc]))
+                run(SKAction.sequence([delay,bloc]))
                 
                 ready()
                 
@@ -1102,11 +1103,11 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
                 
             }
             
-            if resumeButton.containsPoint(location) {
+            if resumeButton.contains(location) {
                 
-                scene?.paused = false
+                scene?.isPaused = false
                 menuActive = false
-                pauseLabel.hidden = false
+                pauseLabel.isHidden = false
                 
                 for node in missionMenuItems { node.removeFromParent() }
                 
@@ -1121,74 +1122,71 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
             //            }
             
             
-            if pauseButton.containsPoint(location) && (pauseLabel.hidden != true) {
+            if pauseButton.contains(location) && (pauseLabel.isHidden != true) {
                 
-                missionMenu(self)
+                missionMenu(scene: self)
                 
             }
             
-            if gunZone .containsPoint(location)  {
+            if gunZone .contains(location)  {
                 
                 touchLocationX = location.x
                 touchLocationY = location.y
                 
                 gunBool = true }
            
-            if moveUp .containsPoint(location)   { playerUp = true }
-            if moveDown .containsPoint(location) { playerDown = true }
+            if moveUp .contains(location)   { playerUp = true }
+            if moveDown .contains(location) { playerDown = true }
             
         }
         
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         
         for touch in (touches ) {
             
-            let location = touch.locationInNode(self)
+            let location = touch.location(in: self)
             
             
             
-            if gunZone .containsPoint(location) {
+            if gunZone .contains(location) {
                 
                 touchLocationX = location.x
                 touchLocationY = location.y
                 
                 gunBool = true }
             
-            if nullZone.containsPoint(location) { gunBool = false }
+            if nullZone.contains(location) { gunBool = false }
             
-            if nullMove.containsPoint(location) { playerUp = false; playerDown = false }
+            if nullMove.contains(location) { playerUp = false; playerDown = false }
             
         }
-        
     }
+
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in (touches ) {
             
-            let location = touch.locationInNode(self)
+            let location = touch.location(in: self)
             
-            if gunZone .containsPoint(location)  { gunBool = false }
-            if moveUp .containsPoint(location)   { playerUp = false }
-            if moveDown .containsPoint(location) { playerDown = false }
-            if nullMove.containsPoint(location) { playerUp = false; playerDown = false }
+            if gunZone .contains(location)  { gunBool = false }
+            if moveUp .contains(location)   { playerUp = false }
+            if moveDown .contains(location) { playerDown = false }
+            if nullMove.contains(location) { playerUp = false; playerDown = false }
             
             
         }
         
         if touches.count == 1 {
             
-//            gunBool = false
-                        playerUp = false
-                        playerDown = false
+            //            gunBool = false
+            playerUp = false
+            playerDown = false
             
         }
-        
     }
-    
-    
 
     
     let engine = SKEmitterNode(fileNamed: "MyParticle")
@@ -1219,22 +1217,22 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
     
     func initializeBackground() {
         
-        bg1.anchorPoint = CGPointZero
+        bg1.anchorPoint = .zero
         bg1.position = CGPoint(x: 0, y: 0)
         bg1.zPosition = -5
         addChild(bg1)
         
-        bg2.anchorPoint = CGPointZero
+        bg2.anchorPoint = .zero
         bg2.position = CGPoint(x: bg1.size.width - 1, y: 0)
         bg2.zPosition = -5
         addChild(bg2)
         
-        bgMain.anchorPoint = CGPointZero
+        bgMain.anchorPoint = .zero
         bgMain.position = CGPoint(x: 0, y: 0)
         bgMain.zPosition = -6
         addChild(bgMain)
         
-        bgMain1.anchorPoint = CGPointZero
+        bgMain1.anchorPoint = .zero
         bgMain1.position = CGPoint(x: bgMain.size.width - 1, y: 0)
         bgMain1.zPosition = -6
         addChild(bgMain1)
@@ -1248,7 +1246,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.text = "\(currentScore)"
         scoreLabel.position = CGPoint(x: scene!.size.width * 0.05, y: scene!.size.height - 40)
         scoreLabel.fontSize = 40
-        scoreLabel.fontColor = UIColor.whiteColor()
+        scoreLabel.fontColor = UIColor.white
         addChild(scoreLabel)
         
         healthLabel.text = "\(playerHealth)"
@@ -1262,7 +1260,7 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         oreLabel.text = "Ore:\(oreCount)"
         oreLabel.fontSize = 50
         oreLabel.position = CGPoint(x: scene!.size.width *  0.75, y: scene!.size.height - 60)
-        oreLabel.fontColor = UIColor.greenColor()
+        oreLabel.fontColor = UIColor.green
         addChild(oreLabel)
         
         pauseLabel.text = "Menu"

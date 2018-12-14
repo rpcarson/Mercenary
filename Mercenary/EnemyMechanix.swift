@@ -24,10 +24,12 @@ func layMines(scene: SKScene, point: CGPoint) {
     mine.physicsBody?.applyTorque(1.2)
     mine.physicsBody?.applyImpulse(CGVector(dx: -30, dy: 0))
     
-    let wait = SKAction.waitForDuration(25, withRange: 5)
-    let explode = SKAction.runBlock(  { explodeFunc3(scene, enemy: mine) } )
+    let wait = SKAction.wait(forDuration: 25, withRange: 5)
+    let explode = SKAction.run {
+        explodeFunc3(scene: scene, enemy: mine)
+    }
     let remove = SKAction.removeFromParent()
-    mine.runAction(SKAction.sequence([wait,explode,remove]))
+    mine.run(SKAction.sequence([wait,explode,remove]))
 }
 
 
@@ -40,7 +42,7 @@ func bargeBarrage(scene: SKScene, shotOrigin: ArtillaryBarge) {
     let shot = SKShapeNode(circleOfRadius: 15)
     
     shot.position = shotOrigin.position
-    shot.fillColor = UIColor.yellowColor()
+    shot.fillColor = UIColor.yellow
     shot.physicsBody = SKPhysicsBody(circleOfRadius: 15)
     shot.physicsBody?.contactTestBitMask = playerCategory
     shot.physicsBody?.categoryBitMask = enemyBulletCat
@@ -57,10 +59,10 @@ func bargeBarrage(scene: SKScene, shotOrigin: ArtillaryBarge) {
     let X = player.position.x - shotOrigin.position.x
     let Y = player.position.y - shotOrigin.position.y
     let magnitude: CGFloat = sqrt(X*X+Y*Y)
-    shot.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*5, Y/magnitude*5))
+    shot.physicsBody?.applyImpulse(CGVector(dx: X/magnitude*5, dy: Y/magnitude*5))
     
     
-shot.runAction(SKAction.sequence([SKAction.waitForDuration(3),SKAction.removeFromParent()]))
+    shot.run(SKAction.sequence([SKAction.wait(forDuration: 3),SKAction.removeFromParent()]))
     
 //    for point in barrageArray {
 //        
@@ -86,17 +88,17 @@ func bargeSpawn(scene: SKScene) {
     scene.addChild(enemy)
     
     enemy.physicsBody?.linearDamping = 1
-    let delay = SKAction.waitForDuration(1)
-    let flup = SKAction.runBlock({enemy.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 15))})
-    let flud = SKAction.runBlock({enemy.physicsBody?.applyImpulse(CGVector(dx: 0, dy: -15))})
-    let floatSequence = SKAction.sequence([flup,delay,flud,flud,delay,flup])
+    let delay = SKAction.wait(forDuration: 1)
+    let flup = SKAction.run({enemy.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 15))})
+    let flud = SKAction.run({enemy.physicsBody?.applyImpulse(CGVector(dx: 0, dy: -15))})
+    _ = SKAction.sequence([flup,delay,flud,flud,delay,flup])
     
 //    enemy.runAction(SKAction.repeatActionForever(floatSequence))
     
-    let move = SKAction.moveToX( -scene.size.width + enemy.size.width, duration: 12)
+    let move = SKAction.moveTo( x: -scene.size.width + enemy.size.width, duration: 12)
     let remove = SKAction.removeFromParent()
     
-    enemy.runAction(SKAction.sequence([move,remove]))
+    enemy.run(SKAction.sequence([move,remove]))
     
     
 }
@@ -106,17 +108,17 @@ func fighterJetWave(scene: SKScene, spawnPoint: CGPoint, movePoint: UInt32) {
     
     let enemy = WeakJet(scene: scene)
     
-    let ranPointY = CGFloat(arc4random_uniform(100))
+    _ = CGFloat(arc4random_uniform(100))
     
     
     enemy.position = spawnPoint
     scene.addChild(enemy)
     
-    let move = SKAction.moveTo(CGPoint(x: -scene.size.width + enemy.size.width, y: scene.size.height * (CGFloat(movePoint) / 100)), duration: 12)
+    let move = SKAction.move(to: CGPoint(x: -scene.size.width + enemy.size.width, y: scene.size.height * (CGFloat(movePoint) / 100)), duration: 12)
     let remove = SKAction.removeFromParent()
     let sequence = SKAction.sequence([move,remove])
     
-    enemy.runAction(sequence)
+    enemy.run(sequence)
     
     
     
@@ -139,10 +141,10 @@ func littionMinionSpawn(scene: SKScene, spawnPoint: CGPoint) {
     scene.addChild(enemy)
     
     
-    let move = SKAction.moveToX( -scene.size.width + enemy.size.width, duration: 9)
+    let move = SKAction.moveTo( x: -scene.size.width + enemy.size.width, duration: 9)
     let remove = SKAction.removeFromParent()
     
-    enemy.runAction(SKAction.sequence([move,remove]))
+    enemy.run(SKAction.sequence([move,remove]))
     
     
 }
@@ -152,20 +154,20 @@ func littionMinionSpawn(scene: SKScene, spawnPoint: CGPoint) {
 func minionShot(scene: SKScene, enemyShip: LittleMinion) {
    
     
-    let shot = SKShapeNode(rectOfSize: CGSize(width: 15, height: 4))
+    let shot = SKShapeNode(rectOf: CGSize(width: 15, height: 4))
     
     shot.position = enemyShip.position
-    shot.fillColor = UIColor.yellowColor()
-    shot.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 15, height: 4))
+    shot.fillColor = UIColor.yellow
+    shot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 15, height: 4))
     shot.physicsBody?.contactTestBitMask = playerCategory
     shot.physicsBody?.categoryBitMask = enemyBulletCat
     shot.physicsBody?.collisionBitMask = 0
     
     scene.addChild(shot)
     
-    let movement = SKAction.moveToX(-scene.size.width, duration: 5)
+    let movement = SKAction.moveTo(x: -scene.size.width, duration: 5)
     let remove = SKAction.removeFromParent()
-    shot.runAction(SKAction.sequence([movement,remove]))  
+    shot.run(SKAction.sequence([movement,remove]))
     
     
     
@@ -184,10 +186,10 @@ func strafeJetSpawn(scene: SKScene) {
     scene.addChild(enemy)
     
     
-    let move = SKAction.moveToX( -scene.size.width + enemy.size.width, duration: 16)
+    let move = SKAction.moveTo( x: -scene.size.width + enemy.size.width, duration: 16)
     let remove = SKAction.removeFromParent()
     
-    enemy.runAction(SKAction.sequence([move,remove]))
+    enemy.run(SKAction.sequence([move,remove]))
     
 
     
@@ -204,8 +206,8 @@ func strafeJetProjectile(scene: SKScene, enemyShip: StrafeJet) {
     bullet.physicsBody?.contactTestBitMask = playerCategory
     bullet.physicsBody?.categoryBitMask = enemyBulletCat
     bullet.position = CGPoint(x: enemyShip.position.x - 20, y: enemyShip.position.y - 10)
-    bullet.fillColor = UIColor.yellowColor()
-    bullet.strokeColor = UIColor.redColor()
+    bullet.fillColor = UIColor.yellow
+    bullet.strokeColor = UIColor.red
     bullet.glowWidth = 3
     
     scene.addChild(bullet)
@@ -214,12 +216,11 @@ func strafeJetProjectile(scene: SKScene, enemyShip: StrafeJet) {
     let X = player.position.x - bullet.position.x
     let Y = player.position.y - bullet.position.y
     let magnitude: CGFloat = sqrt(X*X+Y*Y)
-    bullet.physicsBody?.applyImpulse(CGVectorMake(X/magnitude*5, Y/magnitude*5))
-    
+    bullet.physicsBody?.applyImpulse(CGVector(dx: X/magnitude*5, dy: Y/magnitude*5))
   
     let remove = SKAction.removeFromParent()
-    let wait = SKAction.waitForDuration(4.0)
-    bullet.runAction(SKAction.sequence([wait,remove]))
+    let wait = SKAction.wait(forDuration: 4.0)
+    bullet.run(SKAction.sequence([wait,remove]))
     
     
 }
@@ -239,11 +240,11 @@ func weakJetSpawn(scene: SKScene) {
     enemy.position = CGPoint(x: scene.size.width + enemy.size.width, y: scene.size.height * (ranPointY2 / 100))
     scene.addChild(enemy)
     
-    let move = SKAction.moveTo(CGPoint(x: -scene.size.width + enemy.size.width, y: scene.size.height * (ranPointY / 100)), duration: 10)
+    let move = SKAction.move(to: CGPoint(x: -scene.size.width + enemy.size.width, y: scene.size.height * (ranPointY / 100)), duration: 10)
     let remove = SKAction.removeFromParent()
     let sequence = SKAction.sequence([move,remove])
     
-    enemy.runAction(sequence)
+    enemy.run(sequence)
     
 
     
@@ -255,7 +256,7 @@ func weakJetRocket(scene: SKScene, enemyShip: WeakJet) {
     let rocket = SKSpriteNode(texture: rocketTex)
     
     rocket.size = CGSize(width: 100, height: 30)
-    rocket.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 90, height: 25))
+    rocket.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 90, height: 25))
     rocket.physicsBody?.collisionBitMask = 0
     rocket.physicsBody?.contactTestBitMask = playerCategory
     rocket.physicsBody?.categoryBitMask = enemyRocketCat
@@ -267,8 +268,8 @@ func weakJetRocket(scene: SKScene, enemyShip: WeakJet) {
     rocket.physicsBody?.applyImpulse(CGVector(dx: -75, dy: 0))
     
     let remove = SKAction.removeFromParent()
-    let wait = SKAction.waitForDuration(2.0)
-        rocket.runAction(SKAction.sequence([wait,remove]))
+    let wait = SKAction.wait(forDuration: 2.0)
+    rocket.run(SKAction.sequence([wait,remove]))
     
 }
 

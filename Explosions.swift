@@ -20,9 +20,9 @@ func explodeFuncShape(scene: SKScene, enemy: SKShapeNode) {
     
     scene.addChild(explosion)
     
-    let fade = SKAction.fadeOutWithDuration(0.8)
+    let fade = SKAction.fadeOut(withDuration: 0.8)
     
-    let remove = SKAction.sequence([SKAction.waitForDuration(0.1),fade,SKAction.removeFromParent()])
+    _ = SKAction.sequence([SKAction.wait(forDuration: 0.1),fade,SKAction.removeFromParent()])
     
 //    explosion.runAction(remove)
     
@@ -43,24 +43,24 @@ func explodeFunc(scene: SKScene, enemy: SKSpriteNode) {
     
     scene.addChild(explosion)
     
-    let fade = SKAction.fadeOutWithDuration(0.8)
+    let fade = SKAction.fadeOut(withDuration: 0.8)
 
-    let remove = SKAction.sequence([SKAction.waitForDuration(0.1),fade,SKAction.removeFromParent()])
+    let remove = SKAction.sequence([SKAction.wait(forDuration: 0.1),fade,SKAction.removeFromParent()])
     
-    explosion.runAction(remove)
+    explosion.run(remove)
     
     
     let ranNum = arc4random_uniform(2)
     if ranNum == 2 {
-        explosion.runAction(explodeSFX3)
+        explosion.run(explodeSFX3)
         
     }
     if ranNum == 1 {
-        explosion.runAction(explodeSFX2)
+        explosion.run(explodeSFX2)
         
     }
     if ranNum == 0 {
-        explosion.runAction(explodeSFX1)
+        explosion.run(explodeSFX1)
         
     }
     
@@ -72,25 +72,25 @@ func explodeFunc2(scene: SKScene, enemy: SKSpriteNode) {
     
     scene.addChild(explosion)
     
-    let fade = SKAction.fadeOutWithDuration(0.8)
-    let remove = SKAction.sequence([SKAction.waitForDuration(0.1),fade,SKAction.removeFromParent()])
+    let fade = SKAction.fadeOut(withDuration: 0.8)
+    let remove = SKAction.sequence([SKAction.wait(forDuration: 0.1),fade,SKAction.removeFromParent()])
     
     let ranNum = arc4random_uniform(2)
     if ranNum == 2 {
-        explosion.runAction(explodeSFX3)
+        explosion.run(explodeSFX3)
 
     }
     if ranNum == 1 {
-        explosion.runAction(explodeSFX2)
+        explosion.run(explodeSFX2)
         
     }
     if ranNum == 0 {
-        explosion.runAction(explodeSFX1)
+        explosion.run(explodeSFX1)
         
     }
     print(ranNum)
     
-    explosion.runAction(remove)
+    explosion.run(remove)
     
 }
 
@@ -102,21 +102,21 @@ func explodeFunc3(scene: SKScene, enemy: SKSpriteNode) {
     scene.addChild(explosion)
     
     let remove = SKAction.removeFromParent()
-    let fadeOut = SKAction.fadeOutWithDuration(2)
+    let fadeOut = SKAction.fadeOut(withDuration: 2)
     let seq = SKAction.sequence([fadeOut,remove])
-    explosion.runAction(seq)
+    explosion.run(seq)
     
     let ranNum = arc4random_uniform(2)
     if ranNum == 2 {
-        explosion.runAction(explodeSFX3)
+        explosion.run(explodeSFX3)
         
     }
     if ranNum == 1 {
-        explosion.runAction(explodeSFX2)
+        explosion.run(explodeSFX2)
         
     }
     if ranNum == 0 {
-        explosion.runAction(explodeSFX1)
+        explosion.run(explodeSFX1)
         
     }
     

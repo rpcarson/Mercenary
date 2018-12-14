@@ -19,15 +19,15 @@ let bgMain1 = SKSpriteNode(texture: redStarsTex)
 
 func BGScroll() {
     
-    bg1.position = CGPointMake(bg1.position.x - 12, bg1.position.y)
-    bg2.position = CGPointMake(bg2.position.x - 12, bg2.position.y)
+    bg1.position = CGPoint(x: bg1.position.x - 12, y: bg1.position.y)
+    bg2.position = CGPoint(x: bg2.position.x - 12, y: bg2.position.y)
     
     
     if(bg1.position.x < -bg1.size.width)
         
     {
         
-        bg1.position = CGPointMake(bg2.position.x + bg1.size.width, bg2.position.y)
+        bg1.position = CGPoint(x: bg2.position.x + bg1.size.width, y: bg2.position.y)
         
     }
     
@@ -35,22 +35,22 @@ func BGScroll() {
         
     {
         
-        bg2.position = CGPointMake(bg1.position.x + bg2.size.width, bg1.position.y)
+        bg2.position = CGPoint(x: bg1.position.x + bg2.size.width, y: bg1.position.y)
         
     }
 }
 
 func BGScroll2() {
     
-    bgMain.position = CGPointMake(bgMain.position.x - 0.5, bgMain.position.y)
-    bgMain1.position = CGPointMake(bgMain1.position.x - 0.5, bgMain1.position.y)
+    bgMain.position = CGPoint(x: bgMain.position.x - 0.5, y: bgMain.position.y)
+    bgMain1.position = CGPoint(x: bgMain1.position.x - 0.5, y: bgMain1.position.y)
     
     
     if(bgMain.position.x < -bgMain.size.width)
         
     {
         
-        bgMain.position = CGPointMake(bgMain1.position.x + bgMain.size.width, bgMain1.position.y)
+        bgMain.position = CGPoint(x: bgMain1.position.x + bgMain.size.width, y: bgMain1.position.y)
         
     }
     
@@ -58,7 +58,7 @@ func BGScroll2() {
         
     {
         
-        bgMain1.position = CGPointMake(bgMain.position.x + bgMain1.size.width, bgMain.position.y)
+        bgMain1.position = CGPoint(x: bgMain.position.x + bgMain1.size.width, y: bgMain.position.y)
         
     }
 }
